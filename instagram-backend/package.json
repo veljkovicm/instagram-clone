@@ -25,5 +25,8 @@
   },
   "_moduleAliases": {
     "@src": "src"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.3"
   }
 }
