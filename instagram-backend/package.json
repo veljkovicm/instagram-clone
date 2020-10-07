@@ -1,0 +1,29 @@
+{
+  "name": "instagram-backend",
+  "version": "1.0.0",
+  "description": "Instagram clone",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules app.js",
+    "dev": "nodemon --experimental-modules app.js"
+  },
+  "author": "Milan Veljkovic",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.4.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "_moduleAliases": {
+    "@src": "src"
+  }
+}
