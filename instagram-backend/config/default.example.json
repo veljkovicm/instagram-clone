@@ -1,0 +1,9 @@
+{
+  "db": {
+    "tableName": "",
+    "userName": "",
+    "password": "",
+    "host": ""
+  },
+  "jwtSecret": ""
+}
