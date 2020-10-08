@@ -12,6 +12,7 @@ router.post('/sign_up', async (req, res) => {
     email,
     password,
     username,
+    fullName,
   } = req.body;
 
 
