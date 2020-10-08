@@ -11,4 +11,10 @@ const {
 export default new Sequelize(tableName, userName, password, {
   host: host,
   dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+        require: true,
+        rejectUnauthorized: false
+    }
+}
 });
