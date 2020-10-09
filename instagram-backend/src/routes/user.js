@@ -58,6 +58,7 @@ router.post('/sign_in', async (req, res) => {
   const {
     email,
     password,
+    rememberMe,
   } = req.body;
 
 

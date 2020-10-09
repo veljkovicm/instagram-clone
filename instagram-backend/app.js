@@ -4,6 +4,7 @@ import  userRoutes from './src/routes/user.js';
 import passwordRoutes from './src/routes//password.js';
 import bodyParser from 'body-parser';
 import auth from './src/middleware/auth.js';
+import cors from 'cors';
 
 // Database
 import sequelize from './config/database.js';
@@ -17,6 +18,8 @@ sequelize.authenticate()
 
 
 const app = express();
+
+app.use(cors({}));
 
 // body-parser
 app.use(express.json());
