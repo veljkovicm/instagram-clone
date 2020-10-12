@@ -36,7 +36,7 @@ router.post('/sign_up', async (req, res) => {
   //   }).status(401);
   // }
 
-  const { id, message } = await Services.createUser({ email, password, username });
+  const { id, message } = await Services.createUser({ email, password, username, fullName });
 
   const token = generateAccountConfirmationToken();
 

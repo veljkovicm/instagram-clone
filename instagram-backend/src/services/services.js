@@ -78,13 +78,14 @@ class Services {
   };
 
 
-  static async createUser ({ email, password, username }) {
+  static async createUser ({ email, password, username, fullName }) {
     const hashedPassword = await  bcrypt.hash(password, 14);
 
     const user = await User.create({
       email,
       password: hashedPassword,
       username,
+      fullName,
       registeredAt: new Date(),
     });
 
