@@ -3,8 +3,11 @@ import path from 'path';
 import  userRoutes from './src/routes/user.js';
 import passwordRoutes from './src/routes//password.js';
 import bodyParser from 'body-parser';
-import auth from './src/middleware/auth.js';
 import cors from 'cors';
+import {
+  auth,
+  checkUser,
+} from './src/middleware/index.js';
 
 // Database
 import sequelize from './config/database.js';
@@ -23,7 +26,9 @@ app.use(cors({}));
 
 // body-parser
 app.use(express.json());
-// app.use(bodyParser.urlencoded({ extended: false}));
+
+
+app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
