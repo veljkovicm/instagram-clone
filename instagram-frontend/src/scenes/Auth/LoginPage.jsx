@@ -51,7 +51,7 @@ const Login = (props) => {
     // }
     }
     return (
-      <div className="auth">
+      <div className="auth form-wrapper">
         <Loading />
         <form onSubmit={handleLogin}>
           <input type="text" name="email" label="email" onChange={handleInputChange(setEmail)} value={email} />
@@ -62,6 +62,7 @@ const Login = (props) => {
           Don't have an account?
           <a href="/sign_up">Register here!</a>
         </p>
+        <a href="/forgot_password">Forgot password?</a>
       </div>
     )
   };

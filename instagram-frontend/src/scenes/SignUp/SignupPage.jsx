@@ -53,7 +53,7 @@ const Signup = (props) => {
     // }
     }
     return (
-      <div className="signup">
+      <div className="signup form-wrapper">
         <Loading />
         <form onSubmit={handleSignup}>
           <input type="text" name="email" onChange={handleInputChange(setEmail)} value={email} placeholder="email" />
