@@ -5,7 +5,7 @@ import localForage from 'localforage';
 // setup store with reducers prepared from pages config
 export default (reducers) => {
   const args = [ combineReducers(reducers) ];
-  console.log('>> args', args);
+
   const middleware = [ thunk ];
 
 
