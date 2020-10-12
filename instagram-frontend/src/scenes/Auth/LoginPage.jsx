@@ -58,6 +58,10 @@ const Login = (props) => {
           <input type="password" name="password" label="password" onChange={handleInputChange(setPassword)} value={password} />
           <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
         </form>
+        <p>
+          Don't have an account?
+          <a href="/sign_up">Register here!</a>
+        </p>
       </div>
     )
   };
