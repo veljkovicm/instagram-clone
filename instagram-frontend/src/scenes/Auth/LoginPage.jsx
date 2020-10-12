@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, Link as RouterLink } from 'react-router-dom';
+import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 
 import Loading from '../../templates/components/Loading';
 
@@ -15,12 +15,14 @@ const Login = (props) => {
     login,
     // notify,
   } = props;
-  console.log('>> isLoggedIn', isLoggedIn);
+  const history = useHistory()
+
 
   // debug this
-  // if (isLoggedIn) {
-  //   return <Redirect to="/" />;
-  // }
+  if (isLoggedIn) {
+    // return <Redirect to="/" />;
+    history.push('/')
+  }  
 
   const [ email, setEmail ] = useState('test111@test.com');
   const [ password, setPassword ] = useState('11');
