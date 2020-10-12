@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { checkUser } from './user/actions.js';
 
 import setupStore from './store.js';
 import globalReducer from './reducer.js';
 
-import pagesConfig from '../scenes';        
+import pagesConfig from '../scenes';
 
 import {
   // LoadingBar,
@@ -15,10 +16,9 @@ import {
 
 import './app.css';
 
-
 const signInPath = '/sign_in';
-const settingsPath = '/settings';
-const defaultPath = '/sign_in';
+const defaultPath = '/feed';
+
 
 
 // prepare reducers for redux store
@@ -31,7 +31,6 @@ function prepareReducers (config) {
       reducers[page] = reducer;
     }
   }
-  console.log('>> reducers', reducers);
   return reducers;
 }
 
@@ -71,25 +70,30 @@ function renderRoutes (routesConfig) {
 const reducers = prepareReducers(pagesConfig);
 const store = setupStore(reducers);
 
-
-
-
-
-
 const App = () => {
+
+  // use loading component for this; In base template?
+  const [ loading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    store.dispatch(checkUser());
+    setLoading(false);
+  }, [])
+
   // LoadingBar.init();
   const routes = renderRoutes(pagesConfig);
+
 
   const pageNotFoundComponent = () => (
     <PageNotFound path={defaultPath} />
   );
-
   return (
+    loading ? <p>loading</p> :
     <Provider store={store}>
       <Router>
         <Switch>
           {routes}
-          {/* <Redirect exact from="/" to={defaultPath} /> */}
+          <Redirect exact from="/" to='/feed' />
           <ProtectedRoute component={pageNotFoundComponent} redirectTo={signInPath} />
         </Switch>
       </Router>
