@@ -18,7 +18,7 @@ export const login = ({ email, password, rememberMe }) => async (dispatch, getSt
     }
 
     await API({ method: 'POST', path: '/user/sign_in', body }).then(response => {
-      dispatch(setUser(response.data.payload.user));
+      dispatch(setUser(response.data.payload));
       console.log('RESPONSE', response)
       return response;
     });
