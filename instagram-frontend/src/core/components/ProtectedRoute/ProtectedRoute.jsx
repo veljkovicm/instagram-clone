@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
@@ -8,10 +8,19 @@ const ProtectedRoute = (props) => {
     component: RouteComponent,
     redirectTo,
     isLoggedIn,
+    checkUser,
     ...rest
   } = props;
 
+  const [ loading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    checkUser();
+    setLoading(false);
+  }, [])
+
   return (
+    loading ? <p>LOADING THIS....</p> : // add spinner
     <Route
       {...rest}
       render={(routeProps) => (isLoggedIn ? (
@@ -34,6 +43,10 @@ ProtectedRoute.propTypes = {
     PropTypes.element,
     PropTypes.func,
   ]),
+  /**
+   * Check is we have a valid user
+   */
+  checkUser: PropTypes.func,
 };
 
 export default ProtectedRoute;
