@@ -39,12 +39,9 @@ router.post('/forgot_password', async (req, res) => {
 
 
 router.post('/reset_password', async (req, res) => {
-
-  const { token } = req.query;
-
   // const token = '443a35b88d21372a8fa9446c322f3fada996899150d22ddd2b83987394fa'
 
-  const { newPassword } = req.body;
+  const { newPassword, token } = req.body;
 
   const userId  = await Services.findUserIdByToken({
     token,
