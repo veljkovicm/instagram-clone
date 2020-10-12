@@ -75,9 +75,14 @@ router.post('/sign_in', async (req, res) => {
   const ttl = 60 * 60 * 24; // expire in a day
 
   const token = jwt.sign(
-    { id: user.id},
+    {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      username: user.username,
+    },
     config.jwtSecret,
-    { expiresIn: 3600 },
+    { expiresIn: 3600 }, //seconds
   )
 
   return res.send({
@@ -115,10 +120,6 @@ router.post('/confirm', async (req, res) => {
   // Cannot set headers after they are sent to the client ???
   // .redirect('/');
 });
-
-
-
-
 
 
 
