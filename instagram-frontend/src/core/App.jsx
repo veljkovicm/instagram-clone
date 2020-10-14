@@ -94,7 +94,8 @@ const App = () => {
         <Switch>
           {routes}
           <Redirect exact from="/" to='/feed' />
-          <ProtectedRoute component={pageNotFoundComponent} redirectTo={signInPath} />
+          {/* <ProtectedRoute component={pageNotFoundComponent} redirectTo={signInPath} /> */}
+          <Redirect from="*" to="/404" />
         </Switch>
       </Router>
     </Provider>
