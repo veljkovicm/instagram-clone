@@ -17,18 +17,17 @@ export const login = ({ email, password, rememberMe }) => async (dispatch, getSt
       rememberMe,
     }
 
-    await API({ method: 'POST', path: '/user/sign_in', body }).then(response => {
+    const response = await API({ method: 'POST', path: '/user/sign_in', body });
+
+    if(response.data.statusCode === 200) {
       dispatch(setUser(response.data.payload));
-      console.log('RESPONSE', response)
-      return response;
-    });
-
-
-    // move response to const
-
-    // if status 200 set user
-    // if else 401 dispatch notification
-    // else throw error, display message from error
+    } else if (response.data.statusCode === 401) {
+      // dispatch notification here
+      console.log('NOT ALLOWED!')
+    } else {
+      // dispatch notification here
+      console.log('Something went wrong')
+    }
 
 
   } catch (error) {
