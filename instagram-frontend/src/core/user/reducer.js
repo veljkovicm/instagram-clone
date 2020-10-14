@@ -12,9 +12,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentUser: {
-          email: action.data.email || '',
-          fullName: action.data.fullName || '',
-          username: action.data.username || '',
+          email: action.data.email,
+          fullName: action.data.fullName,
+          username: action.data.username,
         },
       };
 
