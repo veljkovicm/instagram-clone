@@ -7,7 +7,7 @@ const Feed = () => {
   return (
     <div className="feed">
       <Header />
-      <p>PROTECTED PAGE</p>
+      <h1>PROTECTED PAGE</h1>
     </div>
   )
 };
