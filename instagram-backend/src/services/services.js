@@ -1,4 +1,5 @@
 import db from '../../config/database.js';
+import sequelize from 'sequelize';
 
 
 // try replacing with 'bcrypt' package before deployment
@@ -148,6 +149,18 @@ class Services {
         return { message: 'Something went wrong!'}
       })
     });
+  }
+
+  static async search({ query}) {
+    const Op = sequelize.Op;
+    return User.findAll({
+      attributes: ['username', ['full_name', 'fullName']],
+      where: {
+        username: {
+          [Op.like]: `%${query}%`
+        }
+      }
+    })
   }
 }
 

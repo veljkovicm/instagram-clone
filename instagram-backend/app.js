@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import  userRoutes from './src/routes/user.js';
 import passwordRoutes from './src/routes//password.js';
+import searchRoute from './src/routes/search.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import {
@@ -34,6 +35,7 @@ app.get('/', (req, res) => res.send('INDEX'));
 // User routes
 app.use('/user', userRoutes);
 app.use('/password', passwordRoutes);
+app.use('/search', searchRoute);
 app.use('/protected', auth, (req, res) => {
   return res.status(200).json({ message: 'AUTHENTICATED', user: req.user})
 } )
