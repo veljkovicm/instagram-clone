@@ -1,1 +1,1 @@
-export { default as SearchBar } from './SearchBar.jsx';
+export { default as SearchBar } from './container.js';
