@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../templates/components/Header/index.js';
+import Post from './components/Post.jsx';
 
 import './feed.css';
 
 const Feed = (props) => {
-  const { upload } = props;
+  const { upload, getPosts } = props;
   const [ file, setFile ] = useState();
   const [ caption, setCaption ] = useState('');
+
+  const [ posts, setPosts ] = useState();
+
+  useEffect(() => {
+    getPosts({ userId: 'test'}).then((res) =>{
+      setPosts(res.posts);
+    })
+  }, [])
 
   const handleChange =  (e) => {
     if(e.target.files) {
@@ -14,8 +23,17 @@ const Feed = (props) => {
     } else {
       setCaption(e.target.value);
     }
-    
   }
+  console.log(posts)
+  const markup = (
+    posts ? 
+    posts.map((post) => {
+      return <div>
+        <Post {...post}/>
+        </div>
+    }) : <div>LOADING</div>
+    // loading component
+  )
 
 
   const handleSubmit = (e) => {
@@ -35,6 +53,7 @@ const Feed = (props) => {
         <input type="text" name="description" onChange={handleChange} />
         <button type="submit" onClick={handleSubmit}>upload</button>
       </form>
+      {markup}
       <h1>PROTECTED PAGE</h1>
     </div>
   )
