@@ -25,7 +25,7 @@ sequelize.authenticate()
 const app = express();
 
 app.use(cors({}));
-
+app.use(express.static('public'));
 app.use(fileUpload());
 // body-parser
 app.use(express.json());
