@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../templates/components/Header/index.js';
 
 import './feed.css';
 
-const Feed = () => {
+const Feed = (props) => {
+  const { upload } = props;
+  const [ file, setFile ] = useState();
+  const [ caption, setCaption ] = useState('');
+
+  const handleChange =  (e) => {
+    if(e.target.files) {
+      setFile(e.target.files[0]);
+    } else {
+      setCaption(e.target.value);
+    }
+    
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('caption', caption);
+    console.log(formData);
+    upload({ formData });  
+
+  }
   return (
     <div className="feed">
       <Header />
+      <form onSubmit={handleSubmit}>
+        <input type="file" name="myImage" onChange={handleChange}/>
+        <input type="text" name="description" onChange={handleChange} />
+        <button type="submit" onClick={handleSubmit}>upload</button>
+      </form>
       <h1>PROTECTED PAGE</h1>
     </div>
   )
