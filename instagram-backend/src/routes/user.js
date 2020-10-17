@@ -4,6 +4,7 @@ import Services from '../services/services.js';
 import { generateAccountConfirmationToken } from '../lib/tokens.js';
 import config from 'config';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 
 const router = express.Router();
 
@@ -121,7 +122,42 @@ router.post('/confirm', async (req, res) => {
   // .redirect('/');
 });
 
+router.post('/upload', async (req, res) => {
+  if(req.file === null) {
+    return res.json({
+      statusCode: 400,
+      message: 'No file uploaded!',
+    }).status(400);
+  }
 
+  const __dirname = path.resolve();
+  const { file } = req.files;
+  const timestamp = new Date().getTime();
+  const { caption } = req.body;
+  const { id: userId } = req.user;
+
+  const fileName = `${timestamp}-${file.name}`;
+
+  file.mv(`${__dirname}/public/uploads/${fileName}`, err => {
+    if(err) {
+      console.error(err);
+      return res.json({
+        statusCode: 500,
+        message: err,
+      }).
+      
+      status(500);
+    }
+  });
+  await Services.addNewPost({ fileName, caption, userId })
+
+  res.json({
+    statusCode: 200,
+    fileName,
+    filePath: `/uploads/${fileName}`,
+  }).status(200);
+  
+});
 
 
 

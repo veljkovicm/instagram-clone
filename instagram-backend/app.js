@@ -5,6 +5,7 @@ import passwordRoutes from './src/routes//password.js';
 import searchRoute from './src/routes/search.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
 import {
   auth,
   checkUser,
@@ -25,6 +26,7 @@ const app = express();
 
 app.use(cors({}));
 
+app.use(fileUpload());
 // body-parser
 app.use(express.json());
 
@@ -33,7 +35,7 @@ app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
-app.use('/user', userRoutes);
+app.use('/user', auth, userRoutes);
 app.use('/password', passwordRoutes);
 app.use('/search', searchRoute);
 app.use('/protected', auth, (req, res) => {

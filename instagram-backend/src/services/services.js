@@ -5,7 +5,7 @@ import sequelize from 'sequelize';
 // try replacing with 'bcrypt' package before deployment
 import bcrypt from 'bcryptjs';
 
-import { User, UserToken } from '../models/index.js';
+import { User, UserToken, Posts } from '../models/index.js';
 import database from '../../config/database.js';
 
 
@@ -160,6 +160,15 @@ class Services {
           [Op.like]: `%${query}%`
         }
       }
+    })
+  };
+
+  static async addNewPost({ fileName, caption, userId }) {
+    return Posts.create({
+      fileName,
+      caption,
+      userId,
+      uploadedAt: new Date(),
     })
   }
 }
