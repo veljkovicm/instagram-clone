@@ -1,16 +1,18 @@
 import User from './User.js';
 import UserToken from './UserToken.js';
+import Posts from './Posts.js';
 
-// UserToken.belongsTo = (User, {
-//   foreignKey: 'user_id',
-// });
+Posts.belongsTo = (User, {
+  foreignKey: 'user_id',
+});
 
-// User.hasMany(UserToken, {
-//   foreignKey: 'id',
-// });
+User.hasMany(Posts, {
+  foreignKey: 'id',
+});
 
 
 export {
   User,
   UserToken,
+  Posts,
 };
