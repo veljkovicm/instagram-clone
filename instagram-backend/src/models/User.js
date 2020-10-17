@@ -25,6 +25,9 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  avatar: {
+    type: Sequelize.STRING,
+  },
   registeredAt: {
     type: Sequelize.DATE,
     field: 'registered_at',
