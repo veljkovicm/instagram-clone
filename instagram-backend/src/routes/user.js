@@ -138,26 +138,57 @@ router.post('/upload', async (req, res) => {
 
   const fileName = `${timestamp}-${file.name}`;
 
-  file.mv(`${__dirname}/public/uploads/${fileName}`, err => {
+  file.mv(`${__dirname}/public/uploads/${fileName}`, async (err) => {
     if(err) {
       console.error(err);
       return res.json({
         statusCode: 500,
         message: err,
-      }).
-      
-      status(500);
+      }).status(500);
     }
-  });
-  await Services.addNewPost({ fileName, caption, userId })
+    await Services.addNewPost({ fileName, caption, userId })
 
-  res.json({
-    statusCode: 200,
-    fileName,
-    filePath: `/uploads/${fileName}`,
-  }).status(200);
-  
+    res.json({
+      statusCode: 200,
+      fileName,
+      filePath: `/uploads/${fileName}`,
+    }).status(200);
+  });
 });
+
+router.get('/posts', async (req, res) =>{
+  const { id: userId } = req.user;
+
+  const posts = await Services.getPosts({ userId });
+
+  if(!posts) {
+    return res.json({
+      statusCode: 404,
+      message: 'No posts found!'
+    }).status(404);
+  }
+
+  // console.log('>> posts', posts);
+  const filteredResults = [];
+  posts.forEach((post) => {
+    // console.log(post.user);
+    filteredResults.push({
+      id: post.id,
+      fileName: post.fileName,
+      caption: post.caption,
+      uploadedAt: post.uploadedAt,
+      username: post.user.username,
+      avatar: post.user.avatar,
+      fullName: post.user.fullNamem
+    })
+  })
+
+  return res.json({
+    statusCode: 200,
+    posts: filteredResults,
+  }).status(200)
+
+})
 
 
 

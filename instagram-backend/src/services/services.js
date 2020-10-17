@@ -171,6 +171,14 @@ class Services {
       uploadedAt: new Date(),
     })
   }
+
+  static async getPosts({ userId }) {
+    return Posts.findAll({
+      include: [User]
+    });
+    // TODO
+    // return only username, avatar and fullName
+  }
 }
 
 
