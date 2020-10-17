@@ -12,6 +12,7 @@ const apiCall = async ({ method, path, headers = {}, body, params, disableAPIPre
 
     // const url = PATH.join(urlPrefix, path);
     const url = path;
+    const token = localStorage.getItem('token');
 
 
     const response = await axios({
@@ -22,12 +23,13 @@ const apiCall = async ({ method, path, headers = {}, body, params, disableAPIPre
       // withCredentials: true, enable in production?
       headers: {
         'content-type': 'application/json',
+        'x-auth-token': token,
         ...headers,
       },
       data: body,
     });
     const { status, data } = response;
-
+    
     return { data, status };
   } catch (error) {
     console.warn(error);
