@@ -36,3 +36,33 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
     dispatch(stopLoading());
   }
 }
+
+export const getPosts = () => async(dispatch, getState) => {
+  const { isLoading } = getState().auth;
+
+  try {
+    dispatch(startLoading());
+
+    const response = await API({ method: 'GET', path: '/user/posts'})
+
+
+    if(response.data.statusCode === 200) {
+      console.log('SUCCESS');
+      return response.data;
+    } else if (response.data.statusCode === 401) {
+      // dispatch notification here
+      console.log('NOT ALLOWED!')
+    } else {
+      // dispatch notification here
+      console.log('Something went wrong')
+    }
+
+
+  } catch (error) {
+    // dispatch error message
+    dispatch(stopLoading());
+    console.error(error);
+  } finally {
+    dispatch(stopLoading());
+  }
+}
