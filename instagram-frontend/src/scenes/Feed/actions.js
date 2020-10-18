@@ -15,7 +15,7 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
       'Content-Type': 'multipart/form-data'
     }
 
-    const response = await API({ method: 'POST', path: '/user/upload', body: formData, headers });
+    const response = await API({ method: 'POST', path: '/p/upload', body: formData, headers });
 
     if(response.data.statusCode === 200) {
       console.log('SUCCESS');
@@ -40,10 +40,12 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
 export const getPosts = () => async(dispatch, getState) => {
   const { isLoading } = getState().auth;
 
+  if(isLoading) return;
+
   try {
     dispatch(startLoading());
 
-    const response = await API({ method: 'GET', path: '/user/posts'})
+    const response = await API({ method: 'GET', path: '/p/posts'})
 
 
     if(response.data.statusCode === 200) {
