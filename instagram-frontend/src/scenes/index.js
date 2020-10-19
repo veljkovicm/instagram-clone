@@ -4,7 +4,7 @@ import signupPageConfig from './SignUp';
 import forgotPasswordConfig from './ForgotPassword';
 import resetPasswordConfig from './ResetPassword';
 import singlePostConfig from './SinglePost';
-
+import userPageConfig from './User';
 
 export default {
   auth: authPageConfig,
@@ -13,4 +13,5 @@ export default {
   forgotPassword: forgotPasswordConfig,
   resetPassword: resetPasswordConfig,
   singlePost: singlePostConfig,
+  userPage: userPageConfig,
 };

@@ -1,0 +1,13 @@
+.user-profile__header {
+  display: flex;
+  justify-content: center;
+}
+
+
+.user-profile__posts__single {
+  max-width: 33%;
+}
+
+.user-profile__posts__single img {
+  max-width: 100%;
+}
