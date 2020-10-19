@@ -36,7 +36,7 @@ app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
-app.use('/user', auth, userRoutes);
+app.use('/user', userRoutes);
 app.use('/p', auth, postRoutes);
 app.use('/password', passwordRoutes);
 app.use('/search', searchRoute);
