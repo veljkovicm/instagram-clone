@@ -58,7 +58,6 @@ const Feed = (props) => {
         <button type="submit" onClick={handleSubmit}>upload</button>
       </form>
       {markup}
-      <h1>PROTECTED PAGE</h1>
     </div>
   )
 };
