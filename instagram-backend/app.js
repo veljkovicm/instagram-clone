@@ -11,6 +11,7 @@ import {
   auth,
   checkUser,
 } from './src/middleware/index.js';
+import userRoutes from './src/routes/user.js';
 
 // Database
 import sequelize from './config/database.js';
@@ -36,6 +37,7 @@ app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
+app.use('/u', userRoutes);
 app.use('/user', flowRoutes);
 app.use('/p', auth, postRoutes);
 app.use('/password', passwordRoutes);

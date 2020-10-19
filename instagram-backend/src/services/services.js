@@ -65,6 +65,18 @@ class Services {
     })
   }
 
+  static async getUser(username) {
+    console.log('>> username', username);
+    return User.findOne({
+      attributes: [
+        'id',
+        ['full_name', 'fullName'],
+        'avatar'
+      ],
+      where: { username },
+    });
+  }
+
   // TODO Refactor to check for email and username in one method
   static async userEmailExists (email) {
     const user = await User.findOne({
