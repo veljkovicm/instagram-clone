@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import  userRoutes from './src/routes/user.js';
+import  flowRoutes from './src/routes/flow.js';
 import passwordRoutes from './src/routes//password.js';
 import searchRoute from './src/routes/search.js';
 import bodyParser from 'body-parser';
@@ -36,7 +36,7 @@ app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
-app.use('/user', userRoutes);
+app.use('/user', flowRoutes);
 app.use('/p', auth, postRoutes);
 app.use('/password', passwordRoutes);
 app.use('/search', searchRoute);
