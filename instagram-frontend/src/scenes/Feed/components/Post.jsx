@@ -35,7 +35,7 @@ const Post = (props) => {
   const commentsMarkup = (
     comments.map((comment) => {
       return <div>
-        <span><Link to={`/${comment.user.username}`}>{comment.user.username}</Link></span>
+        <span><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
         <span>{comment.comment}</span>
       </div>
     })
@@ -45,7 +45,7 @@ const Post = (props) => {
   return (
     <div className="single-post">
       <div className="single-post__user-badge">
-        <Link to={`/${username}`}>
+        <Link to={`/u/${username}`}>
           <img src={imageSrc} alt="userAvatar" width="30"/>
         {username}
         </Link>
@@ -62,7 +62,7 @@ const Post = (props) => {
       </div>
       {/* likes */}
       <div className="single-post__caption-wrapper">
-        <Link to={`/${username}`}>{username}</Link>
+        <Link to={`/u/${username}`}>{username}</Link>
         <span>{caption}</span>
       </div>
       <hr/>
