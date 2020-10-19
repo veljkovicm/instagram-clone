@@ -1,6 +1,5 @@
 html,
-body,
-#root {
+body {
   height: 100%;
 }
 
@@ -29,4 +28,5 @@ form * {
   margin: 0 auto;
   border: 1px solid #000;
   position: relative;
+  min-height: 100vh;
 }
