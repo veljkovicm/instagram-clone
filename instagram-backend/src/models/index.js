@@ -15,6 +15,10 @@ Comments.belongsTo(Posts, {
   foreignKey: 'post_id',
 });
 
+Posts.hasMany(Comments, {
+  foreignKey: 'post_id'
+})
+
 Comments.belongsTo(User, {
   foreignKey: 'user_id',
 });
@@ -23,13 +27,12 @@ User.hasMany(Comments, {
   foreignKey: 'id',
 });
 
-Posts.hasMany(Comments, {
-  foreignKey: 'id'
-})
+
 
 
 export {
   User,
   UserToken,
   Posts,
+  Comments,
 };
