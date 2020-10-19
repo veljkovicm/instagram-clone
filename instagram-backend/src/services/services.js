@@ -5,7 +5,12 @@ import sequelize from 'sequelize';
 // try replacing with 'bcrypt' package before deployment
 import bcrypt from 'bcryptjs';
 
-import { User, UserToken, Posts } from '../models/index.js';
+import {
+  User,
+  UserToken,
+  Posts,
+  Comments
+} from '../models/index.js';
 import database from '../../config/database.js';
 
 
@@ -174,10 +179,38 @@ class Services {
 
   static async getPosts({ userId }) {
     return Posts.findAll({
-      include: [User]
+      where: { userId },
+      include: [
+        {
+          model: User,
+          attributes: [ 'username', 'avatar', ['full_name', 'fullName'] ],
+        },
+        {
+          model: Comments,
+          include: {
+            model: User,
+            attributes: [ 'username', 'avatar' ],
+          },
+        }
+      ],
+      logging: console.log,
     });
-    // TODO
-    // return only username, avatar and fullName
+  }
+
+  static async postComment({ comment, postId, userId}) {
+    return Comments.create({
+      comment,
+      postId,
+      userId,
+      createdAt: new Date(),
+    })
+  }
+
+  static async getComments(postId) {
+    return Comments.fidnAll({
+      where: { postId },
+      include: [ User ]
+    })
   }
 }
 
