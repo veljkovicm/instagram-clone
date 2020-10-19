@@ -19,6 +19,7 @@ const NavigationBar = (props) => {
     }
   }
   const handleNavClick = (path) => {
+    console.log('>> path', path);
     setMenuActive(false);
     history.push(`${path}`);
   }
@@ -43,8 +44,8 @@ const NavigationBar = (props) => {
         <div className="navigation-menu__item" onClick={() => handleMenuClick('user')}>
           {menuActive === 'user' &&
           <div className="navigation-menu__dropdown user">
-            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/${username}`)}>Profile</div>
-            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/${username}/saved`)}>Saved</div>
+            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}`)}>Profile</div>
+            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}/saved`)}>Saved</div>
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick('/settings')}>Settings</div>
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick('/logout')}>Log Out</div>
           </div> }
