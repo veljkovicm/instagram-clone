@@ -37,7 +37,7 @@ router.get('/posts', async (req, res) =>{
     posts: filteredResults,
   }).status(200)
 
-})
+});
 
 
 router.post('/upload', async (req, res) => {
@@ -103,6 +103,38 @@ router.post('/comment', async (req, res) => {
         message: 'Something went wrong.',
       }).status(500);
     });
+});
+
+router.get('/get-post/:postId', async (req, res) =>{
+  const { postId } = req.params;
+
+  const post = await Services.getPost({ postId });
+
+  if(!post) {
+    return res.json({
+      statusCode: 404,
+      message: 'Post not found!'
+    }).status(404);
+  }
+
+  console.log('post', post.user.username);
+  
+  const filteredResults = {
+    id: post.id,
+    fileName: post.fileName,
+    caption: post.caption,
+    uploadedAt: post.uploadedAt,
+    username: post.user.username,
+    avatar: post.user.avatar,
+    fullName: post.user.fullName,
+    comments: post.comments,
+  };
+  
+
+  return res.json({
+    statusCode: 200,
+    post: filteredResults,
+  }).status(200)
 });
 
 export default router;

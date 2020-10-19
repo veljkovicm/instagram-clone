@@ -212,6 +212,25 @@ class Services {
       include: [ User ]
     })
   }
+
+  static async getPost({ postId }) {
+    return Posts.findOne({
+      where: { id: postId },
+      include: [
+        {
+          model: User,
+          attributes: [ 'username', 'avatar', ['full_name', 'fullName'] ],
+        },
+        {
+          model: Comments,
+          include: {
+            model: User,
+            attributes: [ 'username', 'avatar' ],
+          },
+        }
+      ],
+    });
+  }
 }
 
 
