@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { formatDistance} from 'date-fns';
 
 const Post = (props) => {
   const [ comment, setComment ] = useState('');
+  const history = useHistory();
 
   const {
     id,
@@ -29,7 +30,7 @@ const Post = (props) => {
   }
 
   const handleCommentIconClick = () => {
-    commentInput.focus();
+    history.push(`/p/${id}`)
   }
   const commentsMarkup = (
     comments.map((comment) => {
@@ -53,10 +54,9 @@ const Post = (props) => {
       <div className="single_post__image-wrapper">
         <img src={`http://localhost:5000/uploads/${fileName}`} alt="post-image" width="60%"/>
       </div>
-      <div className="single-post__actions-wrapper">
+      <div className="single-post__actions-wrapper" style={{ display: 'flex' }}>
         <div>Like</div>
         <div onClick={handleCommentIconClick}>Comment</div> 
-        {/* comment is ref for now. needs to open single post popup */}
         <div>Direct</div>
         <div>Save</div>
       </div>
