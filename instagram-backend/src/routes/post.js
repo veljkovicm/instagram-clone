@@ -20,7 +20,6 @@ router.get('/posts', async (req, res) =>{
   // console.log('>> posts', posts);
   const filteredResults = [];
   posts.forEach((post) => {
-    // console.log(post.user);
     filteredResults.push({
       id: post.id,
       fileName: post.fileName,
@@ -28,9 +27,10 @@ router.get('/posts', async (req, res) =>{
       uploadedAt: post.uploadedAt,
       username: post.user.username,
       avatar: post.user.avatar,
-      fullName: post.user.fullNamem
-    })
-  })
+      fullName: post.user.fullName,
+      comments: post.comments,
+    });
+  });
 
   return res.json({
     statusCode: 200,
@@ -72,6 +72,37 @@ router.post('/upload', async (req, res) => {
       filePath: `/uploads/${fileName}`,
     }).status(200);
   });
+});
+
+router.post('/comment', async (req, res) => {
+  const {
+    comment,
+    postId,
+  } = req.body;
+
+  const { id: userId } = req.user;
+
+  if(comment.trim() === '') {
+    return res.json({
+      statusCode: 400,
+      message: 'Cannot submit an empty comment',
+    }).status(400);
+  };
+
+  Services.postComment({ comment, userId, postId })
+    .then(() => {
+      return res.json({
+        statusCode: 200,
+        message: 'Comment submitted successfully!',
+      }).status(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        statusCode: 500,
+        message: 'Something went wrong.',
+      }).status(500);
+    });
 });
 
 export default router;
