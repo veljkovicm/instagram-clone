@@ -5,7 +5,11 @@ import Post from './components/Post.jsx';
 import './feed.css';
 
 const Feed = (props) => {
-  const { upload, getPosts } = props;
+  const {
+    upload,
+    getPosts,
+    postComment,
+  } = props;
   const [ file, setFile ] = useState();
   const [ caption, setCaption ] = useState('');
 
@@ -29,7 +33,7 @@ const Feed = (props) => {
     posts ? 
     posts.map((post) => {
       return <div>
-        <Post {...post}/>
+        <Post postComment={postComment} {...post}/>
         </div>
     }) : <div>LOADING</div>
     // loading component
