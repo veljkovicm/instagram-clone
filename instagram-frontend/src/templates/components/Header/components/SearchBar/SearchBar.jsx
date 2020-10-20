@@ -32,7 +32,7 @@ const SearchBar = (props) => {
   if(result.length > 0) {
     markup = (
       result.map((user) => {
-        return <a href="/" className="search-result-single">
+        return <a href={`/u/${user.username}`} className="search-result-single">
           <div><img src={user.imageUrl} /></div>
           {user.username}
           {user.fullName}
