@@ -26,6 +26,7 @@ const ResetPassword = (props) => {
 
   const [ password, setPassword ] = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
+  const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   // add onClickValidation
 
@@ -48,11 +49,20 @@ const ResetPassword = (props) => {
       resetPassword({ newPassword: password, token });
     // }
   }
+
+
+  const handlePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
   return (
     <div className="reset_password form-wrapper">
       <Loading />
       <form onSubmit={handleResetPassword}>
-        <input type="password" name="password" onChange={handleInputChange(setPassword)} value={password} />
+        <div>
+          <input type={passwordVisible ? 'text' : 'password'} name="password" onChange={handleInputChange(setPassword)} value={password} />
+          <button type="button" onClick={handlePasswordVisibility} className="password-visibility-toggle">toggle</button>
+        </div>
         <input type="password" name="confirm-password" onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} />
         <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password password'}</button>
       </form>

@@ -26,6 +26,7 @@ const Login = (props) => {
 
   const [ email, setEmail ] = useState('test111@test.com');
   const [ password, setPassword ] = useState('11');
+  const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   // add onClickValidation
 
@@ -50,12 +51,38 @@ const Login = (props) => {
       });
     // }
     }
+
+    const handlePasswordVisibility = () => {
+      setPasswordVisible(!passwordVisible);
+    }
+
+
     return (
       <div className="auth form-wrapper">
         <Loading />
         <form onSubmit={handleLogin}>
-          <input type="text" name="email" label="email" onChange={handleInputChange(setEmail)} value={email} />
-          <input type="password" name="password" label="password" onChange={handleInputChange(setPassword)} value={password} />
+          <input
+            type="text"
+            name="email"
+            label="email"
+            onChange={handleInputChange(setEmail)}
+            value={email}
+          />
+          <div>
+            <input
+              type={passwordVisible ? 'text' : 'password'}
+              name="password"
+              label="password"
+              onChange={handleInputChange(setPassword)}
+              value={password}
+            />
+            <button
+              type="button"
+              className="password-visibility-toggle"
+              onClick={handlePasswordVisibility}>
+                Toggle
+            </button>
+          </div>
           <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
         </form>
         <p>
