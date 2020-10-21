@@ -76,7 +76,7 @@ const App = () => {
   const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    store.dispatch(checkUser());
+    // store.dispatch(checkUser());
     setLoading(false);
   }, [])
 
