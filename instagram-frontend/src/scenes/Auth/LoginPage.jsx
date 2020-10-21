@@ -24,7 +24,7 @@ const Login = (props) => {
     history.push('/')
   }  
 
-  const [ email, setEmail ] = useState('test111@test.com');
+  const [ email, setEmail ] = useState('test2@test.com');
   const [ password, setPassword ] = useState('11');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
