@@ -7,6 +7,7 @@ import './navigationBar.css';
 const NavigationBar = (props) => {
   const {
     username,
+    clearUser,
   } = props;
   const [ menuActive, setMenuActive ] = useState();
   const history = useHistory();
@@ -24,6 +25,9 @@ const NavigationBar = (props) => {
     history.push(`${path}`);
   }
 
+  const handleLogout = () => {
+    clearUser();
+  }
 
 
 
@@ -47,7 +51,7 @@ const NavigationBar = (props) => {
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}`)}>Profile</div>
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}/saved`)}>Saved</div>
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick('/settings')}>Settings</div>
-            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick('/logout')}>Log Out</div>
+            <div className="navigation-menu__dropdown-item"  onClick={handleLogout}>Log Out</div>
           </div> }
         </div>
       </div>
