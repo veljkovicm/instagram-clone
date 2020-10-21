@@ -27,6 +27,7 @@ const NavigationBar = (props) => {
 
   const handleLogout = () => {
     clearUser();
+    history.push('/');
   }
 
 
