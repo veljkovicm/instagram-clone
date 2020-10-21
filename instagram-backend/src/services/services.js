@@ -52,11 +52,11 @@ class Services {
       }
     }
 
-    const { id, email, username } = user;
+    const { id, email, username, fullName } = user;
     
     // TODO update last login time
 
-    return { userIsVerified: true, user: { id, email, username }, message: 'User verified!' };
+    return { userIsVerified: true, user: { id, email, username, fullName }, message: 'User verified!' };
 
   };
   static async getUserById(id) {
