@@ -21,7 +21,7 @@ export const setUser = (data) => ({
 
 
 export const checkUser = () => async (dispatch, getState) => {
-  const token = getState().global.user.token;
+  const token = localStorage.getItem('token');
 
   const config = {
     headers: {
