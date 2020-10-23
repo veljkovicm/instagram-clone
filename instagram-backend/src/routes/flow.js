@@ -102,7 +102,7 @@ router.post('/logout', async (req, res) => {
 });
 
 
-router.get('/confirm', async (req, res) => {
+router.post('/confirm', async (req, res) => {
   const { token } = req.query;
 
   if (!token) {
