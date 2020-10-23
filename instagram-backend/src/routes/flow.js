@@ -1,5 +1,6 @@
 import express from 'express';
 import Services from '../services/services.js';
+import EmailServices from '../services/emailServices.js';
 
 import { generateAccountConfirmationToken } from '../lib/tokens.js';
 import config from 'config';
@@ -16,26 +17,26 @@ router.post('/sign_up', async (req, res) => {
     fullName,
   } = req.body;
 
-
-  // const userEmailExists = await Services.userEmailExists(email);
   
-  // if (userEmailExists) {
-  //   return res.send({
-  //     statusCode: 401,
-  //     payload: {},
-  //     message: 'User with this email already exists!',
-  //   }).status(401);
-  // }
-
-  // const usernameExists = await Services.usernameExists(username);
+  const userEmailExists = await Services.userEmailExists(email);
   
-  // if (usernameExists) {
-  //   return res.send({
-  //     statusCode: 401,
-  //     payload: {},
-  //     message: 'User with this username already exists!',
-  //   }).status(401);
-  // }
+  if (userEmailExists) {
+    return res.send({
+      statusCode: 401,
+      payload: {},
+      message: 'User with this email already exists!',
+    }).status(401);
+  }
+
+  const usernameExists = await Services.usernameExists(username);
+  
+  if (usernameExists) {
+    return res.send({
+      statusCode: 401,
+      payload: {},
+      message: 'User with this username already exists!',
+    }).status(401);
+  }
 
   const { id, message } = await Services.createUser({ email, password, username, fullName });
 
@@ -44,7 +45,7 @@ router.post('/sign_up', async (req, res) => {
   console.log({id, email, token});
   await Services.createUserToken({ userId: id, email, token, type: 'confirmation' });
 
-  // await EmailServices.sendConfirmationEmail({ email, token });
+  await EmailServices.sendConfirmationEmail({ email, token });
 
   return res.send({
     statusCode: 200,
@@ -101,20 +102,26 @@ router.post('/logout', async (req, res) => {
 });
 
 
-router.post('/confirm', async (req, res) => {
+router.get('/confirm', async (req, res) => {
   const { token } = req.query;
-  console.log('>> token', token);
 
-  const userId =  await Services.findUserIdByToken({ token, type: 'confirmation'});
-
-  if (!userId || !token) {
+  if (!token) {
     return res.send({
       statusCode: 404,
-      message: 'Token not valid.'
+      message: 'Token not found.'
+    }).status(401);
+  };
+  const userId =  await Services.findUserIdByToken({ token, type: 'confirmation'});
+
+  if (!userId) {
+    return res.send({
+      statusCode: 404,
+      message: 'User not found.'
     }).status(401);
   };
 
   await Services.confirmEmail(userId);
+  // update used_at field in token table too
 
    res.status(200).json({ message: 'Your email address is confirmed. Please, log in.'})
 

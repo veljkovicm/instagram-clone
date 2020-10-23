@@ -5,5 +5,13 @@
     "password": "",
     "host": ""
   },
-  "jwtSecret": ""
+  "jwtSecret": "",
+  "sendGrid": {
+    "key": "",
+    "sender": "",
+    "confirmation": {
+      "url": "",
+      "template": ""
+    }
+  }
 }
