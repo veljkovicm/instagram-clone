@@ -120,11 +120,15 @@ class Services {
   }
 
   static async findUserIdByToken({ token, type}) {
-    const userData = await UserToken.findOne({
-      attributes: ['user_id'],
+    const userId = await UserToken.findOne({
+      attributes: [['user_id', 'userId']],
       where: { token, type }
     });
-    return userData.dataValues.user_id;
+    if(userId) {
+      return userId;
+    } else {
+      return null;
+    }
   }
 
 

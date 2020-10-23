@@ -111,7 +111,7 @@ router.get('/confirm', async (req, res) => {
       message: 'Token not found.'
     }).status(401);
   };
-  const userId =  await Services.findUserIdByToken({ token, type: 'confirmation'});
+  const { userId } =  await Services.findUserIdByToken({ token, type: 'confirmation'});
 
   if (!userId) {
     return res.send({
