@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Post from '../Feed/components/Post.jsx';
 import Header from '../../templates/components/Header/index.js';
+import { customHook } from '../../lib';
 
 
 import './user.css';
@@ -16,11 +17,16 @@ const Feed = (props) => {
 
   const [ user, setUser ] = useState({});
   const [ posts, setPosts ] = useState([]);
-  
+  const history = useHistory();
   useEffect(() => {
-    getUser({ username }).then((res) => {
+    getUser({ username })
+    .then((res) => {
       setUser(res.user);
       setPosts(res.posts);
+    })
+    .catch((err) => {
+      console.log(err);
+      history.push('/feed')
     });
   }, [user.avatar]);
 

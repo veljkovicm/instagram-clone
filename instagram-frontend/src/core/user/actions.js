@@ -1,6 +1,7 @@
 // import { reduxActionsGenerator } from '@src/lib';
 import { reduxActionsGenerator } from '../../lib/';
 import axios from 'axios';
+import { startLoading, stopLoading} from '../../templates/components/Loading/actions.js';
 
 
 export const actionTypes = reduxActionsGenerator([
@@ -21,6 +22,7 @@ export const setUser = (data) => ({
 
 
 export const checkUser = () => async (dispatch, getState) => {
+  dispatch(startLoading())
   const token = localStorage.getItem('token');
 
   const config = {
@@ -35,7 +37,10 @@ export const checkUser = () => async (dispatch, getState) => {
 
    axios.get('http://localhost:5000/auth/check-token', config)
     .then(response => {
-      dispatch({ type: actionTypes.SET_USER, data: response.data.payload })
-    })
-    .catch(err => console.log('ERROR: ', err));
+      return dispatch({ type: actionTypes.SET_USER, data: response.data.payload })
+    }).then(() => dispatch(stopLoading()))
+    .catch((err) => {
+      console.log('ERROR: ', err);
+      dispatch(stopLoading());
+    });
 }

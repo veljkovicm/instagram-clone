@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 
 import Loading from '../../templates/components/Loading';
 
 
 import './loginPage.css';
-
-const createAccountURL = '/sign_up';
 
 const Login = (props) => {
   const {
@@ -17,11 +15,10 @@ const Login = (props) => {
   } = props;
   const history = useHistory()
 
-
   // debug this
   if (isLoggedIn) {
     // return <Redirect to="/" />;
-    history.push('/')
+    history.push('/feed')
   }  
 
   const [ email, setEmail ] = useState('test2@test.com');

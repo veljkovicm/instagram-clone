@@ -39,7 +39,7 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
 
 export const getPosts = () => async(dispatch, getState) => {
   try {
-    dispatch(startLoading());
+    // dispatch(startLoading());
 
     const response = await API({ method: 'GET', path: '/p/posts'})
 

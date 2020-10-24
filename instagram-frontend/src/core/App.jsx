@@ -76,8 +76,14 @@ const App = () => {
   const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
-    // store.dispatch(checkUser());
-    setLoading(false);
+    store.dispatch(checkUser())
+    .then(() => {
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error(err);
+      setLoading(false);
+    }) ;
   }, [])
 
   // LoadingBar.init();
@@ -93,7 +99,8 @@ const App = () => {
       <Router>
         <Switch>
           {routes}
-          <Redirect exact from="/" to='/feed' />
+          <Route path="/sign_in" {...pagesConfig.auth}/>
+          <Redirect exact from="/" to='/sign_in' />
           {/* <ProtectedRoute component={pageNotFoundComponent} redirectTo={signInPath} /> */}
           <Redirect from="*" to="/404" />
         </Switch>

@@ -28,11 +28,11 @@ const Feed = (props) => {
       setCaption(e.target.value);
     }
   }
-  console.log(posts)
+
   const markup = (
     posts ? 
     posts.map((post) => {
-      return <div>
+      return <div key={post.id}>
         <Post postComment={postComment} {...post}/>
         </div>
     }) : <div>LOADING</div>
