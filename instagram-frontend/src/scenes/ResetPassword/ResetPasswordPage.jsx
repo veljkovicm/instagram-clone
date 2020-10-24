@@ -64,7 +64,7 @@ const ResetPassword = (props) => {
           <button type="button" onClick={handlePasswordVisibility} className="password-visibility-toggle">toggle</button>
         </div>
         <input type="password" name="confirm-password" onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} />
-        <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password password'}</button>
+        <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password'}</button>
       </form>
       <a href="/">Log in instead?</a>
     </div>
