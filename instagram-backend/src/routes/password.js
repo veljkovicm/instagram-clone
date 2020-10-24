@@ -1,5 +1,7 @@
 import express from 'express';
 import Services from '../services/services.js';
+import EmailServices from '../services/emailServices.js';
+// create index.js in services and export both from there
 import { generateResetPasswordToken } from '../lib/tokens.js';
 import config from 'config';
 
@@ -29,7 +31,7 @@ router.post('/forgot_password', async (req, res) => {
 
   await Services.createUserToken({ userId: userExists.id, token, type: 'password'});
 
-  // await EmailServices.sendConfirmationEmail({ email, token });
+  await EmailServices.sendResetPasswordEmail({ email, token });
 
   return res.status(200).json({
     statusCode: 200,
@@ -39,10 +41,8 @@ router.post('/forgot_password', async (req, res) => {
 
 
 router.post('/reset_password', async (req, res) => {
-  // const token = '443a35b88d21372a8fa9446c322f3fada996899150d22ddd2b83987394fa'
 
   const { newPassword, token } = req.body;
-
   const { userId }  = await Services.findUserIdByToken({
     token,
     type: 'password',
