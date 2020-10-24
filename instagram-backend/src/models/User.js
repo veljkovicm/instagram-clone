@@ -28,6 +28,19 @@ const User = db.define('user', {
   avatar: {
     type: Sequelize.STRING,
   },
+  website: {
+    type: Sequelize.STRING,
+  },
+  bio: {
+    type: Sequelize.STRING,
+  },
+  phoneNumber: {
+    type: Sequelize.STRING,
+    field: 'phone_number',
+  },
+  gender: {
+    type: Sequelize.STRING,
+  },
   registeredAt: {
     type: Sequelize.DATE,
     field: 'registered_at',
