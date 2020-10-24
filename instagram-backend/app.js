@@ -37,7 +37,9 @@ app.get('/auth/check-token', checkUser );
 app.get('/', (req, res) => res.send('INDEX'));
 
 // User routes
-app.use('/u', userRoutes);
+// remove auth from userRoutes
+// clean up all routes
+app.use('/u', auth, userRoutes);
 app.use('/user', flowRoutes);
 app.use('/p', auth, postRoutes);
 app.use('/password', passwordRoutes);

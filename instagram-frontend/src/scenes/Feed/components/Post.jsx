@@ -41,7 +41,7 @@ const Post = (props) => {
     })
   )
   
-  const imageSrc = avatar ? `https://localhost:5000/public/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const imageSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
   return (
     <div className="single-post">
       <div className="single-post__user-badge">

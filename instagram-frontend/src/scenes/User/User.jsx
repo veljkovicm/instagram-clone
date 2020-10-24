@@ -9,8 +9,10 @@ import './user.css';
 const Feed = (props) => {
   const {
     getUser,
+    uploadAvatar,
   } = props;
   const { username } = useParams();
+  let avatarInput = null
 
   const [ user, setUser ] = useState({});
   const [ posts, setPosts ] = useState([]);
@@ -20,10 +22,10 @@ const Feed = (props) => {
       setUser(res.user);
       setPosts(res.posts);
     });
-  }, []);
+  }, [user.avatar]);
 
   const userDataLoaded = user && posts;
-  const avatarSrc = user.avatar ? `https://localhost:5000/public/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
   const postsMarkup = (
     posts.map((post) =>
@@ -33,14 +35,35 @@ const Feed = (props) => {
     )
   )
 
+  const handleAvatarIconClick = () => {
+    avatarInput.click();
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', e.target.files[0]);
+    uploadAvatar({ formData });
+  }
 
   return (
     <div className="user-profile-wrapper">
       <Header />
       <div className="user-profile__header">
-        <div className="user-profile__avatar-wrapper">
-          <img src={avatarSrc} alt="user-profile-image" width="100" />
+        <div className="user-profile__avatar" onClick={handleAvatarIconClick} style={{ backgroundImage: `url(${avatarSrc})`}}>
+
+          <div className="user-profile__avatar_hover" />
         </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="file"
+            hidden
+            accept="image/png, image/jpeg"
+            name="avatar-upload"
+            ref={(input) => { avatarInput = input; }}
+            onChange={handleSubmit}
+          />
+        </form>
         <div className="user-profile__header-info">
           <h3>{username}</h3>
           <div className="user-profile__user-stats">

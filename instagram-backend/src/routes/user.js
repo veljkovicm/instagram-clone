@@ -1,5 +1,7 @@
 import express from 'express';
 import Services from '../services/services.js';
+import path from 'path';
+import fs from 'fs';
 
 
 const router = express.Router();
@@ -27,6 +29,58 @@ router.get('/:username', async (req, res) => {
       posts,
     },
   }).status(200)
+});
+
+router.post('/upload-avatar', async (req, res) => {
+  if(req.file === null) {
+    return res.json({
+      statusCode: 400,
+      message: 'No file uploaded',
+    }).status(400);
+  }
+  const __dirname = path.resolve();
+  const { file } = req.files;
+
+  if(file.mimetype !== ('image/jpeg' || 'image/png' )) {
+    return res.json({
+      statusCode: 400,
+      message: 'Unsupported file type. Please use JPG/PNG',
+    }).status(40)
+  }
+
+  const { avatar: oldAvatar } =  await Services.getOldAvatarUrl(req.user.id);
+
+  if(oldAvatar) {
+    console.log('>> oldAvatar', oldAvatar);
+    fs.unlink(`${__dirname}/public/uploads/${oldAvatar}`, function(err) {
+      if (err) {
+        console.log('Not found!')
+      }
+    })
+  }
+
+  const { id: userId } = req.user;
+  const fileExtension = file.mimetype.split('/')[1];
+
+  const filename = `avatar-${userId}.${fileExtension}`;
+
+  file.mv(`${__dirname}/public/uploads/${filename}`, async (err) => {
+    if(err) {
+      console.error(err);
+      return res.json({
+        statusCode: 500,
+        message: err,
+      }).status(500);
+    }
+
+    await Services.updateAvatar({ filename, userId});
+
+    res.json({
+      statusCode: 200,
+      message: 'Avatar updated successfully!'
+    }).status(200);
+  })
+
 });
 
 

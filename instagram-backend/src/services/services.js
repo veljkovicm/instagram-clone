@@ -247,6 +247,19 @@ class Services {
       ],
     });
   }
+  static async getOldAvatarUrl(id) {
+    return User.findOne({
+      attributes: ['avatar'],
+      where: { id }
+    });
+  }
+
+  static async updateAvatar({ filename, userId }) {
+    return User.update(
+      { avatar: filename },
+      { where: { id: userId } }
+    );
+  }
 }
 
 
