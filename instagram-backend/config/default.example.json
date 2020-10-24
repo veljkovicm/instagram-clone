@@ -12,6 +12,10 @@
     "confirmation": {
       "url": "",
       "template": ""
+    },
+    "passwordReset": {
+      "url": "",
+      "template": ""
     }
   }
 }
