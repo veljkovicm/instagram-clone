@@ -2,9 +2,10 @@ import Sequelize from 'sequelize';
 import db from '../../config/database.js';
 
 const Followers = db.define('followers', {
-  followedId: {
+  // followedId
+  id: {
     type: Sequelize.UUID,
-    field: 'followed_id',
+    // field: 'followed_id',
     primaryKey: true,
   },
   followerId: {
