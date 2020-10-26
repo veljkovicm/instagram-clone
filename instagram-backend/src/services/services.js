@@ -206,9 +206,14 @@ class Services {
     return User.findAll({
       attributes: ['username', ['full_name', 'fullName']],
       where: {
-        username: {
-          [Op.like]: `%${query}%`
-        }
+        [Op.or]: {
+          username: {
+            [Op.iLike]: `%${query}%`,
+          },
+          fullName: {
+            [Op.iLike]: `%${query}%`,
+          },
+        },
       }
     })
   };
