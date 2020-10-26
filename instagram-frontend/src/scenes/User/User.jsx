@@ -11,26 +11,35 @@ const Feed = (props) => {
   const {
     getUser,
     uploadAvatar,
+    followUser,
+    unfollowUser,
   } = props;
   const { username } = useParams();
   let avatarInput = null
 
   const [ user, setUser ] = useState({});
   const [ posts, setPosts ] = useState([]);
+  const [ following, setFollowing ] = useState();
+  const [ dataLoaded, setDataLoaded ] = useState(false);
   const history = useHistory();
+  console.log('>> user', user);
   useEffect(() => {
     getUser({ username })
     .then((res) => {
       setUser(res.user);
       setPosts(res.posts);
+      setFollowing(res.user.following)
+    })
+    .then(() => {
+      setDataLoaded(true);
     })
     .catch((err) => {
       console.log(err);
       history.push('/feed')
     });
-  }, [user.avatar]);
+  }, []);
 
-  const userDataLoaded = user && posts;
+  // const userDataLoaded = !!Object.values(user).length && posts;
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
   const postsMarkup = (
@@ -44,6 +53,18 @@ const Feed = (props) => {
   const handleAvatarIconClick = () => {
     avatarInput.click();
   }
+  
+  const handleFollowButtonClick = (username) => {
+    if(user.following) {
+      unfollowUser(username).then(() => {
+        setFollowing(!following)
+      });
+    } else {
+      followUser(username).then(() => {
+        setFollowing(!following)
+      });
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,13 +72,16 @@ const Feed = (props) => {
     formData.append('file', e.target.files[0]);
     uploadAvatar({ formData });
   }
+  
+  if(!dataLoaded) {
+    return <p>LOADING</p>
+  }
 
   return (
     <div className="user-profile-wrapper">
       <Header />
       <div className="user-profile__header">
         <div className="user-profile__avatar" onClick={handleAvatarIconClick} style={{ backgroundImage: `url(${avatarSrc})`}}>
-
           <div className="user-profile__avatar_hover" />
         </div>
         <form onSubmit={handleSubmit}>
@@ -72,6 +96,7 @@ const Feed = (props) => {
         </form>
         <div className="user-profile__header-info">
           <h3>{username}</h3>
+          <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button>
           <div className="user-profile__user-stats">
             <span>{posts.length} posts</span>
             <span># followers</span>
@@ -85,7 +110,7 @@ const Feed = (props) => {
       <div className="user-profile__posts">
         {postsMarkup}
       </div>
-      { userDataLoaded ? <p>user loaded</p> : <p>LOADING</p>}
+      {/* { dataLoaded ? <p>user loaded</p> : <p>LOADING</p>} */}
     </div>
   )
 };

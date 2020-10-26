@@ -9,7 +9,8 @@ import {
   User,
   UserToken,
   Posts,
-  Comments
+  Comments,
+  Followers,
 } from '../models/index.js';
 import database from '../../config/database.js';
 
@@ -150,6 +151,13 @@ class Services {
     } else {
       return null;
     }
+  }
+
+  static async getUserIdByUsername(username) {
+    return User.findOne({
+      attributes: [ 'id' ],
+      where: { username }
+    });
   }
 
 
@@ -306,6 +314,31 @@ class Services {
     .catch((err) => {
       console.log(err);
       return { message: 'User settings update failed!', statusCode: 500 }
+    })
+  }
+
+  static async follow({ followerId, followedId }) {
+    return Followers.create({
+      followerId,
+      followedId,
+      followedAt: new Date(),
+    });
+  }
+
+  static async unfollow({ followerId, followedId }) {
+    try { Followers.destroy({
+      where: { followerId, followedId }
+     });
+    } catch(err) {
+      return console.log(err);
+    }
+    return
+  }
+
+  static async isFollowing({ followerId, followedId }) {
+    console.log({followerId, followedId});
+    return Followers.findOne({
+      where: { followerId, followedId }
     })
   }
 

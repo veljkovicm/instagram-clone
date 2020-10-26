@@ -9,6 +9,7 @@ const router = express.Router();
 router.get('/:username', async (req, res) => {
   const { username } = req.params;
   const user = await Services.getUser(username);
+  let following = false;
 
   if (!user) {
     return res.send({
@@ -16,6 +17,12 @@ router.get('/:username', async (req, res) => {
       message: 'User not found!',
     }).status(404);
   }
+
+  if(req.user) {
+    following = await Services.isFollowing({ followerId: req.user.id, followedId: user.id });
+  }
+
+  user.dataValues.following = !!following;
 
   const userId = user.id;
 
@@ -101,6 +108,42 @@ router.post('/update-settings', async (req,res) => {
     message,
   }).status(statusCode)
 });
+
+
+router.post('/follow', async (req,res) => {
+  // id of a user to follow
+  const { username } = req.body;
+
+  const { id: followedId } = await Services.getUserIdByUsername(username);
+
+  
+  const { id: followerId } = req.user;
+  
+  await Services.follow({ followerId, followedId });
+
+  res.json({
+    statusCode: 200,
+    message: 'Follow action succesful',
+  }).status(200)
+});
+
+
+router.post('/unfollow', async (req,res) => {
+  // id of a user to follow
+  const { username } = req.body;
+
+  const { id: followedId } = await Services.getUserIdByUsername(username);
+
+  const { id: followerId } = req.user;
+
+  await Services.unfollow({ followerId, followedId });
+
+  res.json({
+    statusCode: 200,
+    message: 'Unfollow action succesful',
+  }).status(200)
+});
+
 
 
 export default router;

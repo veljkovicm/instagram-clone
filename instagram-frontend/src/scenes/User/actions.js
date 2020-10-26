@@ -65,3 +65,40 @@ export const uploadAvatar = ({ formData }) => async (dispatch, getState) => {
     dispatch(stopLoading());
   }
 }
+
+
+export const followUser = (username) => async (dispatch, getState) => {
+  const body = {
+    username,
+  }
+
+  const response = await API({ method: 'POST', path:'/u/follow', body });
+
+  if(response.data.statusCode === 200) {
+    console.log('FOLLOWING');
+  } else if (response.data.statusCode === 401) {
+    // dispatch notification here
+    console.log('NOT ALLOWED!')
+  } else {
+    // dispatch notification here
+    console.log('Something went wrong');
+  }
+}
+
+export const unfollowUser = (username) => async (dispatch, getState) => {
+  const body = {
+    username,
+  }
+
+  const response = await API({ method: 'POST', path:'/u/unfollow', body });
+
+  if(response.data.statusCode === 200) {
+    console.log('NOT FOLLOWING');
+  } else if (response.data.statusCode === 401) {
+    // dispatch notification here
+    console.log('NOT ALLOWED!')
+  } else {
+    // dispatch notification here
+    console.log('Something went wrong');
+  }
+}
