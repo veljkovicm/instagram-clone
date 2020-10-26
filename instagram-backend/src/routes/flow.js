@@ -82,6 +82,11 @@ router.post('/sign_in', async (req, res) => {
       email: user.email,
       fullName: user.fullName,
       username: user.username,
+      website: user.website,
+      bio: user.bio,
+      phoneNumber: user.phoneNumber,
+      gender: user.gender,
+      avatar:  user.avatar,
     },
     config.jwtSecret,
     { expiresIn: 3600 }, //seconds
