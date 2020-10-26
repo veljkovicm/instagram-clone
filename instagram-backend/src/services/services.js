@@ -52,11 +52,21 @@ class Services {
       }
     }
 
-    const { id, email, username, fullName } = user;
+    const userData = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      fullName: user.fullName,
+      website: user.website,
+      phoneNumber: user.phoneNumber,
+      avatar: user.avatar,
+      bio: user.bio,
+      gender: user.gender,
+    };
     
     // TODO update last login time
 
-    return { userIsVerified: true, user: { id, email, username, fullName }, message: 'User verified!' };
+    return { userIsVerified: true, user: userData, message: 'User verified!' };
 
   };
   static async getUserById(id) {
@@ -260,6 +270,35 @@ class Services {
       { where: { id: userId } }
     );
   }
+
+  static async updateUserSettings({ userData, id }) {
+    const {
+      username,
+      email,
+      fullName,
+      avatar,
+      gender,
+      website,
+      bio,
+      phoneNumber,
+    } = userData;
+
+    const fields = { ...userData }
+    return User.update(
+      { ...fields },
+      { where: { id } },
+    )
+    .then((res) => {
+      console.log(res);
+      return { message: 'User settings updated successfully!', statusCode: 200 }
+    })
+    .catch((err) => {
+      console.log(err);
+      return { message: 'User settings update failed!', statusCode: 500 }
+    })
+  }
+
+
 }
 
 

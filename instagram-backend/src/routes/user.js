@@ -84,4 +84,23 @@ router.post('/upload-avatar', async (req, res) => {
 });
 
 
+router.post('/update-settings', async (req,res) => {
+  const userData = req.body;
+  const { id } = req.user;
+
+  //check if email / username changed,
+  // check availability of username
+  // send confirmation if email changed
+
+
+
+  const { message, statusCode } = await Services.updateUserSettings({ userData, id });
+  console.log({message, statusCode});
+  res.json({
+    statusCode,
+    message,
+  }).status(statusCode)
+});
+
+
 export default router;
