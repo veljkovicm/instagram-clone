@@ -4,6 +4,7 @@ import { checkUser } from '../../user/actions.js';
 
 import ProtectedRoute from './ProtectedRoute.jsx';
 
+import { stopLoading } from '../../../templates/components/Loading/actions.js';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: !!state.global.user.currentUser,
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   checkUser,
+  stopLoading,
 }
 
 

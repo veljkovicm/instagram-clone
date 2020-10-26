@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from '../../templates/components/Header/index.js';
 import './settingsPage.css'
 
 const Settings = (props) => {
   const {
-    updateAvatar,
+    uploadAvatar,
     updateSettings,
   } = props;
 
   let avatarInput = null;
 
-  const [ name, setName ] = useState(props.user.name);
+  const [ name, setName ] = useState(props.user.fullName || '');
   const [ username, setUsername ] = useState(props.user.username);
   const [ email, setEmail ] = useState(props.user.email);
-  const [ website, setWebsite ] = useState(props.user.website);
-  const [ bio, setBio ] = useState(props.user.bio);
-  const [ phoneNumber, setPhoneNumber ] = useState(props.user.phoneNumber);
-  const [ gender, setGender ] = useState(props.user.gender);
-  const [ avatar, setAvatar ] = useState(props.user.avatar);
+  const [ website, setWebsite ] = useState(props.user.website || '');
+  const [ bio, setBio ] = useState(props.user.bio || '');
+  const [ phoneNumber, setPhoneNumber ] = useState(props.user.phoneNumber || '');
+  const [ gender, setGender ] = useState(props.user.gender || '');
+
 
   const handleChange = (setValue) => (e) => {
     setValue(e.target.value);
@@ -29,11 +29,23 @@ const Settings = (props) => {
   }
 
   const handleAvatarSubmit = (e) => {
-
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', e.target.files[0]);
+    uploadAvatar({ formData });
   }
 
-  const handleSubmit = (e) => {
-
+  const handleSubmit = () => {
+    const userData = {
+      fullName: name,
+      username,
+      email,
+      website,
+      bio,
+      phoneNumber,
+      gender,
+    };
+    updateSettings(userData);
   }
 
   const avatarSrc = props.user.avatar ? `http://localhost:5000/uploads/${props.user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
@@ -48,7 +60,7 @@ const Settings = (props) => {
             <div className="settings__profile-left__avatar" onClick={handleAvatarClick} style={{ backgroundImage: `url(${avatarSrc})`}}>
               <div className="settings__profile_left__avatar-hover"></div>
             </div>
-            <input type="file" name="avatar1" onChange={handleAvatarSubmit} ref={(input) => { avatarInput = input; }} />
+            <input type="file" hidden name="avatar1" onChange={handleAvatarSubmit} ref={(input) => { avatarInput = input; }} />
           </div>
           <div className="settings__profile-right">
             <div className="settings__profile-right__username">
