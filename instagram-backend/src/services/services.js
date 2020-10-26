@@ -71,6 +71,17 @@ class Services {
   };
   static async getUserById(id) {
     return User.findOne({
+      attributes: [
+        // 'id',
+        'email',
+        'fullName',
+        'username',
+        'avatar',
+        'website',
+        'bio',
+        'phoneNumber',
+        'gender',
+      ],
       where: { id },
     })
   }
