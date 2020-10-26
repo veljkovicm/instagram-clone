@@ -1,7 +1,8 @@
 import config from 'config';
 import jwt from 'jsonwebtoken';
+import Services from '../services/services.js';
 
-const checkUser = (req, res, next) => {
+const checkUser = async (req, res, next) => {
   const token = req.header('x-auth-token');
 
   // Check for token
@@ -9,8 +10,11 @@ const checkUser = (req, res, next) => {
     return res.status(401).json({ message: 'Not authorized!'})
   }
   try {
-    const decoded = jwt.verify(token, config.jwtSecret);
-    return res.status(200).json({ message: 'User is authenticated!', payload: decoded})
+    const decodedToken = jwt.verify(token, config.jwtSecret);
+
+    // Get current user data
+    const user = await Services.getUserById(decodedToken.id);
+    return res.status(200).json({ message: 'User is authenticated!', payload: user });
   } catch(e) {
     res.status(400).json({ message: 'Token is not valid'});
   }
