@@ -3,7 +3,8 @@ import { startLoading, stopLoading } from '../../../../../templates/components/L
 
 export const search = ({ query }) => async (dispatch, getState) => {
   try {
-    dispatch(startLoading());
+    // dispatch(startLoading());
+    // search is rerendering whole Feed page with loading actions dispatched ? whenever something is typed in searchbar
 
     const body = {
       query: query,
@@ -26,9 +27,9 @@ export const search = ({ query }) => async (dispatch, getState) => {
 
   } catch (error) {
     // dispatch error message
-    dispatch(stopLoading());
+    // dispatch(stopLoading());
     console.error(error);
   } finally {
-    dispatch(stopLoading());
+    // dispatch(stopLoading());
   }
 }
