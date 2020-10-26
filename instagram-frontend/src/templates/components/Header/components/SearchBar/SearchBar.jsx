@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+import './SearchBar.css';
+
 const SearchBar = (props) => {
   const [ result, setResult ] = useState([]);
   const [ searchQuery, setSearchQuery ] = useState('');
   const [ showSearch, setShowSearch ] = useState(false);
   const [ focus, setFocus ] = useState(false);
-  const[ loading, setLoading ] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [ backdropVisible, setBackdropVisible ] = useState(false);
 
   const {
     search,
@@ -56,6 +59,13 @@ const SearchBar = (props) => {
   const handleFocus = () => {
     setFocus(true);
     setShowSearch(true);
+    setBackdropVisible(true);
+  }
+
+  const handleBackdropClick = () => {
+    setFocus(false);
+    setShowSearch(false);
+    setBackdropVisible(false);
   }
   
 
@@ -63,22 +73,23 @@ const SearchBar = (props) => {
 
 
   return (
-    <div>
-      <form>
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={handleInputChange}
-          value={searchQuery}
-          // onBlur={handleBlur}
-          onFocus={handleFocus}
-          />
-        { focus && <span onClick={handleClearInput}>x</span>} {/*clear input */}
-        { loading && <span>L</span> } {/*loading indicator */}
-      </form>
-      <div className="search-results-wrapper">
-        {showMarkup && markup}
-      </div>
+    <div className="search-bar-wrapper">
+      <div className={`backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick}></div>
+        <form>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={handleInputChange}
+            value={searchQuery}
+            // onBlur={handleBlur}
+            onFocus={handleFocus}
+            />
+          { focus && <span onClick={handleClearInput}>x</span>} {/*clear input */}
+          { loading && <span>L</span> } {/*loading indicator */}
+        </form>
+        <div className="search-results-wrapper">
+          {showMarkup && markup}
+        </div>
     </div>
   )
 }

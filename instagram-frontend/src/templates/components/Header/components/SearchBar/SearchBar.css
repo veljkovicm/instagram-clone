@@ -1,0 +1,25 @@
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: -0%;
+  z-index: 998;
+  display: none;
+}
+.backdrop.show {
+  display: block;
+}
+
+.search-bar-wrapper form,
+.search-results-wrapper {
+  position: relative;
+  z-index: 999;
+}
+
+.search-bar-wrapper input {
+  text-align: center;
+}
+
+.search-bar-wrapper input:focus {
+  text-align: left;
+}
