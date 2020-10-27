@@ -7,12 +7,14 @@ import {
   upload,
   getPosts,
   postComment,
+  likeAction,
 } from './actions.js';
 
 const mapDispatchToProps = {
   upload,
   getPosts,
   postComment,
+  likeAction,
 }
 
 export default connect(null, mapDispatchToProps)(FeedPage);

@@ -11,6 +11,7 @@ import {
   Posts,
   Comments,
   Followers,
+  Likes,
 } from '../models/index.js';
 import database from '../../config/database.js';
 
@@ -241,6 +242,9 @@ class Services {
             model: User,
             attributes: [ 'username', 'avatar' ],
           },
+        },
+        {
+          model: Likes,
         }
       ],
       logging: console.log,
@@ -277,6 +281,9 @@ class Services {
             model: User,
             attributes: [ 'username', 'avatar' ],
           },
+        },
+        {
+          model: Likes,
         }
       ],
     });
@@ -374,6 +381,20 @@ class Services {
         ]
       });
     }
+  }
+
+
+  static async like({ postId, userId }) {
+    return Likes.create({
+      postId,
+      userId,
+      likedAt: new Date(),
+    })
+  }
+  static async unlike({ postId, userId }) {
+    return Likes.destroy(
+      { where: { postId, userId }}
+    )
   }
 }
 

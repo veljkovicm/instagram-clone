@@ -3,9 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { formatDistance} from 'date-fns';
 
 const Post = (props) => {
-  const [ comment, setComment ] = useState('');
-  const history = useHistory();
-
   const {
     id,
     caption,
@@ -15,7 +12,12 @@ const Post = (props) => {
     username,
     postComment,
     comments,
+    likeAction,
+    isLiked,
   } = props;
+  const [ comment, setComment ] = useState('');
+  const [ liked, setLiked ] = useState(isLiked);
+  const history = useHistory();
 
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
   let commentInput = null;
@@ -40,6 +42,13 @@ const Post = (props) => {
       </div>
     })
   )
+
+  const handleLikeIconClick = () => {
+
+    likeAction({ postId: id, liked }).then(() => {
+      setLiked(!liked);
+    })
+  }
   
   const imageSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
   return (
@@ -55,7 +64,7 @@ const Post = (props) => {
         <img src={`http://localhost:5000/uploads/${fileName}`} alt="post-image" width="60%"/>
       </div>
       <div className="single-post__actions-wrapper" style={{ display: 'flex' }}>
-        <div>Like</div>
+        <div onClick={handleLikeIconClick}>{liked ? 'Unlike' : 'Like'}</div>
         <div onClick={handleCommentIconClick}>Comment</div> 
         <div>Direct</div>
         <div>Save</div>

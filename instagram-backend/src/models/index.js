@@ -3,6 +3,7 @@ import UserToken from './UserToken.js';
 import Posts from './Posts.js';
 import Comments from './Comments.js';
 import Followers from './Followers.js';
+import Likes from './Likes.js';
 
 Posts.belongsTo(User, {
   foreignKey: 'user_id',
@@ -47,8 +48,25 @@ Followers.belongsTo(User, {
 });
 
 
+Likes.belongsTo(Posts, {
+  foreignKey: 'post_id',
+  // foreignKey: 'id'
+});
+
+Likes.belongsTo(User, {
+  foreignKey: 'user_id',
+});
 
 
+// needed?
+// User.hasOne(Likes, {
+//   foreignKey: 'id'
+// })
+
+// foreign key refers to Likes, not Posts?
+Posts.hasMany(Likes, {
+  foreignKey: 'post_id',
+});
 
 
 
@@ -58,4 +76,5 @@ export {
   Posts,
   Comments,
   Followers,
+  Likes,
 };

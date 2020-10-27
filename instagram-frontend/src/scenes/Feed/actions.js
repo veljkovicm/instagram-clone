@@ -94,3 +94,22 @@ export const postComment = ({ comment, id }) => async(dispatch, getState) => {
     dispatch(stopLoading());
   }
 }
+
+export const likeAction = ({ postId, liked }) => async (dispatch,getState) => {
+  const body = { postId, liked };
+
+  const response = await API({ method: 'POST', path: '/p/like-action', body});
+
+  if(response.data.statusCode === 200) {
+    console.log('SUCCESS');
+    console.log('>> response', response);
+    return response;
+  } else if (response.data.statusCode === 401) {
+    // dispatch notification here
+    console.log('NOT ALLOWED!');
+  } else {
+    // dispatch notification here
+    console.log('Something went wrong')
+    console.log('>> response', response);
+  }
+}

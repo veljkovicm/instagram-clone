@@ -1,6 +1,7 @@
 import express from 'express';
 import Services from '../services/services.js';
 import path from 'path';
+import _ from 'lodash';
 
 const router = express.Router();
 
@@ -16,10 +17,12 @@ router.get('/posts', async (req, res) =>{
       message: 'No posts found!'
     }).status(404);
   }
-
-  // console.log('>> posts', posts);
   const filteredResults = [];
   posts.forEach((post) => {
+    let isLiked = false;
+    if(req.user.id) {
+      isLiked = _.some(post.likes, { userId: req.user.id})
+    } 
     filteredResults.push({
       id: post.id,
       fileName: post.fileName,
@@ -29,6 +32,7 @@ router.get('/posts', async (req, res) =>{
       avatar: post.user.avatar,
       fullName: post.user.fullName,
       comments: post.comments,
+      isLiked: isLiked,
     });
   });
 
@@ -107,6 +111,7 @@ router.post('/comment', async (req, res) => {
 
 router.get('/get-post/:postId', async (req, res) =>{
   const { postId } = req.params;
+  let isLiked = false;
 
   const post = await Services.getPost({ postId });
 
@@ -117,8 +122,9 @@ router.get('/get-post/:postId', async (req, res) =>{
     }).status(404);
   }
 
-  console.log('post', post.user.username);
-  
+  if(req.user.id) {
+    isLiked = _.some(post.likes, { userId: req.user.id});
+  } 
   const filteredResults = {
     id: post.id,
     fileName: post.fileName,
@@ -128,6 +134,7 @@ router.get('/get-post/:postId', async (req, res) =>{
     avatar: post.user.avatar,
     fullName: post.user.fullName,
     comments: post.comments,
+    isLiked: isLiked,
   };
   
 
@@ -135,6 +142,37 @@ router.get('/get-post/:postId', async (req, res) =>{
     statusCode: 200,
     post: filteredResults,
   }).status(200)
+});
+
+router.post('/like-action', async (req, res) => {
+  const { postId, liked } = req.body;
+  let response;
+  if(!postId) {
+    return res.json({
+      statusCode: 404,
+      message: 'Post not found',
+    }).status(404);
+  }
+
+  if(liked) {
+    response = await Services.unlike({ postId, userId: req.user.id });
+  } else {
+    response = await Services.like({ postId, userId: req.user.id });
+  }
+ 
+
+  if(!response) {
+    return res.json({
+      statusCode: 500,
+      message: 'Action failed',
+    }).status(500);
+  } else {
+    return res.json({
+      statusCode: 200,
+      message: 'Action success!' 
+    }).status(200);
+  }
+
 });
 
 export default router;

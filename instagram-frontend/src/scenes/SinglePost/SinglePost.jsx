@@ -12,6 +12,7 @@ const Feed = (props) => {
     postComment,
     postData,
     getPost,
+    likeAction,
   } = props;
   const { postId } = useParams();
 
@@ -27,7 +28,7 @@ const Feed = (props) => {
   return (
     <div className="single-post-wrapper">
       <Header />
-      { post ? <Post postComment={postComment}  {...post}/> : <p>LOADING</p>}
+      { post ? <Post postComment={postComment} likeAction={likeAction} {...post}/> : <p>LOADING</p>}
     </div>
   )
 };
