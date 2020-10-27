@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Logo,
   SearchBar,
@@ -11,15 +12,27 @@ const Header = (props) => {
   const {
     path,
     username,
+    isLoggedIn,
   } = props;
+  const history = useHistory();
 
-  console.log('>> props', props);
+  const handleButtonClick = (path) => {
+    history.push(path);
+  }
 
   return (
     <div className="page-header">
       <Logo />
       <SearchBar />
-      <NavigationMenu username={username} />
+      {
+        isLoggedIn ?
+          <NavigationMenu username={username} />
+        : 
+          <div className="page-header__buttons-wrapper">
+            <button onClick={() => handleButtonClick('/sign_in')}>Sign In</button>
+            <button onClick={() => handleButtonClick('/sign_up')}>Sign up</button>
+          </div>
+      }
     </div>
   )
 }
