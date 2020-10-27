@@ -24,12 +24,14 @@ router.get('/:username', async (req, res) => {
       user.dataValues.isOwnProfile = true;
     }
   }
-
   user.dataValues.following = !!following;
 
-  const userId = user.id;
+  const [ followerCount, followingCount ] = await Promise.all([ Services.getFollowerCount(user.id), Services.getFollowingCount(user.id) ]);
 
-  const posts = await Services.getPosts({ userId });
+  user.dataValues.followerCount = followerCount;
+  user.dataValues.followingCount = followingCount;
+
+  const posts = await Services.getPosts({ userId: user.id });
   // maybe get only posts, without comments etc. load rest of the data on image popup
 
   return res.send({

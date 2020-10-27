@@ -15,14 +15,14 @@ const Feed = (props) => {
     unfollowUser,
   } = props;
   const { username } = useParams();
+  const history = useHistory();
   let avatarInput = null
 
   const [ user, setUser ] = useState({});
   const [ posts, setPosts ] = useState([]);
   const [ following, setFollowing ] = useState();
   const [ dataLoaded, setDataLoaded ] = useState(false);
-  const history = useHistory();
-  console.log('>> user', user);
+
   useEffect(() => {
     getUser({ username })
     .then((res) => {
@@ -35,9 +35,9 @@ const Feed = (props) => {
     })
     .catch((err) => {
       console.log(err);
-      history.push('/feed')
+      history.push('/feed');
     });
-  }, []);
+  }, [ username ]);
 
   // const userDataLoaded = !!Object.values(user).length && posts;
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
@@ -55,12 +55,14 @@ const Feed = (props) => {
   }
   
   const handleFollowButtonClick = (username) => {
-    if(user.following) {
+    if(following) {
       unfollowUser(username).then(() => {
-        setFollowing(!following)
+        user.followerCount--;
+        setFollowing(!following);
       });
     } else {
       followUser(username).then(() => {
+        user.followerCount++
         setFollowing(!following)
       });
     }
@@ -72,7 +74,11 @@ const Feed = (props) => {
     formData.append('file', e.target.files[0]);
     uploadAvatar({ formData });
   }
-  
+
+  const handleEditButtonClick = () => {
+    history.push('/settings');
+  }
+
   if(!dataLoaded) {
     return <p>LOADING</p>
   }
@@ -100,12 +106,16 @@ const Feed = (props) => {
         </form>
         <div className="user-profile__header-info">
           <h3>{username}</h3>
-
-            { !user.isOwnProfile ? <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button> : null}
+          {
+            !user.isOwnProfile ?
+              <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button>
+            :
+              <button onClick={handleEditButtonClick}>Edit profile</button>
+          }
           <div className="user-profile__user-stats">
             <span>{posts.length} posts</span>
-            <span># followers</span>
-            <span># following</span>
+            <span>{`${user.followerCount} followers`}</span>
+            <span>{`${user.followingCount} following`}</span>
           </div>
           <div className="user-profile__bio">
             <span>Something about me</span>

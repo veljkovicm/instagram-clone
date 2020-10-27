@@ -337,6 +337,18 @@ class Services {
   }
 
 
+  static async getFollowerCount(id) {
+    return Followers.count({
+      where: { id }
+    })
+  }
+  static async getFollowingCount(id) {
+    return Followers.count({
+      where: { followerId: id }
+    })
+  }
+
+
 }
 
 

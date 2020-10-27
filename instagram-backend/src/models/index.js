@@ -29,27 +29,22 @@ User.hasMany(Comments, {
 });
 
 User.hasMany(Followers, {
-  as: 'followers_id',
-  foreignKey: 'id',
-});
-
-User.hasMany(Followers, {
-  as: 'followed_id',
+  // as: 'followers',
   foreignKey: 'id',
 });
 
 
 Followers.belongsTo(User, {
-  as: 'followed',
+  // as: 'followed',
   // foreignKey: 'followed_id',
   foreignKey: 'id',
 
 });
 
-Followers.belongsTo(User, {
-  as: 'follower',
-  foreignKey: 'follower_id',
-});
+// Followers.belongsTo(User, {
+//   as: 'follower',
+//   foreignKey: 'follower_id',
+// });
 
 
 
