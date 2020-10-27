@@ -31,15 +31,16 @@ const SearchBar = (props) => {
     // setResult(searchResult);
     
   }
-
   if(result.length > 0) {
     markup = (
       result.map((user) => {
-        return <a href={`/u/${user.username}`} className="search-result-single">
-          <div><img src={user.imageUrl} /></div>
-          {user.username}
-          {user.fullName}
-          </a>
+        return <a href={`/u/${user.username}`} className="search__results__single">
+          <div className="search__results__single__image"><img src={user.imageUrl} /></div>
+          <div className="search__results__single__info">
+          <span className="search__results__single__username">{user.username}</span>
+          <span className="search__results__single__name">{user.fullName}</span>
+          </div>
+        </a>
       })
     )
   } else if (result.length < 1 && searchQuery !== '') {
@@ -49,12 +50,9 @@ const SearchBar = (props) => {
   }
   const handleClearInput = () => {
     setSearchQuery('');
-    // setFocus(false);
-    setResult([1]);
-  }
-  const handleBlur = (e) => {
-    // setShowSearch(false);
-    setFocus(false)
+    setShowSearch(false);
+    setResult([]);
+    setFocus(false);
   }
   const handleFocus = () => {
     setFocus(true);
@@ -73,9 +71,9 @@ const SearchBar = (props) => {
 
 
   return (
-    <div className="search-bar-wrapper">
+    <div className="search">
       <div className={`backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick}></div>
-        <form>
+        <form className="search__form">
           <input
             type="text"
             placeholder="Search"
@@ -83,11 +81,12 @@ const SearchBar = (props) => {
             value={searchQuery}
             // onBlur={handleBlur}
             onFocus={handleFocus}
+            className="search__form__input"
             />
-          { focus && <span onClick={handleClearInput}>x</span>} {/*clear input */}
-          { loading && <span>L</span> } {/*loading indicator */}
+          { focus && <span onClick={handleClearInput} class="search__form__clear">x</span>} {/*clear input */}
+          { loading && <span className="search__form__loading">L</span> } {/*loading indicator */}
         </form>
-        <div className="search-results-wrapper">
+        <div className="search__results">
           {showMarkup && markup}
         </div>
     </div>

@@ -2,7 +2,9 @@ html,
 body {
   height: 100%;
 }
-
+* {
+  box-sizing: border-box;
+}
 .form-wrapper {
   display: flex;
   position: absolute;
