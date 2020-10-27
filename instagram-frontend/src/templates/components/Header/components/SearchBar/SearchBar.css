@@ -3,7 +3,7 @@
   height: 100%;
   position: fixed;
   left: -0%;
-  z-index: 998;
+  z-index: 996;
   display: none;
 }
 .backdrop.show {
@@ -14,7 +14,7 @@
 .search__results,
 .search {
   position: relative;
-  z-index: 999;
+  z-index: 997;
 }
 
 .search input {

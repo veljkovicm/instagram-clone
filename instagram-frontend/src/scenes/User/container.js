@@ -9,6 +9,7 @@ import {
   uploadAvatar,
   followUser,
   unfollowUser,
+  getFollowList,
 } from './actions.js';
 
 const mapDispatchToProps = {
@@ -17,6 +18,7 @@ const mapDispatchToProps = {
   uploadAvatar,
   followUser,
   unfollowUser,
+  getFollowList,
 }
 
 export default connect(null, mapDispatchToProps)(UserPage);

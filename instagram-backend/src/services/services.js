@@ -349,6 +349,32 @@ class Services {
   }
 
 
+  static async getFollowList({ listType, id }) {
+    if(listType === 'follower') {
+      return Followers.findAll({
+        where: { id },
+        include: [
+          {
+            model: User,
+            as: 'follower',
+            attributes: [ 'id', 'username', 'fullName', 'avatar']
+          }
+        ],
+        // limit: 10, 
+      });
+    } else {
+      return Followers.findAll({
+        where: { followerId: id },
+        include: [
+          {
+            model: User,
+            as: 'followed',
+            attributes: [ 'id', 'username', 'fullName', 'avatar']
+          }
+        ]
+      });
+    }
+  }
 }
 
 

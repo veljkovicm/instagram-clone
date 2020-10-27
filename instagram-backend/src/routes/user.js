@@ -149,6 +149,19 @@ router.post('/unfollow', async (req,res) => {
   }).status(200)
 });
 
+router.post('/get-list', async (req, res) => {
+  const { listType, username } = req.body;
+
+  const { id } = await Services.getUserIdByUsername(username)
+
+  const list = await Services.getFollowList({ listType, id });
+  console.log('>> list', JSON.stringify(list, null, 2));
+  res.json({
+    statusCode: 200,
+    payload: list,
+  }).status(200)
+});
+
 
 
 export default router;

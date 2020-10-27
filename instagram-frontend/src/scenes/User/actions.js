@@ -102,3 +102,25 @@ export const unfollowUser = (username) => async (dispatch, getState) => {
     console.log('Something went wrong');
   }
 }
+
+export const getFollowList = ({ listType, username }) => async (dispatch, getState) => {
+
+  const body = {
+    listType,
+    username,
+  };
+
+  const response = await API({ method: 'POST', path:'/u/get-list', body});
+  
+  if(response.data.statusCode === 200) {
+    console.log('LIST FETCH SUCCESS');
+    console.log(response);
+    return response.data.payload;
+  } else if (response.data.statusCode === 401) {
+    // dispatch notification here
+    console.log('NOT ALLOWED!')
+  } else {
+    // dispatch notification here
+    console.log('Something went wrong');
+  }
+}
