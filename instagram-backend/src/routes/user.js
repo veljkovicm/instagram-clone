@@ -32,6 +32,13 @@ router.get('/:username', async (req, res) => {
   user.dataValues.followingCount = followingCount;
 
   const posts = await Services.getPosts({ userId: user.id });
+  
+  if(posts) {
+    for(let post in posts) {
+      posts[post].dataValues.likeCount = posts[post].likes.length;
+      posts[post].dataValues.commentCount = posts[post].comments.length;
+    }
+  }
   // maybe get only posts, without comments etc. load rest of the data on image popup
 
   return res.send({

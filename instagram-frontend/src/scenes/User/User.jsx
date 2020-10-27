@@ -45,11 +45,14 @@ const Feed = (props) => {
 
   // const userDataLoaded = !!Object.values(user).length && posts;
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
-
   const postsMarkup = (
     posts.map((post) =>
       <div key={post.id} className="user-profile__posts__single">
-        <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post"/>
+        <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
+        <div className="user-profile__posts__single__hover">
+          <div>L: {post.likeCount ? post.likeCount : 0}</div>
+          <div>C: {post.commentCount ? post.commentCount : 0}</div>
+        </div>
       </div>
     )
   )
