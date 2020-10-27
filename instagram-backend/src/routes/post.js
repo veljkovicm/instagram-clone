@@ -33,6 +33,7 @@ router.get('/posts', async (req, res) =>{
       fullName: post.user.fullName,
       comments: post.comments,
       isLiked: isLiked,
+      likeCount: post.likes.length,
     });
   });
 
@@ -135,6 +136,7 @@ router.get('/get-post/:postId', async (req, res) =>{
     fullName: post.user.fullName,
     comments: post.comments,
     isLiked: isLiked,
+    likeCount: post.likes.length,
   };
   
 

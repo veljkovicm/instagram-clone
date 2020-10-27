@@ -14,9 +14,11 @@ const Post = (props) => {
     comments,
     likeAction,
     isLiked,
+    likeCount,
   } = props;
   const [ comment, setComment ] = useState('');
   const [ liked, setLiked ] = useState(isLiked);
+  const [ likeCounter, setLikeCounter ] = useState(likeCount);
   const history = useHistory();
 
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
@@ -42,10 +44,14 @@ const Post = (props) => {
       </div>
     })
   )
-
   const handleLikeIconClick = () => {
 
     likeAction({ postId: id, liked }).then(() => {
+      if(liked) {
+        setLikeCounter(likeCounter - 1)
+      } else {
+        setLikeCounter(likeCounter + 1)
+      }
       setLiked(!liked);
     })
   }
@@ -69,7 +75,7 @@ const Post = (props) => {
         <div>Direct</div>
         <div>Save</div>
       </div>
-      {/* likes */}
+      {likeCounter > 0 ? <p>{likeCounter} {likeCounter === 1 ? 'like' : 'likes'}</p> : null}
       <div className="single-post__caption-wrapper">
         <Link to={`/u/${username}`}>{username}</Link>
         <span>{caption}</span>
