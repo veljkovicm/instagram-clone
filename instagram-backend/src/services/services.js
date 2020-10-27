@@ -296,17 +296,6 @@ class Services {
   }
 
   static async updateUserSettings({ userData, id }) {
-    const {
-      username,
-      email,
-      fullName,
-      avatar,
-      gender,
-      website,
-      bio,
-      phoneNumber,
-    } = userData;
-
     const fields = { ...userData }
     return User.update(
       { ...fields },
@@ -325,14 +314,14 @@ class Services {
   static async follow({ followerId, followedId }) {
     return Followers.create({
       followerId,
-      followedId,
+      id: followedId,
       followedAt: new Date(),
     });
   }
 
   static async unfollow({ followerId, followedId }) {
     try { Followers.destroy({
-      where: { followerId, followedId }
+      where: { followerId, id: followedId }
      });
     } catch(err) {
       return console.log(err);
@@ -343,7 +332,7 @@ class Services {
   static async isFollowing({ followerId, followedId }) {
     console.log({followerId, followedId});
     return Followers.findOne({
-      where: { followerId, followedId }
+      where: { followerId, id: followedId }
     })
   }
 
@@ -351,4 +340,4 @@ class Services {
 }
 
 
-export default Services; 
+export default Services;

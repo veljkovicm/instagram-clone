@@ -41,7 +41,9 @@ User.hasMany(Followers, {
 
 Followers.belongsTo(User, {
   as: 'followed',
-  foreignKey: 'followed_id',
+  // foreignKey: 'followed_id',
+  foreignKey: 'id',
+
 });
 
 Followers.belongsTo(User, {
