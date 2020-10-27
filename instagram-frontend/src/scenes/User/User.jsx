@@ -81,8 +81,12 @@ const Feed = (props) => {
     <div className="user-profile-wrapper">
       <Header />
       <div className="user-profile__header">
-        <div className="user-profile__avatar" onClick={handleAvatarIconClick} style={{ backgroundImage: `url(${avatarSrc})`}}>
-          <div className="user-profile__avatar_hover" />
+        <div
+          className="user-profile__avatar"
+          onClick={user.isOwnProfile ? handleAvatarIconClick : null}
+          style={{ backgroundImage: `url(${avatarSrc})`}}
+        >
+          <div className={user.isOwnProfile ? 'user-profile__avatar_hover' : null} />
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -96,7 +100,8 @@ const Feed = (props) => {
         </form>
         <div className="user-profile__header-info">
           <h3>{username}</h3>
-          <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button>
+
+            { !user.isOwnProfile ? <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button> : null}
           <div className="user-profile__user-stats">
             <span>{posts.length} posts</span>
             <span># followers</span>

@@ -20,6 +20,9 @@ router.get('/:username', async (req, res) => {
 
   if(req.user) {
     following = await Services.isFollowing({ followerId: req.user.id, followedId: user.id });
+    if(username === req.user.username) {
+      user.dataValues.isOwnProfile = true;
+    }
   }
 
   user.dataValues.following = !!following;
