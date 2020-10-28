@@ -26,7 +26,7 @@ const Header = (props) => {
       <SearchBar />
       {
         isLoggedIn ?
-          <NavigationMenu username={username} />
+          <NavigationMenu username={username} path={path} />
         : 
           <div className="page-header__buttons-wrapper">
             <button onClick={() => handleButtonClick('/sign_in')}>Sign In</button>

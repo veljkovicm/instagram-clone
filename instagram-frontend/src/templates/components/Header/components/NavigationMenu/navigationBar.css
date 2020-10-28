@@ -18,6 +18,10 @@
   margin: 5px;
 }
 
+.navigation-menu__item.active {
+  background: blue;
+}
+
 .navigation-menu__dropdown-item,
 .navigation-menu__item {
   cursor: pointer;

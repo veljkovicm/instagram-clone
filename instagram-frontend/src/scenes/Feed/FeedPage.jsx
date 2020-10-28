@@ -52,7 +52,7 @@ const Feed = (props) => {
   }
   return (
     <div className="feed">
-      <Header />
+      <Header path="/feed" />
       <form onSubmit={handleSubmit}>
         <input type="file" name="myImage" onChange={handleChange}/>
         <input type="text" name="description" onChange={handleChange} />

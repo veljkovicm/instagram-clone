@@ -99,7 +99,7 @@ const Feed = (props) => {
 
   return (
     <div className="user-profile-wrapper">
-      <Header />
+      <Header path={`/u/${username}`}/>
       {
         popup 
           &&
