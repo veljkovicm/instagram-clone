@@ -83,7 +83,7 @@ const SearchBar = (props) => {
             onFocus={handleFocus}
             className="search__form__input"
             />
-          { focus && <span onClick={handleClearInput} class="search__form__clear">x</span>} {/*clear input */}
+          { focus && <span onClick={handleClearInput} className="search__form__clear">x</span>} {/*clear input */}
           { loading && <span className="search__form__loading">L</span> } {/*loading indicator */}
         </form>
         <div className="search__results">

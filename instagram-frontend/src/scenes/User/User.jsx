@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import Post from '../Feed/components/Post.jsx';
 import Header from '../../templates/components/Header/index.js';
 import { customHook } from '../../lib';
-import Popup from './components/Popup.jsx';
+import { UserListPopup } from '../../templates/components/Popups';
 
 
 import './user.css';
@@ -103,7 +103,7 @@ const Feed = (props) => {
       {
         popup 
           &&
-        <Popup
+        <UserListPopup
           type={popup}
           data={popupData}
           setPopup={setPopup}

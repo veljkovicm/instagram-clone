@@ -123,7 +123,7 @@ router.get('/get-post/:postId', async (req, res) =>{
     }).status(404);
   }
 
-  if(req.user.id) {
+  if(req.user) {
     isLiked = _.some(post.likes, { userId: req.user.id});
   } 
   const filteredResults = {
