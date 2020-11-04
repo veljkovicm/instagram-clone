@@ -2,15 +2,8 @@ import { API } from '../../lib'
 import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
 
 export const upload = ({ formData }) => async (dispatch, getState) => {
-  const  { isLoading } = getState().auth;
-
-  if (isLoading) return;
 
   try {
-    dispatch(startLoading());
-
-    console.log('formData', formData);
-
     const headers = {
       'Content-Type': 'multipart/form-data'
     }
@@ -19,6 +12,7 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
 
     if(response.data.statusCode === 200) {
       console.log('SUCCESS');
+      return response.data.payload.newPost;
     } else if (response.data.statusCode === 401) {
       // dispatch notification here
       console.log('NOT ALLOWED!')
@@ -26,14 +20,9 @@ export const upload = ({ formData }) => async (dispatch, getState) => {
       // dispatch notification here
       console.log('Something went wrong')
     }
-
-
   } catch (error) {
     // dispatch error message
-    dispatch(stopLoading());
-    console.error(error);
-  } finally {
-    dispatch(stopLoading());
+    console.log(error);
   }
 }
 

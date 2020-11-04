@@ -47,7 +47,12 @@ const Feed = (props) => {
     formData.append('file', file);
     formData.append('caption', caption);
     console.log(formData);
-    upload({ formData });  
+    upload({ formData }).then((res) => {
+      setPosts((oldPosts) => [
+        res,
+        ...oldPosts,
+      ]);
+    });
 
   }
   return (
