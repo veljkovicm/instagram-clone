@@ -16,10 +16,12 @@ const Post = (props) => {
     isLiked,
     likeCount,
   } = props;
+
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments);
   const [ liked, setLiked ] = useState(isLiked);
   const [ likeCounter, setLikeCounter ] = useState(likeCount);
+
 
   let commentInput = null
   const history = useHistory();
@@ -55,7 +57,6 @@ const Post = (props) => {
     })
   )
   const handleLikeIconClick = () => {
-
     likeAction({ postId: id, liked }).then(() => {
       if(liked) {
         setLikeCounter(likeCounter - 1)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../templates/components/Header/index.js';
-import Post from './components/Post.jsx';
+import Post from '../../templates/components/Post';
 
 import './feed.css';
 

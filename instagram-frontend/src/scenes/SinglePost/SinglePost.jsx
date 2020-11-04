@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Post from '../Feed/components/Post.jsx';
+import Post from '../../templates/components/Post';
 import Header from '../../templates/components/Header/index.js';
 
 
