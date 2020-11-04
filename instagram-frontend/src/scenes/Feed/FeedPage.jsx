@@ -8,8 +8,6 @@ const Feed = (props) => {
   const {
     upload,
     getPosts,
-    postComment,
-    likeAction,
   } = props;
   const [ file, setFile ] = useState();
   const [ caption, setCaption ] = useState('');
@@ -34,7 +32,7 @@ const Feed = (props) => {
     posts ? 
     posts.map((post, i) => {
       return <div key={i}>
-        <Post postComment={postComment} {...post} likeAction={likeAction} />
+        <Post {...post} />
         </div>
     }) : <div>LOADING</div>
     // loading component
