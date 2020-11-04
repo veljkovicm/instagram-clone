@@ -31,15 +31,7 @@ export const getUser = ({ username }) => async (dispatch, getState) => {
 }
 
 export const uploadAvatar = ({ formData }) => async (dispatch, getState) => {
-  const  { isLoading } = getState().auth;
-
-  if (isLoading) return;
-
   try {
-    dispatch(startLoading());
-
-    console.log('formData', formData);
-
     const headers = {
       'Content-Type': 'multipart/form-data'
     }
@@ -48,6 +40,7 @@ export const uploadAvatar = ({ formData }) => async (dispatch, getState) => {
 
     if(response.data.statusCode === 200) {
       console.log('SUCCESS');
+      return response.data.payload;
     } else if (response.data.statusCode === 401) {
       // dispatch notification here
       console.log('NOT ALLOWED!')
@@ -55,14 +48,8 @@ export const uploadAvatar = ({ formData }) => async (dispatch, getState) => {
       // dispatch notification here
       console.log('Something went wrong')
     }
-
-
   } catch (error) {
     // dispatch error message
-    dispatch(stopLoading());
-    console.error(error);
-  } finally {
-    dispatch(stopLoading());
   }
 }
 
