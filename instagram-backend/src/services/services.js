@@ -231,6 +231,9 @@ class Services {
   static async getPosts({ userId }) {
     return Posts.findAll({
       where: { userId },
+      order: [
+        [ 'uploaded_at', 'DESC' ]
+      ],
       include: [
         {
           model: User,
