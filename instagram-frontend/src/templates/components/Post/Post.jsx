@@ -18,7 +18,7 @@ const Post = (props) => {
   } = props;
 
   const [ comment, setComment ] = useState('');
-  const [ postComments, setPostComments ] = useState(comments);
+  const [ postComments, setPostComments ] = useState(comments || []);
   const [ liked, setLiked ] = useState(isLiked);
   const [ likeCounter, setLikeCounter ] = useState(likeCount);
 
@@ -49,8 +49,8 @@ const Post = (props) => {
   }
 
   const commentsMarkup = (
-    postComments?.map((comment) => {
-      return <div key={comment.id}>
+    postComments.map((comment, i) => {
+      return <div key={i}>
         <span><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
         <span>{comment.comment}</span>
       </div>
