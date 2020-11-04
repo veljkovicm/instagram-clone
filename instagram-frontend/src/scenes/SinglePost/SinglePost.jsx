@@ -6,7 +6,7 @@ import Header from '../../templates/components/Header/index.js';
 
 import './singlePost.css';
 
-const Feed = (props) => {
+const SinglePost = (props) => {
   const {
     // post,
     postComment,
@@ -35,7 +35,7 @@ const Feed = (props) => {
 
 // PropTypes
 
-export default Feed;
+export default SinglePost;
 
 
 

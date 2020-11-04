@@ -17,16 +17,25 @@ const Post = (props) => {
     likeCount,
   } = props;
   const [ comment, setComment ] = useState('');
+  const [ postComments, setPostComments ] = useState(comments);
   const [ liked, setLiked ] = useState(isLiked);
   const [ likeCounter, setLikeCounter ] = useState(likeCount);
-  const history = useHistory();
 
+  let commentInput = null
+  const history = useHistory();
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  let commentInput = null;
+  const imageSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-
-    postComment({ id, comment });
+    postComment({ id, comment })
+    .then((res) => {
+      setPostComments((prevState) => [
+        ...prevState,
+        res.payload,
+      ]);
+      setComment('');
+    })
   }
 
   const handleChange = (e) => {
@@ -36,8 +45,9 @@ const Post = (props) => {
   const handleCommentIconClick = () => {
     history.push(`/p/${id}`)
   }
+
   const commentsMarkup = (
-    comments.map((comment) => {
+    postComments.map((comment) => {
       return <div>
         <span><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
         <span>{comment.comment}</span>
@@ -55,14 +65,13 @@ const Post = (props) => {
       setLiked(!liked);
     })
   }
-  
-  const imageSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+
   return (
     <div className="single-post">
       <div className="single-post__user-badge">
         <Link to={`/u/${username}`}>
           <img src={imageSrc} alt="userAvatar" width="30"/>
-        {username}
+          {username}
         </Link>
         {/* dot menu */}
       </div>

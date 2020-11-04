@@ -67,7 +67,7 @@ export const getPosts = () => async(dispatch, getState) => {
 
 export const postComment = ({ comment, id }) => async(dispatch, getState) => {
   try {
-    dispatch(startLoading());
+    // dispatch(startLoading());
 
     const body = {
       comment,
@@ -91,7 +91,7 @@ export const postComment = ({ comment, id }) => async(dispatch, getState) => {
     console.error(err);
     // dispatch error notification
   } finally {
-    dispatch(stopLoading());
+    // dispatch(stopLoading());
   }
 }
 

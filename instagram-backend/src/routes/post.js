@@ -95,10 +95,17 @@ router.post('/comment', async (req, res) => {
   };
 
   Services.postComment({ comment, userId, postId })
-    .then(() => {
+    .then((response) => {
       return res.json({
         statusCode: 200,
         message: 'Comment submitted successfully!',
+        payload: {
+          comment: response.comment,
+          createdAt: response.createdAt,
+          user: {
+            username: req.user.username,
+          }
+        },
       }).status(200);
     })
     .catch((err) => {
