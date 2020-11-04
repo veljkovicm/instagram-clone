@@ -48,7 +48,7 @@ const Post = (props) => {
 
   const commentsMarkup = (
     postComments.map((comment) => {
-      return <div>
+      return <div key={comment.id}>
         <span><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
         <span>{comment.comment}</span>
       </div>
