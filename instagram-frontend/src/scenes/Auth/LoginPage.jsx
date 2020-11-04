@@ -33,7 +33,7 @@ const Login = (props) => {
   };
 
   const handleLogin = (e) => {
-    if (e.preventDefault) e.preventDefault();
+    e.preventDefault();
 
     // const { error, errorMsg } = handleOnClickValidation() || {};
 
@@ -49,49 +49,49 @@ const Login = (props) => {
     // }
     }
 
-    const handlePasswordVisibility = () => {
-      setPasswordVisible(!passwordVisible);
-    }
+  const handlePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  }
 
 
-    return (
-      <div className="auth form-wrapper">
-        <Loading />
-        <form onSubmit={handleLogin}>
+  return (
+    <div className="auth form-wrapper">
+      <Loading />
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          name="email"
+          label="email"
+          onChange={handleInputChange(setEmail)}
+          value={email}
+        />
+        <div>
+        <div className="password-input-wrapper">
           <input
-            type="text"
-            name="email"
-            label="email"
-            onChange={handleInputChange(setEmail)}
-            value={email}
+            type={passwordVisible ? 'text' : 'password'}
+            name="password"
+            label="password"
+            onChange={handleInputChange(setPassword)}
+            value={password}
           />
-          <div>
-            <input
-              type={passwordVisible ? 'text' : 'password'}
-              name="password"
-              label="password"
-              onChange={handleInputChange(setPassword)}
-              value={password}
-            />
-            <button
-              type="button"
-              className="password-visibility-toggle"
-              onClick={handlePasswordVisibility}>
-                Toggle
-            </button>
+          <div
+            className="password-visibility-toggle"
+            onClick={handlePasswordVisibility}>
           </div>
-          <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
-        </form>
-        <p>
-          Don't have an account?
-          <a href="/sign_up">Register here!</a>
-        </p>
-        <a href="/forgot_password">Forgot password?</a>
-      </div>
-    )
-  };
+        </div>
+        </div>
+        <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
+      </form>
+      <p>
+        Don't have an account?
+        <a href="/sign_up">Register here!</a>
+      </p>
+      <a href="/forgot_password">Forgot password?</a>
+    </div>
+  )
+};
 
-  export default Login;
+export default Login;
 
 
 
