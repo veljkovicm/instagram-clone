@@ -59,12 +59,11 @@ router.post('/upload-avatar', async (req, res) => {
   }
   const __dirname = path.resolve();
   const { file } = req.files;
-
-  if(file.mimetype !== ('image/jpeg' || 'image/png' )) {
+  if(file.mimetype !=='image/jpeg' && file.mimetype !== 'image/png') {
     return res.json({
       statusCode: 400,
       message: 'Unsupported file type. Please use JPG/PNG',
-    }).status(40)
+    }).status(400)
   }
 
   const { avatar: oldAvatar } =  await Services.getOldAvatarUrl(req.user.id);
@@ -80,8 +79,9 @@ router.post('/upload-avatar', async (req, res) => {
 
   const { id: userId } = req.user;
   const fileExtension = file.mimetype.split('/')[1];
+  const timestamp = Date.now();
 
-  const filename = `avatar-${userId}.${fileExtension}`;
+  const filename = `avatar-${userId}-${timestamp}.${fileExtension}`;
 
   file.mv(`${__dirname}/public/uploads/${filename}`, async (err) => {
     if(err) {
@@ -94,9 +94,13 @@ router.post('/upload-avatar', async (req, res) => {
 
     await Services.updateAvatar({ filename, userId});
 
+    // reformat. not looking good with url in here?
+    const newAvatar = `http://localhost:5000/uploads/${filename}`;
+
     res.json({
       statusCode: 200,
-      message: 'Avatar updated successfully!'
+      message: 'Avatar updated successfully!',
+      payload: { newAvatar },
     }).status(200);
   })
 
