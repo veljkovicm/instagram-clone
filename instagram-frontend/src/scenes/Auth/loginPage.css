@@ -1,0 +1,16 @@
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input-wrapper > input {
+  padding-right: 20px;
+}
+.password-visibility-toggle {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  background: blue;
+  cursor: pointer;
+}
