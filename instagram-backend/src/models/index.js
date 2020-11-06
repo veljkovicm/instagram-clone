@@ -4,6 +4,7 @@ import Posts from './Posts.js';
 import Comments from './Comments.js';
 import Followers from './Followers.js';
 import Likes from './Likes.js';
+import SavedPosts from './SavedPosts.js';
 
 Posts.belongsTo(User, {
   foreignKey: 'user_id',
@@ -66,6 +67,16 @@ Likes.belongsTo(User, {
 // foreign key refers to Likes, not Posts?
 Posts.hasMany(Likes, {
   foreignKey: 'post_id',
+});
+
+
+// Saved Posts
+SavedPosts.belongsTo(Posts, {
+  foreignKey: 'post_id',
+});
+
+User.hasMany(SavedPosts, {
+  foreignKey: 'user_id',
 });
 
 

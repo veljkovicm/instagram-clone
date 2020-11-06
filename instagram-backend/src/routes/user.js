@@ -24,6 +24,21 @@ router.get('/:username', async (req, res) => {
       user.dataValues.isOwnProfile = true;
     }
   }
+  let savedPostsArr = [];
+
+  if(req.user && user.id === req.user.id) {
+    const savedPosts = await Services.getSavedPosts({ userId: req.user.id });
+    
+    savedPosts.forEach((p) => {
+      savedPostsArr.push({
+        likeCount: p.post.likes.length || 0,
+        commentCount: p.post.comments.length || 0,
+        ...p.post.dataValues
+      });
+    });
+  }
+
+  // console.log('>> \x1b[41m%s\x1b[0m', 'savedPostsArr', savedPostsArr);
   user.dataValues.following = !!following;
 
   const [ followerCount, followingCount ] = await Promise.all([ Services.getFollowerCount(user.id), Services.getFollowingCount(user.id) ]);
@@ -46,6 +61,7 @@ router.get('/:username', async (req, res) => {
     payload: {
       user,
       posts,
+      savedPosts: savedPostsArr,
     },
   }).status(200)
 });

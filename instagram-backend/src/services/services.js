@@ -14,6 +14,7 @@ import {
   Likes,
 } from '../models/index.js';
 import database from '../../config/database.js';
+import SavedPosts from '../models/SavedPosts.js';
 
 
 // separate to UserServices and EmailServices
@@ -230,7 +231,7 @@ class Services {
 
   static async getPosts({ userId }) {
     return Posts.findAll({
-      where: { userId },
+      // where: { userId },
       order: [
         [ 'uploaded_at', 'DESC' ]
       ],
@@ -251,6 +252,31 @@ class Services {
         }
       ],
       logging: console.log,
+    });
+  }
+
+  static async getSavedPosts({ userId }) {
+    return SavedPosts.findAll({
+      where: { userId },
+      order: [
+        [ 'saved_at', 'DESC' ]
+      ],
+      include: [
+        {
+          model: Posts,
+          include: [
+            {
+              model: Likes,
+              attributes: ['id']
+            },
+            {
+              model: Comments,
+              attributes: ['id']
+            }
+          ]
+        },
+      ],
+     
     });
   }
 
@@ -398,6 +424,20 @@ class Services {
     return Likes.destroy(
       { where: { postId, userId }}
     )
+  }
+
+  static async savePost({ postId, userId }) {
+    return SavedPosts.create({
+      postId,
+      userId,
+      savedAt: new Date(),
+    })
+  }
+
+  static async unsavePost({ postId, userId }) {
+    return SavedPosts.destroy({
+      where: { postId, userId }
+    });
   }
 }
 

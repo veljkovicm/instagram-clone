@@ -183,4 +183,41 @@ router.post('/like-action', async (req, res) => {
 
 });
 
+router.post('/save-post', async (req, res) => {
+  const { postId } = req.body;
+
+  if(!postId) {
+    return res.json({
+      statusCode: 400,
+      message: 'Invalid post ID',
+    }).status(400);
+  }
+
+  await Services.savePost({ postId, userId: req.user.id });
+
+  return res.json({
+    statusCode: 200,
+    message: 'Post saved successfully!',
+  }).status(200);
+});
+
+router.post('/unsave-post', async (req, res) => {
+  const { postId } = req.body;
+
+  if(!postId) {
+    return res.json({
+      statusCode: 400,
+      message: 'Invalid post ID',
+    }).status(400);
+  }
+
+  await Services.unsavePost({ postId, userId: req.user.id });
+
+  return res.json({
+    statusCode: 200,
+    message: 'Post unsaved successfully!',
+  }).status(200);
+
+});
+
 export default router;
