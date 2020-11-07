@@ -11,6 +11,8 @@ router.get('/posts', async (req, res) =>{
 
   const posts = await Services.getPosts({ userId });
 
+  const savedPosts = await Services.getSavedPostsList({ userId });
+
   if(!posts) {
     return res.json({
       statusCode: 404,
@@ -20,8 +22,10 @@ router.get('/posts', async (req, res) =>{
   const filteredResults = [];
   posts.forEach((post) => {
     let isLiked = false;
+    let isSaved = false;
     if(req.user.id) {
-      isLiked = _.some(post.likes, { userId: req.user.id})
+      isLiked = _.some(post.likes, { userId: req.user.id});
+      isSaved = _.includes(savedPosts, post.id);
     } 
     filteredResults.push({
       id: post.id,
@@ -32,8 +36,9 @@ router.get('/posts', async (req, res) =>{
       avatar: post.user.avatar,
       fullName: post.user.fullName,
       comments: post.comments,
-      isLiked: isLiked,
       likeCount: post.likes.length,
+      isLiked,
+      isSaved,
     });
   });
 
@@ -183,41 +188,33 @@ router.post('/like-action', async (req, res) => {
 
 });
 
-router.post('/save-post', async (req, res) => {
-  const { postId } = req.body;
-
+router.post('/save-post-action', async (req, res) => {
+  const { postId, saved } = req.body;
+  let response;
   if(!postId) {
     return res.json({
-      statusCode: 400,
-      message: 'Invalid post ID',
-    }).status(400);
+      statusCode: 404,
+      message: 'Post not found',
+    }).status(404);
   }
 
-  await Services.savePost({ postId, userId: req.user.id });
-
-  return res.json({
-    statusCode: 200,
-    message: 'Post saved successfully!',
-  }).status(200);
-});
-
-router.post('/unsave-post', async (req, res) => {
-  const { postId } = req.body;
-
-  if(!postId) {
+  if(saved) {
+    response = await Services.unsavePost({ postId, userId: req.user.id });
+  } else {
+    response = await Services.savePost({ postId, userId: req.user.id });
+  }
+ 
+  if(!response) {
     return res.json({
-      statusCode: 400,
-      message: 'Invalid post ID',
-    }).status(400);
+      statusCode: 500,
+      message: 'Action failed',
+    }).status(500);
+  } else {
+    return res.json({
+      statusCode: 200,
+      message: 'Action success!' 
+    }).status(200);
   }
-
-  await Services.unsavePost({ postId, userId: req.user.id });
-
-  return res.json({
-    statusCode: 200,
-    message: 'Post unsaved successfully!',
-  }).status(200);
-
 });
 
 export default router;

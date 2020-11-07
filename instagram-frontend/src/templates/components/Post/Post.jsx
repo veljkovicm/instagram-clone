@@ -15,18 +15,21 @@ const Post = (props) => {
     likeAction,
     isLiked,
     likeCount,
+    isSaved,
+    savePostAction,
   } = props;
 
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments || []);
   const [ liked, setLiked ] = useState(isLiked);
+  const [ saved, setSaved ] = useState(isSaved);
   const [ likeCounter, setLikeCounter ] = useState(likeCount);
 
 
   let commentInput = null
   const history = useHistory();
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const imageSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -67,11 +70,18 @@ const Post = (props) => {
     })
   }
 
+  const handleSavePostClick = () => {
+    savePostAction({ postId: id, saved })
+      .then(() => {
+        setSaved(!saved);
+      });
+  }
+
   return (
     <div className="single-post">
       <div className="single-post__user-badge">
         <Link to={`/u/${username}`}>
-          <img src={imageSrc} alt="userAvatar" width="30"/>
+          <img src={avatarSrc} alt="userAvatar" width="30"/>
           {username}
         </Link>
         {/* dot menu */}
@@ -83,7 +93,7 @@ const Post = (props) => {
         <div onClick={handleLikeIconClick}>{liked ? 'Unlike' : 'Like'}</div>
         <div onClick={handleCommentIconClick}>Comment</div> 
         <div>Direct</div>
-        <div>Save</div>
+        <div onClick={handleSavePostClick}>{saved ? 'SAVED' : 'Save'}</div>
       </div>
       {likeCounter > 0 ? <p>{likeCounter} {likeCounter === 1 ? 'like' : 'likes'}</p> : null}
       <div className="single-post__caption-wrapper">

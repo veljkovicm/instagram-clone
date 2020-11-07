@@ -280,6 +280,15 @@ class Services {
     });
   }
 
+  static async getSavedPostsList({ userId }) {
+    const posts = await SavedPosts.findAll({
+      where: { userId },
+      attributes: [ ['post_id', 'id'] ],
+    });
+
+    return posts.map(({ id }) => id)
+  }
+
   static async postComment({ comment, postId, userId}) {
     return Comments.create({
       comment,

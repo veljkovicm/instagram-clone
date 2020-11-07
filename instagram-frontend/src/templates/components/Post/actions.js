@@ -44,3 +44,22 @@ export const likeAction = ({ postId, liked }) => async (dispatch,getState) => {
     console.log('>> response', response);
   }
 }
+
+export const savePostAction = ({ postId, saved }) => async (dispatch, getState) => {
+  const body = { postId, saved };
+
+  const response = await API({ method: 'POST', path: '/p/save-post-action', body });
+
+  if(response.data.statusCode === 200) {
+    console.log('SUCCESS');
+    console.log('>> response', response);
+    return response;
+  } else if (response.data.statusCode === 401) {
+    // dispatch notification here
+    console.log('NOT ALLOWED!');
+  } else {
+    // dispatch notification here
+    console.log('Something went wrong')
+    console.log('>> response', response);
+  }
+}
