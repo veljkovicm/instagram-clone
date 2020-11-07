@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { UserListPopup } from '../../../templates/components/Popups';
+import { UserListPopup } from '../../../../templates/components/Popups';
 
 import './userHeader.css';
 

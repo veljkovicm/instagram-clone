@@ -51,7 +51,6 @@ const NavigationBar = (props) => {
           {menuActive === 'user' &&
           <div className="navigation-menu__dropdown user">
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}`)}>Profile</div>
-            <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick(`/u/${username}/saved`)}>Saved</div>
             <div className="navigation-menu__dropdown-item"  onClick={() => handleNavClick('/settings')}>Settings</div>
             <div className="navigation-menu__dropdown-item"  onClick={handleLogout}>Log Out</div>
           </div> }

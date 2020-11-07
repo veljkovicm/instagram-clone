@@ -60,8 +60,10 @@ router.get('/:username', async (req, res) => {
     statusCode: 200,
     payload: {
       user,
-      posts,
-      savedPosts: savedPostsArr,
+      posts: {
+        userPosts: posts,
+        savedPosts: savedPostsArr,
+      },
     },
   }).status(200)
 });

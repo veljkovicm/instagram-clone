@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import Header from '../../templates/components/Header/index.js';
-import UserHeader from './components/UserHeader.jsx';
+import UserHeader from './components/UserHeader/UserHeader.jsx';
+import UserPosts from './components/UserPosts/UserPosts.jsx';
 
 import './user.css';
 
@@ -13,6 +14,7 @@ const Feed = (props) => {
     unfollowUser,
     getFollowList,
   } = props;
+
   const { username } = useParams();
   const history = useHistory();
 
@@ -35,22 +37,10 @@ const Feed = (props) => {
     });
   }, [ username ]);
 
-  const postsMarkup = (
-    posts.map((post) =>
-      <div key={post.id} className="user-profile__posts__single">
-        <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
-        <div className="user-profile__posts__single__hover">
-          <div>L: {post.likeCount ? post.likeCount : 0}</div>
-          <div>C: {post.commentCount ? post.commentCount : 0}</div>
-        </div>
-      </div>
-    )
-  )
-
   if(!dataLoaded) {
     return <p>LOADING</p>
   }
-
+  console.log('>> POSTS', posts);
   return (
     <div className="user-profile-wrapper">
       <Header path={`/u/${username}`}/>
@@ -61,11 +51,12 @@ const Feed = (props) => {
         unfollowUser={unfollowUser}
         getFollowList={getFollowList}
         username={username}
-        postCount={posts.length}
+        postCount={posts.userPosts.length}
       />
-      <div className="user-profile__posts">
-        {postsMarkup}
-      </div>
+      <UserPosts 
+        posts={posts}
+        isOwnProfile={user.isOwnProfile}
+      />
     </div>
   )
 };
