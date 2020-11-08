@@ -60,21 +60,18 @@ const Post = (props) => {
     })
   )
   const handleLikeIconClick = () => {
-    likeAction({ postId: id, liked }).then(() => {
-      if(liked) {
-        setLikeCounter(likeCounter - 1)
-      } else {
-        setLikeCounter(likeCounter + 1)
-      }
-      setLiked(!liked);
-    })
+    setLiked(!liked);
+    if(liked) {
+      setLikeCounter(likeCounter - 1)
+    } else {
+      setLikeCounter(likeCounter + 1)
+    }
+    likeAction({ postId: id, liked });
   }
 
   const handleSavePostClick = () => {
-    savePostAction({ postId: id, saved })
-      .then(() => {
-        setSaved(!saved);
-      });
+    setSaved(!saved);
+    savePostAction({ postId: id, saved });
   }
 
   return (
