@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import Loading from '../../templates/components/Loading';
 
@@ -53,21 +54,24 @@ const Signup = (props) => {
     // }
     }
     return (
-      <div className="signup form-wrapper">
-        <Loading />
-        <form onSubmit={handleSignup}>
-          <input type="text" name="email" onChange={handleInputChange(setEmail)} value={email} placeholder="email" />
-          <input type="text" name="username" onChange={handleInputChange(setUsername)} value={username} placeholder="username" />
-          <input type="text" name="full-name" onChange={handleInputChange(setFullName)} value={fullName} placeholder="full name" />
-          <input type="password" name="password" onChange={handleInputChange(setPassword)} value={password} />
-          <input type="password" name="confirm-password"  onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} placeholder="confirm password"/>
-          <button type="submit" onClick={handleSignup}>{loading? 'Loading...' : 'signup'}</button>
-        </form>
-        <p>
-          Already have an account?
-          <a href="/sign_in">Log in instead</a>
-        </p>
-      </div>
+      <>
+        <Helmet><title>Instagram - Sign up</title></Helmet>
+        <div className="signup form-wrapper">
+          <Loading />
+          <form onSubmit={handleSignup}>
+            <input type="text" name="email" onChange={handleInputChange(setEmail)} value={email} placeholder="email" />
+            <input type="text" name="username" onChange={handleInputChange(setUsername)} value={username} placeholder="username" />
+            <input type="text" name="full-name" onChange={handleInputChange(setFullName)} value={fullName} placeholder="full name" />
+            <input type="password" name="password" onChange={handleInputChange(setPassword)} value={password} />
+            <input type="password" name="confirm-password"  onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} placeholder="confirm password"/>
+            <button type="submit" onClick={handleSignup}>{loading? 'Loading...' : 'signup'}</button>
+          </form>
+          <p>
+            Already have an account?
+            <a href="/sign_in">Log in instead</a>
+          </p>
+        </div>
+      </>
     )
   };
   // PropTypes

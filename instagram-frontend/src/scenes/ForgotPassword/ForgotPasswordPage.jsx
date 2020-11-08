@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import Loading from '../../templates/components/Loading';
 
@@ -44,14 +45,17 @@ const ForgotPassword = (props) => {
     // }
   }
   return (
-    <div className="forgot_password form-wrapper">
-      <Loading />
-      <form onSubmit={handleForgotPassowrd}>
-        <input type="text" name="email" label="email" onChange={handleInputChange(setEmail)} value={email} />
-        <button type="submit" onClick={handleForgotPassowrd}>{loading ? 'Loading...' : 'Reset password'}</button>
-      </form>
-      <a href="/">Log in instead?</a>
-    </div>
+    <>
+      <Helmet><title>Reset password</title></Helmet>
+      <div className="forgot_password form-wrapper">
+        <Loading />
+        <form onSubmit={handleForgotPassowrd}>
+          <input type="text" name="email" label="email" onChange={handleInputChange(setEmail)} value={email} />
+          <button type="submit" onClick={handleForgotPassowrd}>{loading ? 'Loading...' : 'Reset password'}</button>
+        </form>
+        <a href="/">Log in instead?</a>
+      </div>
+    </>
   )
 };
   // PropTypes

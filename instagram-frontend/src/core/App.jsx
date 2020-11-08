@@ -48,6 +48,7 @@ function renderRoutes (routesConfig) {
     const routeProps = {
       key: config.path,
       path: config.path,
+      title: config.title,
       component: (props) => (
         <config.component
           {...props}

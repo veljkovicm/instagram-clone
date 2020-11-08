@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import Header from '../../templates/components/Header/index.js';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
 import UserPosts from './components/UserPosts/UserPosts.jsx';
+import { Helmet } from 'react-helmet';
 
 import './user.css';
 
@@ -44,6 +45,9 @@ const Feed = (props) => {
   return (
     <div className="user-profile-wrapper">
       <Header path={`/u/${username}`}/>
+      <Helmet>
+        <title>{`Profile - ${username}`}</title>
+      </Helmet>
       <UserHeader
         user={user}
         uploadAvatar={uploadAvatar}

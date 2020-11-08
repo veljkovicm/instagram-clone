@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs';
+import { Helmet } from 'react-helmet';
 
 import Loading from '../../templates/components/Loading';
 
@@ -56,18 +57,21 @@ const ResetPassword = (props) => {
   }
 
   return (
-    <div className="reset_password form-wrapper">
-      <Loading />
-      <form onSubmit={handleResetPassword}>
-        <div>
-          <input type={passwordVisible ? 'text' : 'password'} name="password" onChange={handleInputChange(setPassword)} value={password} />
-          <button type="button" onClick={handlePasswordVisibility} className="password-visibility-toggle">toggle</button>
-        </div>
-        <input type="password" name="confirm-password" onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} />
-        <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password'}</button>
-      </form>
-      <a href="/">Log in instead?</a>
-    </div>
+    <>
+    <Helmet><title>Reset password</title></Helmet>
+      <div className="reset_password form-wrapper">
+        <Loading />
+        <form onSubmit={handleResetPassword}>
+          <div>
+            <input type={passwordVisible ? 'text' : 'password'} name="password" onChange={handleInputChange(setPassword)} value={password} />
+            <button type="button" onClick={handlePasswordVisibility} className="password-visibility-toggle">toggle</button>
+          </div>
+          <input type="password" name="confirm-password" onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} />
+          <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password'}</button>
+        </form>
+        <a href="/">Log in instead?</a>
+      </div>
+    </>
   )
 };
   // PropTypes

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import Loading from '../../templates/components/Loading';
 
@@ -55,39 +56,42 @@ const Login = (props) => {
 
 
   return (
-    <div className="auth form-wrapper">
-      <Loading />
-      <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          name="email"
-          label="email"
-          onChange={handleInputChange(setEmail)}
-          value={email}
-        />
-        <div>
-        <div className="password-input-wrapper">
+    <>
+    <Helmet><title>Instagram - Log in</title></Helmet>
+      <div className="auth form-wrapper">
+        <Loading />
+        <form onSubmit={handleLogin}>
           <input
-            type={passwordVisible ? 'text' : 'password'}
-            name="password"
-            label="password"
-            onChange={handleInputChange(setPassword)}
-            value={password}
+            type="text"
+            name="email"
+            label="email"
+            onChange={handleInputChange(setEmail)}
+            value={email}
           />
-          <div
-            className="password-visibility-toggle"
-            onClick={handlePasswordVisibility}>
+          <div>
+          <div className="password-input-wrapper">
+            <input
+              type={passwordVisible ? 'text' : 'password'}
+              name="password"
+              label="password"
+              onChange={handleInputChange(setPassword)}
+              value={password}
+            />
+            <div
+              className="password-visibility-toggle"
+              onClick={handlePasswordVisibility}>
+            </div>
           </div>
-        </div>
-        </div>
-        <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
-      </form>
-      <p>
-        Don't have an account?
-        <a href="/sign_up">Register here!</a>
-      </p>
-      <a href="/forgot_password">Forgot password?</a>
-    </div>
+          </div>
+          <button type="submit" onClick={handleLogin}>{loading? 'Loading...' : 'login'}</button>
+        </form>
+        <p>
+          Don't have an account?
+          <a href="/sign_up">Register here!</a>
+        </p>
+        <a href="/forgot_password">Forgot password?</a>
+      </div>
+    </>
   )
 };
 
