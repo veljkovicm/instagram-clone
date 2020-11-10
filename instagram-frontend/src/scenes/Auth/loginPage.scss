@@ -1,0 +1,189 @@
+// light-grey variable #fafafa;
+// global styling button-blue
+// blue color variable #0094f6  links
+// button blue background #2795f6
+// set default font sizes
+input:focus {
+  outline: none; // move global
+}
+
+.login-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+  padding: 0 50px;
+  &__image-wrapper {
+    width: 454px;
+    height: 618px;
+    background-image: url('http://via.placeholder.com/454x618');
+  }
+  &__main-wrapper {
+    width: 100%;
+    max-width: 350px;
+    margin-left: 40px;
+    &__inner {
+      max-width: 348px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 20px;
+      background-color: #fff;
+      border: 1px solid #dbdbdb;
+    }
+  }
+  &__logo {
+    width: 175px;
+    height: 51px;
+    background-image: url('/32f0a4f27407.png');
+    background-position: 0 -130px;
+    margin: 25px 0 40px;
+    font-size: 0;
+  }
+  &__form {
+    &-wrapper {
+      max-width: 258px;
+      margin: 0 auto;
+    }
+    &__input-wrapper {
+      position: relative;
+      margin: 4px 0;
+      &.psw {
+        position: relative;
+        input {
+          padding-right: 40px;
+        }
+        .password-visibility-toggle {
+          position: absolute;
+          right: 10px;
+          top: 11px;
+          margin: 0;
+          height: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+    &__input {
+      width: 258px;
+      height: 36px;
+      margin: 0;
+      padding-left:10px;
+      background-color: #f2f1f1;
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+      resize: none;
+      font-size: 12px;
+      &-label {
+        position: absolute;
+        pointer-events: none;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        margin: 0;
+        transition: all 0.2s ease-in-out;
+        color: #262626;
+        font-size: 12px;
+        color: grey;
+        &.not-empty {
+          font-size: 10px;
+          transform: translateY(-90%);
+        }
+      }
+      &:focus {
+        border-color: #999595;
+      }
+      &.not-empty {
+        padding-top: 17px;
+      }
+    }
+  }
+  &__forgot-password-link {
+    font-size: 12px;
+    color: #0094f6;
+  }
+  &__signup-link {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px;
+    padding: 5px 0;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+
+    a {
+      color: #0094f6;
+      margin-left: 5px;
+    }
+  }
+  &__app-links {
+    text-align: center;
+    div {
+      width: 136px;
+      height: 40px;
+      display: inline-block;
+      margin: 0 5px;
+      background-image: url('/store-badges.png');
+      background-size: 100%;
+      
+    }
+    &__ios {
+      background-position: 0 41px;
+    }
+    &__android {
+      background-position: 0 -1px;
+    }
+  }
+  &__facebook-link {
+    display: inline-block;
+    background-image: url('/32f0a4f27407.png');
+    background-position: -414px -259px;
+    background-repeat: no-repeat;
+    padding-left: 21px;
+    margin-bottom: 20px;
+    color: #385185;
+    cursor: not-allowed;
+    &-wrapper {
+      width: 100%;
+      max-width: 258px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    &-divider {
+      position: relative;
+      z-index: 998;
+      margin-bottom: 20px;
+      font-size: 0;
+      span {
+        position: relative;
+        padding: 0 18px;
+        z-index: 999;
+        background: #fff;
+        color: #8E8E8E;
+        font-size: 13px;
+      }
+      &:before {
+        content: "";
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+        border-top: 1px solid #dbdbdb;
+      }
+    }
+  }
+  .button-blue {
+    background-color: #2795f6;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    height: 30px;
+    font-size: 14px;
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #b2dffc;
+    }
+  }
+}

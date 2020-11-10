@@ -68,7 +68,7 @@ const SearchBar = (props) => {
   }
   
 
-  const showMarkup = showSearch && focus && !loading // !loading causes result flickering on input change; remove
+  const showMarkup = showSearch && focus;
 
 
   return (
