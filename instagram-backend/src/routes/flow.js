@@ -135,6 +135,26 @@ router.post('/confirm', async (req, res) => {
 });
 
 
+// move to different file?
+router.post('/check-availability', async( req, res) => {
+  const { email, username } = req.body;
+
+  if (email) {
+    const isEmailTaken = await Services.emailAvailable(email.toLowerCase());
+    return res.json({
+      statusCode: 200,
+      taken: isEmailTaken,
+    }).status(200);
+  } else if (username) {
+    const isUsernameTaken = await Services.usernameAvailable(username.toLowerCase());
+    return res.json({
+      statusCode: 200,
+      taken: isUsernameTaken,
+    }).status(200);
+  }
+});
+
+
 router.get('/test', async (req, res) => {
   return res.send({
     statusCode: 200,

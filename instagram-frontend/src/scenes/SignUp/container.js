@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { signup } from './actions.js';
+import { signup, checkAvailability } from './actions.js';
 import SignupPage from './SignupPage.jsx';
 
 
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   signup,
+  checkAvailability,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
