@@ -1,6 +1,7 @@
 import express from 'express';
 import Services from '../services/services.js';
 import EmailServices from '../services/emailServices.js';
+import { validateInput } from '../lib/validators.js'
 
 import { generateAccountConfirmationToken } from '../lib/tokens.js';
 import config from 'config';
@@ -17,7 +18,14 @@ router.post('/sign_up', async (req, res) => {
     fullName,
   } = req.body;
 
-  
+  const validData = validateInput(req.body);
+
+  if (!validData) {
+    return res.send({
+      statusCode: 400,
+      message: 'Invalid input!',
+    }).status(400);
+  }
   const userEmailExists = await Services.userEmailExists(email);
   
   if (userEmailExists) {
@@ -132,6 +140,26 @@ router.post('/confirm', async (req, res) => {
 
   // Cannot set headers after they are sent to the client ???
   // .redirect('/');
+});
+
+
+// move to different file?
+router.post('/check-availability', async( req, res) => {
+  const { email, username } = req.body;
+
+  if (email) {
+    const isEmailTaken = await Services.emailAvailable(email.toLowerCase());
+    return res.json({
+      statusCode: 200,
+      taken: isEmailTaken,
+    }).status(200);
+  } else if (username) {
+    const isUsernameTaken = await Services.usernameAvailable(username.toLowerCase());
+    return res.json({
+      statusCode: 200,
+      taken: isUsernameTaken,
+    }).status(200);
+  }
 });
 
 

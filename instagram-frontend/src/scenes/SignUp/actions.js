@@ -30,3 +30,12 @@ export const signup = ({ email, username, password, fullName }) => async (dispat
     dispatch(stopLoading());
   }
 }
+
+export const checkAvailability = ({ email, username }) => async (dispatch, getState) => {
+
+  const body = { email, username };
+
+  const response = await API({ method: 'POST', path: '/user/check-availability', body });
+
+  return response.data.taken;
+} 

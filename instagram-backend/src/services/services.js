@@ -448,6 +448,21 @@ class Services {
       where: { postId, userId }
     });
   }
+
+  static async emailAvailable (email) {
+    const user = await User.findOne({
+      where: { email }
+    });
+    console.log('user', !!user);
+    return !!user;
+  }
+
+  static async usernameAvailable (username) {
+    const user =  await User.findOne({
+      where: { username }
+    });
+    return !!user;
+  }
 }
 
 
