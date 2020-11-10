@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { validateInput } from '../../lib/validators.js';
+import ValidationIcon from '../../templates/components/ValidationIcon.jsx';
 
 import Loading from '../../templates/components/Loading';
 
@@ -47,11 +48,18 @@ const Signup = (props) => {
   });
 
   const handleInputChange = (e) => {
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value,
-    })
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  const handlePasswordChange = (e) => {
+    setUserData({ ...userData, password: e.target.value });
+
+    if(e.target.value.length >= 2) {
+      setIsValid({ ...isValid, password: true });
+    } else {
+      setIsValid({ ...isValid, password: false });
+    }
+  }
 
   const handleEmailValidation = async (e) => {
     const validatedEmail = validateInput({ type: 'email', data: userData.email })
@@ -69,6 +77,17 @@ const Signup = (props) => {
     setIsValid({ ...isValid, username: validatedUsername && !usernameTaken });
   }
 
+  const handlePasswordValidation = (e) => {
+    setHasChanged({ ...hasChanged, password: true });
+  }
+
+  const handleFullNameValidation = (e) => {
+    const validatedFullName = validateInput({ type: 'full-name', data: userData.fullName });
+
+    setHasChanged({ ...hasChanged, fullName: true });
+    setIsValid({ ...isValid, fullName: validatedFullName });
+  }
+
   const handleSignup = (e) => {
     e.preventDefault();
     signup(userData);
@@ -81,13 +100,42 @@ const Signup = (props) => {
       <div className="signup form-wrapper">
         <Loading />
         <form onSubmit={handleSignup}>
-          <input type="text" name="email" onChange={handleInputChange} value={userData.email} placeholder="email" onBlur={handleEmailValidation} />
-          { hasChanged.email ? !isValid.email ? <div>Not valid</div> : <div>VALID</div> : null}
-          <input type="text" name="username" onChange={handleInputChange} value={userData.username} placeholder="username" onBlur={handleUsernameValidation} />
-          { hasChanged.username ? !isValid.username ? <div>Not valid</div> : <div>VALID</div> : null}
-          <input type="text" name="full-name" onChange={handleInputChange} value={userData.fullName} placeholder="full name" />
-          <input type="password" name="password" onChange={handleInputChange} value={userData.password} />
-          
+          <input
+            type="text"
+            name="email"
+            onChange={handleInputChange}
+            value={userData.email}
+            placeholder="email"
+            onBlur={handleEmailValidation}
+          />
+          <ValidationIcon changed={hasChanged.email} valid={isValid.email} />
+          <input
+            type="text"
+            name="username"
+            onChange={handleInputChange}
+            value={userData.username}
+            placeholder="username"
+            onBlur={handleUsernameValidation}
+          />
+          <ValidationIcon changed={hasChanged.username} valid={isValid.username} />
+          <input
+            type="text"
+            name="fullName"
+            onChange={handleInputChange}
+            value={userData.fullName}
+            placeholder="full name"
+            onBlur={handleFullNameValidation}
+          />
+          <ValidationIcon changed={hasChanged.fullName} valid={isValid.fullName} />
+          <input
+            type="password"
+            name="password"
+            onChange={handlePasswordChange}
+            value={userData.password}
+            onBlur={handlePasswordValidation}
+          />
+          <ValidationIcon changed={hasChanged.password} valid={isValid.password} />
+
           <button
             type="submit"
             onClick={handleSignup}

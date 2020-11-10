@@ -1,6 +1,7 @@
 import express from 'express';
 import Services from '../services/services.js';
 import EmailServices from '../services/emailServices.js';
+import { validateInput } from '../lib/validators.js'
 
 import { generateAccountConfirmationToken } from '../lib/tokens.js';
 import config from 'config';
@@ -17,7 +18,14 @@ router.post('/sign_up', async (req, res) => {
     fullName,
   } = req.body;
 
-  
+  const validData = validateInput(req.body);
+
+  if (!validData) {
+    return res.send({
+      statusCode: 400,
+      message: 'Invalid input!',
+    }).status(400);
+  }
   const userEmailExists = await Services.userEmailExists(email);
   
   if (userEmailExists) {
