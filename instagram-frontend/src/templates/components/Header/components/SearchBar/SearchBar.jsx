@@ -33,8 +33,8 @@ const SearchBar = (props) => {
   }
   if(result.length > 0) {
     markup = (
-      result.map((user) => {
-        return <a href={`/u/${user.username}`} className="search__results__single">
+      result.map((user, i) => {
+        return <a href={`/u/${user.username}`} className="search__results__single" key={i}>
           <div className="search__results__single__image"><img src={user.imageUrl} /></div>
           <div className="search__results__single__info">
           <span className="search__results__single__username">{user.username}</span>
@@ -67,7 +67,7 @@ const SearchBar = (props) => {
   }
   
 
-  const showMarkup = showSearch && focus && !loading
+  const showMarkup = showSearch && focus && !loading // !loading causes result flickering on input change; remove
 
 
   return (
