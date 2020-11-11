@@ -30,9 +30,9 @@ const Feed = (props) => {
 
   const markup = (
     posts ? 
-    posts.map((post, i) => {
-      return <div key={i}>
-        <Post {...post} />
+    posts.map((post) => {
+      return <div>
+        <Post {...post} key={post.id} />
         </div>
     }) : <div>LOADING</div>
     // loading component

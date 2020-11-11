@@ -46,6 +46,7 @@ router.get('/:username', async (req, res) => {
   user.dataValues.followerCount = followerCount;
   user.dataValues.followingCount = followingCount;
 
+  // if function has one argument, don't pass as object? check whole project
   const posts = await Services.getPosts({ userId: user.id });
   
   if(posts) {
