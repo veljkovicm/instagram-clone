@@ -46,7 +46,7 @@ router.get('/:username', async (req, res) => {
   user.dataValues.followerCount = followerCount;
   user.dataValues.followingCount = followingCount;
 
-  const posts = await Services.getPosts({ userId: user.id });
+  const posts = await Services.getUserPosts({ userId: user.id });
   
   if(posts) {
     for(let post in posts) {
@@ -115,7 +115,7 @@ router.post('/upload-avatar', async (req, res) => {
     // reformat. not looking good with url in here?
     const newAvatar = `http://localhost:5000/uploads/${filename}`;
 
-    res.json({
+    return res.json({
       statusCode: 200,
       message: 'Avatar updated successfully!',
       payload: { newAvatar },
@@ -137,7 +137,7 @@ router.post('/update-settings', async (req,res) => {
 
   const { message, statusCode } = await Services.updateUserSettings({ userData, id });
   console.log({message, statusCode});
-  res.json({
+  return res.json({
     statusCode,
     message,
   }).status(statusCode)
@@ -155,7 +155,7 @@ router.post('/follow', async (req,res) => {
   
   await Services.follow({ followerId, followedId });
 
-  res.json({
+  return res.json({
     statusCode: 200,
     message: 'Follow action succesful',
   }).status(200)
@@ -172,7 +172,7 @@ router.post('/unfollow', async (req,res) => {
 
   await Services.unfollow({ followerId, followedId });
 
-  res.json({
+  return res.json({
     statusCode: 200,
     message: 'Unfollow action succesful',
   }).status(200)
@@ -184,8 +184,7 @@ router.post('/get-list', async (req, res) => {
   const { id } = await Services.getUserIdByUsername(username)
 
   const list = await Services.getFollowList({ listType, id });
-  console.log('>> list', JSON.stringify(list, null, 2));
-  res.json({
+  return res.json({
     statusCode: 200,
     payload: list,
   }).status(200)

@@ -8,10 +8,18 @@ const router = express.Router();
 
 router.get('/posts', async (req, res) =>{
   const { id: userId } = req.user;
+  const followeeList = [];
 
-  const posts = await Services.getPosts({ userId });
+  const followees = await Services.getFollowList({ type: 'following', id: userId });
 
-  const savedPosts = await Services.getSavedPostsList({ userId });
+  followees.map((followee) => {
+    followeeList.push(followee.id);
+  });
+
+  const [ posts, savedPosts ] = await Promise.all([
+    Services.getFeedPosts({ userList: followeeList }),
+    Services.getSavedPostsList({ userId })
+  ]);
 
   if(!posts) {
     return res.json({
@@ -19,6 +27,7 @@ router.get('/posts', async (req, res) =>{
       message: 'No posts found!'
     }).status(404);
   }
+
   const filteredResults = [];
   posts.forEach((post) => {
     let isLiked = false;

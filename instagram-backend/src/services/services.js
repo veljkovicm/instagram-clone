@@ -229,9 +229,11 @@ class Services {
     })
   }
 
-  static async getPosts({ userId }) {
+  static async getFeedPosts({ userList }) {
+    const Op = sequelize.Op;
+
     return Posts.findAll({
-      // where: { userId },
+      where: { userId: { [Op.in]: userList } },
       order: [
         [ 'uploaded_at', 'DESC' ]
       ],
@@ -251,7 +253,31 @@ class Services {
           model: Likes,
         }
       ],
-      logging: console.log,
+    });
+  }
+
+  static async getUserPosts({ userId }) {
+    return Posts.findAll({
+      where: { userId },
+      order: [
+        [ 'uploaded_at', 'DESC' ]
+      ],
+      include: [
+        {
+          model: User,
+          attributes: [ 'username', 'avatar', ['full_name', 'fullName'] ],
+        },
+        {
+          model: Comments,
+          include: {
+            model: User,
+            attributes: [ 'username', 'avatar' ],
+          },
+        },
+        {
+          model: Likes,
+        }
+      ],
     });
   }
 
