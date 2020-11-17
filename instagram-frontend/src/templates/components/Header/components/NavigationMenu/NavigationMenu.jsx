@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 
@@ -60,5 +61,10 @@ const NavigationBar = (props) => {
   )
 }
 
+NavigationBar.propTypes = {
+  username: PropTypes.string,
+  clearUser: PropTypes.func.isRequired,
+  path: PropTypes.string,
+}
 
 export default NavigationBar;

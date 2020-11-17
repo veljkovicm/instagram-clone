@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
@@ -74,10 +75,12 @@ const ResetPassword = (props) => {
     </>
   )
 };
-  // PropTypes
+
+ResetPassword.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
+  resetPassword: PropTypes.func.isRequired,
+}
+
 
 export default ResetPassword;
-
-
-
-

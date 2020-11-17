@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
   Logo,
@@ -37,5 +38,10 @@ const Header = (props) => {
   )
 }
 
+Header.propTypes = {
+  path: PropTypes.string,
+  username: PropTypes.string,
+  isLoggedIn: PropTypes.bool.isRequired,
+}
 
 export default Header;

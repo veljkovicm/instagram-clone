@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import Header from '../../templates/components/Header/index.js';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
@@ -7,7 +8,7 @@ import { Helmet } from 'react-helmet';
 
 import './user.css';
 
-const Feed = (props) => {
+const User = (props) => {
   const {
     getUser,
     uploadAvatar,
@@ -65,11 +66,12 @@ const Feed = (props) => {
   )
 };
 
-// PropTypes
+User.propTypes = {
+  getUser: PropTypes.func.isRequired,
+  uploadAvatar: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
+  getFollowList: PropTypes.func.isRequired,
+}
 
-export default Feed;
-
-
-
-
-
+export default User;

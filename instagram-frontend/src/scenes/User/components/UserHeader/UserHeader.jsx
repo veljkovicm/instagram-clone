@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { UserListPopup } from '../../../../templates/components/Popups';
 
@@ -114,6 +115,16 @@ const UserHeader = (props) => {
         </div>
     </div>
   )
+}
+
+UserHeader.propTypes = {
+  user: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
+  uploadAvatar: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
+  getFollowList: PropTypes.func.isRequired,
+  postCount: PropTypes.number.isRequired,
 }
 
 export default UserHeader;

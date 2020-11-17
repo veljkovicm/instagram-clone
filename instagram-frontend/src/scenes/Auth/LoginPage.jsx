@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -82,10 +83,10 @@ const Login = (props) => {
   )
 };
 
+Login.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
+  login: PropTypes.func.isRequired,
+}
+
 export default Login;
-
-
-
-
-
-// PropTypes

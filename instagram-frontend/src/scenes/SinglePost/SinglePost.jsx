@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import Post from '../../templates/components/Post';
 import Header from '../../templates/components/Header/index.js';
@@ -33,11 +34,11 @@ const SinglePost = (props) => {
   )
 };
 
-// PropTypes
+SinglePost.propTypes = {
+  postComment: PropTypes.func.isRequired,
+  postData: PropTypes.func,
+  getPost: PropTypes.func.isRequired,
+  likeAction: PropTypes.func.isRequired,
+}
 
 export default SinglePost;
-
-
-
-
-

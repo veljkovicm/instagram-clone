@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../../templates/components/Header/index.js';
 import Post from '../../templates/components/Post';
 
@@ -31,8 +32,8 @@ const Feed = (props) => {
   const markup = (
     posts ? 
     posts.map((post) => {
-      return <div>
-        <Post {...post} key={post.id} />
+      return <div key={post.id}>
+        <Post {...post} />
         </div>
     }) : <div>LOADING</div>
     // loading component
@@ -66,11 +67,9 @@ const Feed = (props) => {
   )
 };
 
-// PropTypes
+Feed.propTypes = {
+  upload: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
+}
 
 export default Feed;
-
-
-
-
-
