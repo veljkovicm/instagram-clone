@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './userListPopup.css'
 
 const UserListPopup = (props) => {
@@ -41,6 +42,13 @@ const UserListPopup = (props) => {
       </div>
     </div>
   )
+}
+
+UserListPopup.propTypes = {
+  type: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  setPopup: PropTypes.func.isRequired,
+  setPopupData: PropTypes.func.isRequired,
 }
 
 export default UserListPopup;

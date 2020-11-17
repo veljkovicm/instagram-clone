@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const UserPosts = (props) => {
   const {
@@ -72,5 +73,9 @@ const UserPosts = (props) => {
   )
 }
 
+UserPosts.propTypes = {
+  posts: PropTypes.object,
+  isOwnProfile: PropTypes.bool,
+}
 
 export default UserPosts;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import './SearchBar.css';
 
@@ -93,5 +94,8 @@ const SearchBar = (props) => {
   )
 }
 
+SearchBar.propTypes = {
+  search: PropTypes.func.isRequired,
+}
 
 export default SearchBar;

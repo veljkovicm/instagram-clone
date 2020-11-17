@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { formatDistance} from 'date-fns';
 
@@ -114,6 +115,22 @@ const Post = (props) => {
       {/* deleting a comment is only possible in single post popup */}
     </div>
   )
+}
+
+Post.propTypes = {
+  id: PropTypes.string.isRequired,
+  caption: PropTypes.string,
+  fileName: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  uploadedAt: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  postComment: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  likeAction: PropTypes.func.isRequired,
+  isLiked: PropTypes.bool.isRequired,
+  likeCount: PropTypes.number.isRequired,
+  isSaved: PropTypes.bool,
+  savePostAction: PropTypes.func.isRequired,
 }
 
 
