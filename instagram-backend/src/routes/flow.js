@@ -66,13 +66,13 @@ router.post('/sign_up', async (req, res) => {
 
 router.post('/sign_in', async (req, res) => {
   const {
-    email,
+    username,
     password,
     rememberMe,
   } = req.body;
 
 
-  const { userIsVerified, user, message } = await Services.verifyUser(email, password);
+  const { userIsVerified, user, message } = await Services.verifyUser(username, password);
 
   if (!userIsVerified) {
     return res.send({
