@@ -1,7 +1,6 @@
 import db from '../../config/database.js';
 import sequelize from 'sequelize';
 
-
 // try replacing with 'bcrypt' package before deployment
 import bcrypt from 'bcryptjs';
 
@@ -16,17 +15,21 @@ import {
 import database from '../../config/database.js';
 import SavedPosts from '../models/SavedPosts.js';
 
+const { Op } = sequelize;
+
 
 // separate to UserServices and EmailServices
-
-
 // separate to more classes?
-
 class Services {
 
-  static async verifyUser ( userEmail, password ) {
+  static async verifyUser ( username, password ) {
     const user = await User.findOne({
-      where: { email: userEmail },
+      where: {
+        [Op.or]: [
+          { email: username },
+          { username: username },
+        ]
+      },
     });
 
     if (!user) {
@@ -204,7 +207,6 @@ class Services {
   }
 
   static async search({ query}) {
-    const Op = sequelize.Op;
     return User.findAll({
       attributes: ['username', ['full_name', 'fullName']],
       where: {
