@@ -1,4 +1,4 @@
-import { API } from '../../../lib';
+import { API } from 'lib';
 
 export const postComment = ({ comment, id }) => async(dispatch, getState) => {
   try {

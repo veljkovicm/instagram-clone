@@ -4,8 +4,8 @@ import SinglePostPage from './SinglePost.jsx';
 import {
   postComment,
   likeAction,
-} from '../../templates/components/Post/actions.js'
-import { getPost } from './actions.js';
+} from 'templates/components/Post/actions'
+import { getPost } from './actions';
 
 const mapDispatchToProps = {
   postComment,

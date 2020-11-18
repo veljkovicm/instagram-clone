@@ -1,5 +1,3 @@
-export * from './actions.js';
-
-export { default as reducer } from './reducer.js';
-
-export { userPropType, userObjectPropTypes } from './proptype.js';
+export * from './actions';
+export { default as reducer } from './reducer';
+export { userPropType, userObjectPropTypes } from './proptype';

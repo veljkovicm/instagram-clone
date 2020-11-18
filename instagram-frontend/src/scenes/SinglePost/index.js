@@ -1,5 +1,4 @@
-import SinglePostPageComponent from './container.js';
-
+import SinglePostPageComponent from './container';
 
 export default {
   path: '/p/:postId',

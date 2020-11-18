@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../templates/components/Header/index.js';
-import Post from '../../templates/components/Post';
+import Header from 'templates/components/Header/';
+import Post from 'templates/components/Post';
 
 import './feed.css';
 

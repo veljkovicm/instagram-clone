@@ -1,6 +1,6 @@
-import { API } from '../../lib'
-import { setUser } from '../../core/user';
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib';
+import { setUser } from 'core/user';
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 
 export const login = ({ username, password, rememberMe }) => async (dispatch, getState) => {
   const  { isLoading } = getState().auth;

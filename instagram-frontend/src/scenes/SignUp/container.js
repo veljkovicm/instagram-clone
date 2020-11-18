@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-
-import { signup, checkAvailability } from './actions.js';
+import { signup, checkAvailability } from './actions';
 import SignupPage from './SignupPage.jsx';
 
 

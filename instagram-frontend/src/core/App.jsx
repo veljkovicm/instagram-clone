@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { checkUser } from './user/actions.js';
+import { checkUser } from './user/actions';
 
-import setupStore from './store.js';
-import globalReducer from './reducer.js';
+import setupStore from './store';
+import globalReducer from './reducer';
 
 import pagesConfig from '../scenes';
 

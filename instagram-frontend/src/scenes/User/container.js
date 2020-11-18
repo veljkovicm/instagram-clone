@@ -7,7 +7,7 @@ import {
   followUser,
   unfollowUser,
   getFollowList,
-} from './actions.js';
+} from './actions';
 
 const mapDispatchToProps = {
   getUser,
