@@ -1,5 +1,5 @@
-import SignupPageComponent from './container.js';
-import SignupPageReducer from './reducer.js';
+import SignupPageComponent from './container';
+import SignupPageReducer from './reducer';
 
 export default {
   path: '/sign_up',

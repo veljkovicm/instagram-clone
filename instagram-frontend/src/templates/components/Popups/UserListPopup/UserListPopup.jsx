@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './userListPopup.css'
+
+import './userListPopup.css';
 
 const UserListPopup = (props) => {
   const {

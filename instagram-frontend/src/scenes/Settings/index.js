@@ -1,4 +1,4 @@
-import SettingsPageComponent from './container.js';
+import SettingsPageComponent from './container';
 
 
 export default {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 // import notify from notifications component
-import { forgotPassword } from './actions.js';
+import { forgotPassword } from './actions';
 import ForgotPasswordPage from './ForgotPasswordPage.jsx';
 
 

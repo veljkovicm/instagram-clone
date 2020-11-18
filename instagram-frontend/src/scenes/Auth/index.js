@@ -1,5 +1,5 @@
-import LoginPageComponent from './container.js';
-import AuthPageReducer from './reducer.js';
+import LoginPageComponent from './container';
+import AuthPageReducer from './reducer';
 
 export default {
   path: '/sign_in',

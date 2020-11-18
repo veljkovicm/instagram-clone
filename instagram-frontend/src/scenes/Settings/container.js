@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-
 import SettingsPage from './SettingsPage.jsx';
-import { uploadAvatar } from '../User/actions.js';
-import { updateSettings } from './actions.js';
+import { uploadAvatar } from '../User/actions';
+import { updateSettings } from './actions';
 
 const mapStateToProps = (state) => ({
   user: state.global.user.currentUser,

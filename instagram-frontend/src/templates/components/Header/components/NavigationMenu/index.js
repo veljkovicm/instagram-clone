@@ -1,1 +1,1 @@
-export { default as NavigationMenu } from './container.js';
+export { default as NavigationMenu } from './container';

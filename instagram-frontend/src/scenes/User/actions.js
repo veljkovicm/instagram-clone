@@ -1,5 +1,5 @@
-import { API } from '../../lib'
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib';
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 // check if these are needed ^^^
 
 export const getUser = ({ username }) => async (dispatch, getState) => {

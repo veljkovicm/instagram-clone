@@ -1,4 +1,4 @@
-import { reduxActionsGenerator } from '../../../lib';
+import { reduxActionsGenerator } from 'lib';
 
 const actions = reduxActionsGenerator([
   'LOADING_START',

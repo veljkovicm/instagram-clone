@@ -1,5 +1,6 @@
-import { API } from '../../lib'
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib';
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
+
 
 export const upload = ({ formData }) => async (dispatch, getState) => {
 

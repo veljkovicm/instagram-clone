@@ -4,7 +4,7 @@ import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-rou
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
 
-import Loading from '../../templates/components/Loading';
+import Loading from 'templates/components/Loading';
 
 import './resetPassword.css';
 
