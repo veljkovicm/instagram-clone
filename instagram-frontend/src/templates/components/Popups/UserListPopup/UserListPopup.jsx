@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 import './userListPopup.css';
 
@@ -9,27 +10,89 @@ const UserListPopup = (props) => {
     data,
     setPopup,
     setPopupData,
+    unfollowUser,
+    followUser,
+    myUsername,
+    setFollowingCount,
   } = props;
+  const [ usersData, setUsersData ] = useState(data); 
+
+  const params = useParams();
+  const { username: currentPageUsername } = params;
 
   const closePopup = () => {
     setPopup();
     setPopupData({});
   }
 
+  const changeFollowState = ({ isFollowing, index }) => {
+    setUsersData(prevData => {
+      return prevData.map((user, i) => {
+        if(i === index) {
+          return { ...prevData[index], isFollowing }
+        } else {
+          return user;
+        }
+      })
+    })
+  }
+
+  const handleFollowButtonClick = ({ username, following, index }) => {
+    if(following) {
+      changeFollowState({ isFollowing: false, index });
+      unfollowUser(username);
+      if(currentPageUsername === myUsername) {
+        setFollowingCount((prev) => prev - 1)
+      }
+    } else {
+      changeFollowState({ isFollowing: true, index });
+      followUser(username);
+      if(currentPageUsername === myUsername) {
+        setFollowingCount((prev) => prev + 1)
+      }
+    }
+  }
+
+  const linkTarget = (username) => {
+    window.history.pushState({path: `/u/${username}`}, '', `/u/${username}`);
+    window.location.reload();
+  };
+
   const markup = (
-    data.map((user) =>
+    usersData.map((user, index) =>
       <div className="user-list__single" key={user[type].id}>
-        <div className="user-list__single__avatar"></div>
+        <div className="user-list__single__avatar" onClick={() => linkTarget(user[type].username)}>
+          <img src={user[type].avatar ? `http://localhost:5000/uploads/${user[type].avatar}` : 'http://localhost:5000/uploads/no-img.png'} alt="" width="30" />
+        </div>
         <div className="user-list__single__info">
-          {user[type].username}
-          {user[type].fullName}
+          <div onClick={() => linkTarget(user[type].username)}>
+            {user[type].username}
+          </div>
+          <div onClick={() => linkTarget(user[type].username)}>
+            {user[type].fullName}
+          </div>
         </div>
         <div className="user-list__single__button-wrapper">
-        <button type="button" onClick={closePopup}>Follow</button>
+        {
+          myUsername !== user[type].username
+            ? 
+              <button
+                type="button" 
+                onClick={() => handleFollowButtonClick({
+                  username: user[type].username,
+                  following: user.isFollowing,
+                  index,
+                })}
+              >
+                {user.isFollowing ? 'Following' : 'Follow'}
+              </button>
+            : 
+              null
+        }
         </div>
-      </div>
+      </div> 
     )
-  )
+  );
 
   return (
     <div>
@@ -47,7 +110,7 @@ const UserListPopup = (props) => {
 
 UserListPopup.propTypes = {
   type: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   setPopup: PropTypes.func.isRequired,
   setPopupData: PropTypes.func.isRequired,
 }

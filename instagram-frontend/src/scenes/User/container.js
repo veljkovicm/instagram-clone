@@ -9,6 +9,10 @@ import {
   getFollowList,
 } from './actions';
 
+const mapStateToProps = (state) => ({
+  myUsername: state.global.user.currentUser?.username,
+});
+
 const mapDispatchToProps = {
   getUser,
   uploadAvatar,
@@ -17,4 +21,4 @@ const mapDispatchToProps = {
   getFollowList,
 }
 
-export default connect(null, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

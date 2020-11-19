@@ -15,6 +15,7 @@ const User = (props) => {
     followUser,
     unfollowUser,
     getFollowList,
+    myUsername,
   } = props;
 
   const { username } = useParams();
@@ -42,7 +43,6 @@ const User = (props) => {
   if(!dataLoaded) {
     return <p>LOADING</p>
   }
-  console.log('>> POSTS', posts);
   return (
     <div className="user-profile-wrapper">
       <Header path={`/u/${username}`}/>
@@ -50,11 +50,13 @@ const User = (props) => {
         <title>{`Profile - ${username}`}</title>
       </Helmet>
       <UserHeader
-        user={user}
+        // TODO move first 5 actions to userHeader folder, connect with redux
         uploadAvatar={uploadAvatar}
         followUser={followUser}
         unfollowUser={unfollowUser}
         getFollowList={getFollowList}
+        myUsername={myUsername}
+        user={user}
         username={username}
         postCount={posts.userPosts.length}
       />

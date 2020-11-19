@@ -101,7 +101,7 @@ const App = () => {
         <Switch>
           {routes}
           <Route path="/sign_in" {...pagesConfig.auth}/>
-          <Redirect exact from="/" to='/sign_in' />
+          <Redirect exact from="/" to='/feed' />
           {/* <ProtectedRoute component={pageNotFoundComponent} redirectTo={signInPath} /> */}
           <Redirect from="*" to="/404" />
         </Switch>

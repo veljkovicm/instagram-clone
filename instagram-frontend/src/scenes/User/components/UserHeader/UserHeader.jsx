@@ -14,13 +14,14 @@ const UserHeader = (props) => {
     unfollowUser,
     getFollowList,
     postCount,
+    myUsername,
   } = props;
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
-
   const [ following, setFollowing ] = useState(user.following);
   const [ popup, setPopup ] = useState();
   const [ popupData, setPopupData ] = useState({});
   const [ avatar, setAvatar ] = useState(avatarSrc);
+  const [ followingCount, setFollowingCount ] = useState(user.followingCount);
 
 
   const history = useHistory();
@@ -31,8 +32,6 @@ const UserHeader = (props) => {
   }
 
   const handleFollowButtonClick = (username) => {
-    console.log('TEST');
-    console.log('>> following', following);
     if(following) {
       unfollowUser(username).then(() => {
         user.followerCount--;
@@ -77,6 +76,10 @@ const UserHeader = (props) => {
           data={popupData}
           setPopup={setPopup}
           setPopupData={setPopupData}
+          unfollowUser={unfollowUser}
+          followUser={followUser}
+          myUsername={myUsername}
+          setFollowingCount={setFollowingCount}
         />
       }
       <div
@@ -84,7 +87,7 @@ const UserHeader = (props) => {
           onClick={user.isOwnProfile ? handleAvatarIconClick : null}
           style={{ backgroundImage: `url(${avatar})`}}
         >
-          <div className={user.isOwnProfile ? 'user-profile__avatar_hover' : null} />
+          <div className={user.isOwnProfile ? 'user-profile__avatar_hover' : ''} />
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -107,7 +110,7 @@ const UserHeader = (props) => {
           <div className="user-profile__user-stats">
             <span>{postCount} posts</span>
             <span onClick={() => handlePopupLinkClick('follower')}>{`${user.followerCount} followers`}</span>
-            <span onClick={() => handlePopupLinkClick('followed')}>{`${user.followingCount} following`}</span>
+            <span onClick={() => handlePopupLinkClick('followed')}>{`${followingCount} following`}</span>
           </div>
           <div className="user-profile__bio">
             <span>Something about me</span>
@@ -125,6 +128,7 @@ UserHeader.propTypes = {
   unfollowUser: PropTypes.func.isRequired,
   getFollowList: PropTypes.func.isRequired,
   postCount: PropTypes.number.isRequired,
+  myUsername: PropTypes.string,
 }
 
 export default UserHeader;
