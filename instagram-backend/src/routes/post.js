@@ -74,7 +74,9 @@ router.post('/upload', async (req, res) => {
         message: err,
       }).status(500);
     }
-    const newPost = await Services.addNewPost({ fileName, caption, userId })
+    const newPost = await Services.addNewPost({ fileName, caption, userId });
+    newPost.dataValues.avatar = req.user.avatar;
+    newPost.dataValues.username = req.user.username;
 
     return res.json({
       statusCode: 200,
