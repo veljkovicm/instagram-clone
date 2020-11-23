@@ -61,6 +61,7 @@ input:focus {
           height: 10px;
           font-size: 14px;
           font-weight: 600;
+          user-select: none;
           cursor: pointer;
         }
       }
@@ -70,7 +71,7 @@ input:focus {
       height: 36px;
       margin: 0;
       padding-left:10px;
-      background-color: #f2f1f1;
+      background-color: #fafafa;
       border: 1px solid #dbdbdb;
       border-radius: 4px;
       resize: none;
