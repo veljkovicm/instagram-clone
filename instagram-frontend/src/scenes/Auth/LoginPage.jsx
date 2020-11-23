@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
-import Loading from '../../templates/components/Loading';
-
+import Loading from 'templates/components/Loading';
 
 import './loginPage.css';
 
@@ -22,12 +21,9 @@ const Login = (props) => {
     history.push('/feed')
   }  
 
-  const [ email, setEmail ] = useState('test2@test.com');
+  const [ username, setUsername ] = useState('test2@test.com');
   const [ password, setPassword ] = useState('11');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
-
-  // add onClickValidation
-
 
   const handleInputChange = (setValue) => (e) => {
     setValue(e.target.value);
@@ -35,20 +31,12 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // const { error, errorMsg } = handleOnClickValidation() || {};
-
-    // if (error) {
-      // display error notification 
-    //   // notify({ message: errorMsg, type: 'error' });
-    // } else {
-      login({
-        email,
-        password,
-        rememberMe: true,
-      });
-    // }
-    }
+    login({
+      username,
+      password,
+      rememberMe: true,
+    });
+  }
 
   const handlePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -63,17 +51,15 @@ const Login = (props) => {
         <form onSubmit={handleLogin}>
           <input
             type="text"
-            name="email"
-            label="email"
-            onChange={handleInputChange(setEmail)}
-            value={email}
+            name="username"
+            onChange={handleInputChange(setUsername)}
+            value={username}
           />
           <div>
           <div className="password-input-wrapper">
             <input
               type={passwordVisible ? 'text' : 'password'}
               name="password"
-              label="password"
               onChange={handleInputChange(setPassword)}
               value={password}
             />
@@ -95,10 +81,10 @@ const Login = (props) => {
   )
 };
 
+Login.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
+  login: PropTypes.func.isRequired,
+}
+
 export default Login;
-
-
-
-
-
-// PropTypes

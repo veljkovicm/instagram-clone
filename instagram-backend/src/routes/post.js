@@ -80,7 +80,11 @@ router.post('/upload', async (req, res) => {
 
     return res.json({
       statusCode: 200,
-      payload: { newPost },
+      payload: { newPost: {
+        ...newPost.dataValues,
+        username: req.user.username,
+        avatar: req.user.avatar,
+      } },
     }).status(200);
   });
 });

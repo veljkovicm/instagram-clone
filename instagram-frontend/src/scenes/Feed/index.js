@@ -1,4 +1,4 @@
-import FeedPageComponent from './container.js';
+import FeedPageComponent from './container';
 
 
 export default {

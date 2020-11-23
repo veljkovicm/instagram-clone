@@ -66,13 +66,13 @@ router.post('/sign_up', async (req, res) => {
 
 router.post('/sign_in', async (req, res) => {
   const {
-    email,
+    username,
     password,
     rememberMe,
   } = req.body;
 
 
-  const { userIsVerified, user, message } = await Services.verifyUser(email, password);
+  const { userIsVerified, user, message } = await Services.verifyUser(username, password);
 
   if (!userIsVerified) {
     return res.send({
@@ -82,7 +82,7 @@ router.post('/sign_in', async (req, res) => {
     }).status(401);
   };
 
-  const ttl = 60 * 60 * 24; // expire in a day
+  const ttl = 60 * 60 * 24 * 7; // expire in a week
 
   const token = jwt.sign(
     {
@@ -97,7 +97,7 @@ router.post('/sign_in', async (req, res) => {
       avatar:  user.avatar,
     },
     config.jwtSecret,
-    { expiresIn: 3600 }, //seconds
+    { expiresIn: ttl }, //seconds
   )
 
   return res.send({

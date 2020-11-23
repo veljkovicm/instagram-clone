@@ -1,7 +1,7 @@
 // import { reduxActionsGenerator } from '@src/lib';
-import { reduxActionsGenerator } from '../../lib/';
+import { reduxActionsGenerator } from 'lib';
 import axios from 'axios';
-import { startLoading, stopLoading} from '../../templates/components/Loading/actions.js';
+import { startLoading, stopLoading} from 'templates/components/Loading/actions';
 
 
 export const actionTypes = reduxActionsGenerator([
@@ -18,7 +18,6 @@ export const setUser = (data) => ({
   data: data,
 
 });
-
 
 
 export const checkUser = () => async (dispatch, getState) => {

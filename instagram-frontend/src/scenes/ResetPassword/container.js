@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 // import notify from notifications component
-import { resetPassword } from './actions.js';
+import { resetPassword } from './actions';
 import ResetPasswordPage from './ResetPasswordPage.jsx';
 
 

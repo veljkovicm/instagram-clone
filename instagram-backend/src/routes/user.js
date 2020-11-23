@@ -2,6 +2,7 @@ import express from 'express';
 import Services from '../services/services.js';
 import path from 'path';
 import fs from 'fs';
+import _ from 'lodash';
 
 
 const router = express.Router();
@@ -179,17 +180,42 @@ router.post('/unfollow', async (req,res) => {
   }).status(200)
 });
 
-router.post('/get-list', async (req, res) => {
-  const { listType, username } = req.body;
+router.post('/get-follower-list', async (req, res) => {
+  const { username } = req.body;
+  const { id } = await Services.getUserIdByUsername(username);
 
-  const { id } = await Services.getUserIdByUsername(username)
+  const followerList = await Services.getFollowList({ listType: 'follower', id });
+  const followingList = await Services.getFollowList({ listType: 'following', id: req.user.id });
+  
+  followerList.map((user) => {
+    const isFollowing = _.some(followingList, { id: user.followerId});
+    user.dataValues.isFollowing = isFollowing;
+  
+    return user;
+  });
 
-  const list = await Services.getFollowList({ listType, id });
-  console.log('>> list', JSON.stringify(list, null, 2));
-  res.json({
+  return res.json({
     statusCode: 200,
-    payload: list,
+    payload: followerList,
   }).status(200)
+});
+
+router.post('/get-following-list', async (req, res) => {
+  const { username } = req.body;
+
+  const { id } = await Services.getUserIdByUsername(username);
+
+  const followingList = await Services.getFollowList({ listType: 'following', id });
+
+  followingList.map((user) => {
+    user.dataValues.isFollowing = true;
+    return user;
+  });
+
+  return res.json({
+    statusCode: 200,
+    payload: followingList,
+  }).status(200);
 });
 
 

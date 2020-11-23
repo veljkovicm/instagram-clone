@@ -1,4 +1,4 @@
-import ResetPasswordComponent from './container.js';
+import ResetPasswordComponent from './container';
 
 export default {
   path: '/reset_password',

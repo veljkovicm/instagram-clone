@@ -15,10 +15,9 @@ const ProtectedRoute = (props) => {
     title,
     ...rest
   } = props;
-  console.log(props);
+  console.log('1 props', props);
   useEffect(() => {
     checkUser();
-    // stopLoading(); // might not be needed?
   }, []);
 
   return (
@@ -40,19 +39,15 @@ const ProtectedRoute = (props) => {
 
 ProtectedRoute.propTypes = {
   isLoggedIn: PropTypes.bool,
-  /** Url to redirect to when not authorized to access this route */
   redirectTo: PropTypes.string,
-  /**
-   *  React component passed to the Route
-   */
   component: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func,
   ]),
-  /**
-   * Check is we have a valid user
-   */
   checkUser: PropTypes.func,
+  loading: PropTypes.bool,
+  stopLoading: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default ProtectedRoute;

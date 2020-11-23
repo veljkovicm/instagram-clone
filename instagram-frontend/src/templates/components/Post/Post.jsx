@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { formatDistance} from 'date-fns';
 
@@ -21,9 +22,9 @@ const Post = (props) => {
 
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments || []);
-  const [ liked, setLiked ] = useState(isLiked);
-  const [ saved, setSaved ] = useState(isSaved);
-  const [ likeCounter, setLikeCounter ] = useState(likeCount);
+  const [ liked, setLiked ] = useState(isLiked || false);
+  const [ saved, setSaved ] = useState(isSaved || false);
+  const [ likeCounter, setLikeCounter ] = useState(likeCount || 0);
 
 
   let commentInput = null
@@ -60,6 +61,9 @@ const Post = (props) => {
     })
   )
   const handleLikeIconClick = () => {
+    console.log('LIKE');
+    console.log({liked});
+    console.log({likeCounter});
     setLiked(!liked);
     if(liked) {
       setLikeCounter(likeCounter - 1)
@@ -114,6 +118,22 @@ const Post = (props) => {
       {/* deleting a comment is only possible in single post popup */}
     </div>
   )
+}
+
+Post.propTypes = {
+  id: PropTypes.string.isRequired,
+  caption: PropTypes.string,
+  fileName: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  uploadedAt: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  postComment: PropTypes.func.isRequired,
+  comments: PropTypes.array,
+  likeAction: PropTypes.func.isRequired,
+  isLiked: PropTypes.bool,
+  likeCount: PropTypes.number,
+  isSaved: PropTypes.bool,
+  savePostAction: PropTypes.func.isRequired,
 }
 
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Header from 'templates/components/Header';
 
-import Header from '../../templates/components/Header/index.js';
 import './settingsPage.css'
 
 const Settings = (props) => {
@@ -109,6 +110,11 @@ const Settings = (props) => {
     </div>
     </>
   )
+}
+
+Settings.propTypes = {
+  uploadAvatar: PropTypes.func.isRequired,
+  updateSettings: PropTypes.func.isRequired,
 }
 
 export default Settings;

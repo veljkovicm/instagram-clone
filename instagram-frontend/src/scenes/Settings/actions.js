@@ -1,5 +1,5 @@
-import { API } from '../../lib'
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib';
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 
 export const updateSettings = (userData) => async (dispatch, getState) => {
   try {

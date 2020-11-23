@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 // import notify from notifications component
-import { login } from './actions.js';
+import { login } from './actions';
 import LoginPage from './LoginPage.jsx';
 
 

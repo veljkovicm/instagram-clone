@@ -1,17 +1,11 @@
 import { connect } from 'react-redux';
-
-// import notify from notifications component
-import { search } from './actions.js';
+import { search } from './actions';
 import SearchBar from './SearchBar.jsx';
-
-
-const mapStateToProps = (state) => ({
-  
-});
+// import notify from notifications component
 
 const mapDispatchToProps = {
   search,
   // notify,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);

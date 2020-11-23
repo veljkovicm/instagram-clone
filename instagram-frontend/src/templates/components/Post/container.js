@@ -4,7 +4,7 @@ import {
   postComment,
   likeAction,
   savePostAction,
-} from './actions.js';
+} from './actions';
 
 const mapDispatchToProps = {
   postComment,

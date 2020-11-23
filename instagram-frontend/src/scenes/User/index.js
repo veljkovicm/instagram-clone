@@ -1,5 +1,4 @@
-import UserPageComponent from './container.js';
-
+import UserPageComponent from './container';
 
 export default {
   path: '/u/:username',

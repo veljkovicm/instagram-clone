@@ -1,5 +1,5 @@
-import { API } from '../../lib'
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib'
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 
 export const resetPassword = ({ newPassword, token }) => async (dispatch, getState) => {
   const  { isLoading } = getState().auth;

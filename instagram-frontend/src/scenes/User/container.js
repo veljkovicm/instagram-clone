@@ -7,7 +7,11 @@ import {
   followUser,
   unfollowUser,
   getFollowList,
-} from './actions.js';
+} from './actions';
+
+const mapStateToProps = (state) => ({
+  myUsername: state.global.user.currentUser?.username,
+});
 
 const mapDispatchToProps = {
   getUser,
@@ -17,4 +21,4 @@ const mapDispatchToProps = {
   getFollowList,
 }
 
-export default connect(null, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

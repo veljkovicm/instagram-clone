@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
-import Header from '../../templates/components/Header/index.js';
+import { Helmet } from 'react-helmet';
+import Header from 'templates/components/Header';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
 import UserPosts from './components/UserPosts/UserPosts.jsx';
-import { Helmet } from 'react-helmet';
 
 import './user.css';
 
-const Feed = (props) => {
+const User = (props) => {
   const {
     getUser,
     uploadAvatar,
     followUser,
     unfollowUser,
     getFollowList,
+    myUsername,
   } = props;
 
   const { username } = useParams();
@@ -41,7 +43,6 @@ const Feed = (props) => {
   if(!dataLoaded) {
     return <p>LOADING</p>
   }
-  console.log('>> POSTS', posts);
   return (
     <div className="user-profile-wrapper">
       <Header path={`/u/${username}`}/>
@@ -49,11 +50,13 @@ const Feed = (props) => {
         <title>{`Profile - ${username}`}</title>
       </Helmet>
       <UserHeader
-        user={user}
+        // TODO move first 5 actions to userHeader folder, connect with redux
         uploadAvatar={uploadAvatar}
         followUser={followUser}
         unfollowUser={unfollowUser}
         getFollowList={getFollowList}
+        myUsername={myUsername}
+        user={user}
         username={username}
         postCount={posts.userPosts.length}
       />
@@ -65,11 +68,12 @@ const Feed = (props) => {
   )
 };
 
-// PropTypes
+User.propTypes = {
+  getUser: PropTypes.func.isRequired,
+  uploadAvatar: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
+  getFollowList: PropTypes.func.isRequired,
+}
 
-export default Feed;
-
-
-
-
-
+export default User;

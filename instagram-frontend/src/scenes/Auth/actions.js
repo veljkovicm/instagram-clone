@@ -1,10 +1,10 @@
-import { API } from '../../lib'
-import { setUser } from '../../core/user';
-import { startLoading, stopLoading } from '../../templates/components/Loading/actions';
+import { API } from 'lib';
+import { setUser } from 'core/user';
+import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 
-export const login = ({ email, password, rememberMe }) => async (dispatch, getState) => {
+export const login = ({ username, password, rememberMe }) => async (dispatch, getState) => {
   const  { isLoading } = getState().auth;
-  const lowercaseEmail = email.toLowerCase();
+  const lowercaseUsername = username.toLowerCase();
 
   if (isLoading) return;
 
@@ -12,7 +12,7 @@ export const login = ({ email, password, rememberMe }) => async (dispatch, getSt
     dispatch(startLoading());
 
     const body = {
-      email: lowercaseEmail,
+      username: lowercaseUsername,
       password,
       rememberMe,
     }

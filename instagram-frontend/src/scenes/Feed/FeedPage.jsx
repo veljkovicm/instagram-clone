@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../templates/components/Header/index.js';
-import Post from '../../templates/components/Post';
+import PropTypes from 'prop-types';
+import Header from 'templates/components/Header/';
+import Post from 'templates/components/Post';
 
 import './feed.css';
 
@@ -66,11 +67,9 @@ const Feed = (props) => {
   )
 };
 
-// PropTypes
+Feed.propTypes = {
+  upload: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
+}
 
 export default Feed;
-
-
-
-
-

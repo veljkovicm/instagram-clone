@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { validateInput } from '../../lib/validators.js';
-import ValidationIcon from '../../templates/components/ValidationIcon.jsx';
+import { validateInput } from 'lib/validators';
+import ValidationIcon from 'templates/components/ValidationIcon.jsx';
 
-import Loading from '../../templates/components/Loading';
+import Loading from 'templates/components/Loading';
 
 
 import './signupPage.css';
@@ -152,10 +153,12 @@ const Signup = (props) => {
     </>
   )
 };
-  // PropTypes
+
+Signup.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
+  signup: PropTypes.func.isRequired,
+  checkAvailability: PropTypes.func.isRequired,
+}
 
 export default Signup;
-
-
-
-

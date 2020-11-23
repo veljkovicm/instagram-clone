@@ -1,9 +1,7 @@
-import ForgotPasswordComponent from './container.js';
-import ForgotPasswordPageReducer from './reducer.js';
+import ForgotPasswordComponent from './container';
 
 export default {
   path: '/forgot_password',
   component: ForgotPasswordComponent,
-  reducer: ForgotPasswordPageReducer,
   protected: false,
 };

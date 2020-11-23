@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 
@@ -21,9 +22,9 @@ const NavigationBar = (props) => {
     }
   }
   const handleNavClick = (path) => {
-    console.log('>> path', path);
     setMenuActive(false);
     history.push(`${path}`);
+    window.location.reload();
   }
 
   const handleLogout = () => {
@@ -36,7 +37,7 @@ const NavigationBar = (props) => {
   return (
     <div className="navigation-menu__wrapper">
       <div className="navigation-menu">
-        <div className={`navigation-menu__item feed ${path === '/feed' && 'active'}`} onClick={() => handleNavClick('/')} title="Home"></div>
+        <div className={`navigation-menu__item feed ${path === '/feed' && 'active'}`} onClick={() => handleNavClick('/feed')} title="Home"></div>
         <div className="navigation-menu__item direct" onClick={() => handleNavClick('/direct')} title="Direct"></div>
         <div className="navigation-menu__item explore" onClick={() => handleNavClick('/explore')} title="Explore"></div>
         <div className="navigation-menu__item notifications" onClick={() => handleMenuClick('notifications')}>
@@ -60,5 +61,10 @@ const NavigationBar = (props) => {
   )
 }
 
+NavigationBar.propTypes = {
+  username: PropTypes.string,
+  clearUser: PropTypes.func.isRequired,
+  path: PropTypes.string,
+}
 
 export default NavigationBar;
