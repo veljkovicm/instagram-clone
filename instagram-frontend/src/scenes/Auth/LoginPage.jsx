@@ -45,7 +45,7 @@ const Login = (props) => {
 
   return (
     <div className="login-page">
-    <Helmet><title>Instagram - Log in</title></Helmet>
+      <Helmet><title>Instagram - Log in</title></Helmet>
       <div className="login-page__image-wrapper"></div>
       <div className="login-page__main-wrapper">
         <div className="login-page__main-wrapper__inner">
@@ -92,7 +92,7 @@ const Login = (props) => {
 
           </div>
           <div className="login-page__facebook-link-wrapper">
-            <div className="login-page__facebook-link-divider">
+            <div className="auth-page-divider">
               <span>OR</span>
             </div>
             <div className="login-page__facebook-link">Log in with Facebook</div>
@@ -105,10 +105,10 @@ const Login = (props) => {
             <a href="/sign_up">Sign up</a>
           </p>
         </div>
-        <div className="login-page__app-links">
+        <div className="auth-page-app-links">
           <p>Get the app</p>
-          <div src="http://via.placeholder.com/136x40" className="login-page__app-links__ios" alt="ios"/>
-          <div src="http://via.placeholder.com/136x40" className="login-page__app-links__android" alt="android"/>
+          <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__ios" alt="ios"/>
+          <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__android" alt="android"/>
         </div>
       </div>
     </div>

@@ -6,10 +6,7 @@ body {
   box-sizing: border-box;
 }
 
-a:visited {
-  color: #262626;
-  /* color: inherit; ? works */ 
-}
+/* clicked links should not change color */
 
 a {
   text-decoration: none;

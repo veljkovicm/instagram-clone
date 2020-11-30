@@ -7,8 +7,7 @@ import ValidationIcon from 'templates/components/ValidationIcon.jsx';
 
 import Loading from 'templates/components/Loading';
 
-
-import './signupPage.css';
+import './signupPage.scss';
 
 
 const Signup = (props) => {
@@ -96,61 +95,81 @@ const Signup = (props) => {
 
 
   return (
-    <>
+    <div className="signup-page">
       <Helmet><title>Instagram - Sign up</title></Helmet>
-      <div className="signup form-wrapper">
-        <Loading />
-        <form onSubmit={handleSignup}>
-          <input
-            type="text"
-            name="email"
-            onChange={handleInputChange}
-            value={userData.email}
-            placeholder="email"
-            onBlur={handleEmailValidation}
-          />
-          <ValidationIcon changed={hasChanged.email} valid={isValid.email} />
-          <input
-            type="text"
-            name="username"
-            onChange={handleInputChange}
-            value={userData.username}
-            placeholder="username"
-            onBlur={handleUsernameValidation}
-          />
-          <ValidationIcon changed={hasChanged.username} valid={isValid.username} />
-          <input
-            type="text"
-            name="fullName"
-            onChange={handleInputChange}
-            value={userData.fullName}
-            placeholder="full name"
-            onBlur={handleFullNameValidation}
-          />
-          <ValidationIcon changed={hasChanged.fullName} valid={isValid.fullName} />
-          <input
-            type="password"
-            name="password"
-            onChange={handlePasswordChange}
-            value={userData.password}
-            onBlur={handlePasswordValidation}
-          />
-          <ValidationIcon changed={hasChanged.password} valid={isValid.password} />
+      <div className="signup-page__wrapper">
+        <div className="signup-page__logo">Instagram</div>
+        <h4 className="signup-page__description">Sign up to see photos and videos from your friends.</h4>
+        <div className="signup-page__facebook-link-wrapper">
+          <div className="signup-page__facebook-link">
+            <span className="signup-page__facebook-link__icon"/>
+            <span className="signup-page__facebook-link__text">Log in with Facebook</span>
+          </div>
+        </div>
+        <div className="auth-page-divider"><span>OR</span></div>
+        <div className="signup-page__form-wrapper">
+          <Loading />
+          <form onSubmit={handleSignup} className="signup-page__form">
+            <input
+              type="text"
+              name="email"
+              onChange={handleInputChange}
+              value={userData.email}
+              placeholder="email"
+              onBlur={handleEmailValidation}
+            />
+            <ValidationIcon changed={hasChanged.email} valid={isValid.email} />
+            <input
+              type="text"
+              name="username"
+              onChange={handleInputChange}
+              value={userData.username}
+              placeholder="username"
+              onBlur={handleUsernameValidation}
+            />
+            <ValidationIcon changed={hasChanged.username} valid={isValid.username} />
+            <input
+              type="text"
+              name="fullName"
+              onChange={handleInputChange}
+              value={userData.fullName}
+              placeholder="full name"
+              onBlur={handleFullNameValidation}
+            />
+            <ValidationIcon changed={hasChanged.fullName} valid={isValid.fullName} />
+            <input
+              type="password"
+              name="password"
+              onChange={handlePasswordChange}
+              value={userData.password}
+              onBlur={handlePasswordValidation}
+            />
+            <ValidationIcon changed={hasChanged.password} valid={isValid.password} />
 
-          <button
-            type="submit"
-            onClick={handleSignup}
-            disabled={!Object.values(isValid).every(i => i === true)}
-          >
-            {loading ? 'Loading...' : 'signup'}
-          </button>
-        </form>
-        <p>
-          Already have an account?
-          <a href="/sign_in">Log in instead</a>
-        </p>
+            <button
+              type="submit"
+              onClick={handleSignup}
+              disabled={!Object.values(isValid).every(i => i === true)}
+            >
+              {loading ? 'Loading...' : 'signup'}
+            </button>
+          </form>
+          <p className="signup-page__disclaimer">
+            By signing up, you agree to our <b>Terms</b>, <b>Data Policy</b> and <b>Cookies Policy</b>
+          </p>
+        </div>
+        
+        
       </div>
-    </>
+      <div className="signup-page__login-link">
+        <p>Have an account?<a href="/sign_in">Log in</a></p>
+      </div>
+      <div className="auth-page-app-links">
+        <p>Get the app</p>
+        <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__ios" alt="ios" />
+        <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__android" alt="android" />
+      </div>
+    </div>
   )
 };
 

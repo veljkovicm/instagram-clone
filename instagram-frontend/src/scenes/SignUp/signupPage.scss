@@ -1,0 +1,82 @@
+.signup-page {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  
+  &__wrapper {
+    max-width: 348px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    padding: 0 40px;
+  }
+  &__logo {
+    width: 175px;
+    height: 51px;
+    background-image: url('/32f0a4f27407.png');
+    background-position: 0 -130px;
+    margin: 32px 0 12px;
+    font-size: 0;
+  }
+  &__description {
+    margin: 0 0 10px;
+    color: #999999;
+    // font-size: 17px;
+    text-align: center;
+  }
+
+  
+  &__facebook-link {
+    background-color: #2795f6;
+    padding: 6px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: not-allowed;
+    &__icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 6px;
+      background-image: url('/32f0a4f27407.png');
+      background-position: -414px -300px;
+      background-repeat: no-repeat;
+    }
+    &__text {
+      color: #fff;
+    }
+    &-wrapper {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+  }
+  &__disclaimer {
+    margin: 10px 0 40px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #8E8E8E;
+    text-align: center;
+  }
+  &__login-link {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 348px;
+    margin: 10px 0 5px;
+    padding: 9px 0;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    a {
+      color: #0094f6;
+      margin-left: 5px;
+    }
+  }
+}
+
