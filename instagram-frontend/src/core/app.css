@@ -5,6 +5,16 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* clicked links should not change color */
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #fafafa;
+}
 .form-wrapper {
   display: flex;
   position: absolute;
@@ -26,9 +36,10 @@ form * {
 }
 
 #root {
+  position: relative;
   max-width: 975px;
   margin: 0 auto;
+  background-color: #fafafa;
   border: 1px solid #000;
-  position: relative;
   min-height: 100vh;
 }

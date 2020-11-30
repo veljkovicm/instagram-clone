@@ -16,6 +16,7 @@ const UserHeader = (props) => {
     postCount,
     myUsername,
   } = props;
+  console.log('>> user.avatar', user.avatar);
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
   const [ following, setFollowing ] = useState(user.following);
   const [ popup, setPopup ] = useState();

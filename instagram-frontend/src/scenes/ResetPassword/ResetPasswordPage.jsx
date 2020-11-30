@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 
 import Loading from 'templates/components/Loading';
 
-import './resetPassword.css';
+import './resetPassword.scss';
 
 
 const ResetPassword = (props) => {
@@ -27,52 +27,46 @@ const ResetPassword = (props) => {
   }  
 
   const [ password, setPassword ] = useState('');
-  const [ confirmPassword, setConfirmPassword ] = useState('');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
-
-  // add onClickValidation
-
 
   const handleInputChange = (setValue) => (e) => {
     setValue(e.target.value);
   };
 
   const handleResetPassword = (e) => {
-    if (e.preventDefault) e.preventDefault();
+    e.preventDefault();
 
-    // const { error, errorMsg } = handleOnClickValidation() || {};
-
-    // if (error) {
-      // display error notification 
-    //   // notify({ message: errorMsg, type: 'error' });
-    // } else {
-    
     const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
-      resetPassword({ newPassword: password, token });
-    // }
+    resetPassword({ newPassword: password, token });
   }
-
 
   const handlePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   }
 
   return (
-    <>
-    <Helmet><title>Reset password</title></Helmet>
-      <div className="reset_password form-wrapper">
+    <div className="reset-password">
+      <Helmet><title>Reset password</title></Helmet>
+      <div className="reset-password__inner">
         <Loading />
-        <form onSubmit={handleResetPassword}>
-          <div>
-            <input type={passwordVisible ? 'text' : 'password'} name="password" onChange={handleInputChange(setPassword)} value={password} />
-            <button type="button" onClick={handlePasswordVisibility} className="password-visibility-toggle">toggle</button>
-          </div>
-          <input type="password" name="confirm-password" onChange={handleInputChange(setConfirmPassword)} value={confirmPassword} />
-          <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Set new password'}</button>
-        </form>
-        <a href="/">Log in instead?</a>
+        <div className="reset-password__logo">Instagram</div>
+        <div className="reset-password__form-wrapper">
+          <form onSubmit={handleResetPassword} className="reset-password__form">
+            <div>
+              <input type={passwordVisible ? 'text' : 'password'} name="password" onChange={handleInputChange(setPassword)} value={password} />
+              {
+                password.length ?
+                  <div className="password-visibility-toggle" onClick={handlePasswordVisibility}>
+                    {passwordVisible ? 'Hide' : 'Show'}
+                  </div>
+                : null 
+              }
+            </div>
+            <button type="submit" onClick={handleResetPassword}>{loading ? 'Loading...' : 'Reset password'}</button>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   )
 };
 
