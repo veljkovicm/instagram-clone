@@ -1,0 +1,12 @@
+.page-header {
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+  &__inner {
+    max-width: 975px;
+    margin: 0 auto;
+    padding: 2px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

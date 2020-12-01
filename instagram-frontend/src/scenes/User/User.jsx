@@ -44,27 +44,27 @@ const User = (props) => {
     return <p>LOADING</p>
   }
   return (
-    <div className="user-profile-wrapper">
+    <>
       <Header path={`/u/${username}`}/>
-      <Helmet>
-        <title>{`Profile - ${username}`}</title>
-      </Helmet>
-      <UserHeader
-        // TODO move first 5 actions to userHeader folder, connect with redux
-        uploadAvatar={uploadAvatar}
-        followUser={followUser}
-        unfollowUser={unfollowUser}
-        getFollowList={getFollowList}
-        myUsername={myUsername}
-        user={user}
-        username={username}
-        postCount={posts.userPosts.length}
-      />
-      <UserPosts 
-        posts={posts}
-        isOwnProfile={user.isOwnProfile}
-      />
-    </div>
+      <Helmet><title>{`Profile - ${username}`}</title></Helmet>
+      <div className="user-profile-wrapper page-content">
+        <UserHeader
+          // TODO move first 5 actions to userHeader folder, connect with redux
+          uploadAvatar={uploadAvatar}
+          followUser={followUser}
+          unfollowUser={unfollowUser}
+          getFollowList={getFollowList}
+          myUsername={myUsername}
+          user={user}
+          username={username}
+          postCount={posts.userPosts.length}
+        />
+        <UserPosts 
+          posts={posts}
+          isOwnProfile={user.isOwnProfile}
+        />
+      </div>
+    </>
   )
 };
 

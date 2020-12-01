@@ -44,7 +44,7 @@ const Login = (props) => {
 
 
   return (
-    <div className="login-page">
+    <div className="login-page page-content">
       <Helmet><title>Instagram - Log in</title></Helmet>
       <div className="login-page__image-wrapper"></div>
       <div className="login-page__main-wrapper">

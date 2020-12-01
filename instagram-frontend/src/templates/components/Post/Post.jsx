@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { formatDistance} from 'date-fns';
 
+import './post.scss';
+
 const Post = (props) => {
   const {
     id,
@@ -26,7 +28,7 @@ const Post = (props) => {
   const [ saved, setSaved ] = useState(isSaved || false);
   const [ likeCounter, setLikeCounter ] = useState(likeCount || 0);
 
-
+  console.log({avatar});
   let commentInput = null
   const history = useHistory();
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
@@ -81,10 +83,16 @@ const Post = (props) => {
   return (
     <div className="single-post">
       <div className="single-post__user-badge">
-        <Link to={`/u/${username}`}>
-          <img src={avatarSrc} alt="userAvatar" width="30"/>
-          {username}
-        </Link>
+        <div className="single-post__user-badge__avatar">
+          <Link to={`/u/${username}`}>
+            <img src={avatarSrc} alt="userAvatar"/>
+          </Link>
+          </div>
+        <div className="single-post__user-badge__username">
+          <Link ti={`/u/${username}`}>
+            {username}
+          </Link>
+        </div>
         {/* dot menu */}
       </div>
       <div className="single_post__image-wrapper">

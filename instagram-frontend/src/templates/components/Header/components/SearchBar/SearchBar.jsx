@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import './SearchBar.css';
+import './SearchBar.scss';
 
 const SearchBar = (props) => {
   const [ result, setResult ] = useState([]);
@@ -29,24 +29,23 @@ const SearchBar = (props) => {
       console.log('>> result', result);
       setShowSearch(true);
     })
-    // setResult(searchResult);
-    
   }
   if(result.length > 0) {
     markup = (
       result.map((user, i) => {
-        return <a href={`/u/${user.username}`} className="search__results__single" key={i}>
-          <div className="search__results__single__image"><img src={user.imageUrl} /></div>
-          <div className="search__results__single__info">
-          <span className="search__results__single__username">{user.username}</span>
-          <span className="search__results__single__name">{user.fullName}</span>
+        const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+        return <a href={`/u/${user.username}`} className="header-search__results__single" key={i}>
+          <div className="header-search__results__single__image-wrapper"><img src={avatarSrc} /></div>
+          <div className="header-search__results__single__info">
+            <span className="header-search__results__single__username">{user.username}</span>
+            <span className="header-search__results__single__name">{user.fullName}</span>
           </div>
         </a>
       })
     )
-  } else if (result.length < 1 && searchQuery !== '') {
+  } else if (result.length < 1 && searchQuery !== '' && !loading) {
     markup = (
-      <div>Not found</div>
+      <div className="header-search__results-empty">No users found</div>
     )
   }
   const handleClearInput = () => {
@@ -66,28 +65,25 @@ const SearchBar = (props) => {
     setShowSearch(false);
     setBackdropVisible(false);
   }
-  
 
   const showMarkup = showSearch && focus;
 
-
   return (
-    <div className="search">
+    <div className="header-search">
       <div className={`backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick}></div>
-        <form className="search__form">
+        <form className="header-search__form">
           <input
             type="text"
             placeholder="Search"
             onChange={handleInputChange}
             value={searchQuery}
-            // onBlur={handleBlur}
             onFocus={handleFocus}
-            className="search__form__input"
-            />
-          { focus && <span onClick={handleClearInput} className="search__form__clear">x</span>} {/*clear input */}
-          { loading && <span className="search__form__loading">L</span> } {/*loading indicator */}
+            className="header-search__form__input"
+          />
+          { focus && !loading ? <span onClick={handleClearInput} className="header-search__form__clear" /> : null} {/*clear input */}
+          { loading && <span className="header-search__form__loading">L</span> } {/*loading indicator */}
         </form>
-        <div className="search__results">
+        <div className="header-search__results">
           {showMarkup && markup}
         </div>
     </div>

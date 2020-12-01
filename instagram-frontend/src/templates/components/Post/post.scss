@@ -1,0 +1,15 @@
+.single-post {
+  &__user-badge {
+    display: flex;
+    align-items: center;
+    &__avatar {
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      img {
+        max-width: 100%;
+      }
+    }
+    &__username {}
+  }
+}

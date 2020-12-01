@@ -1,14 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import './logo.css';
+import './logo.scss';
 
 const Logo = () => {
   const history = useHistory();
-  const handleClick = () => history.push('/')
-  return (
-    <div onClick={handleClick} className="logo-wrapper">INSTAGRAM</div>
-  )
+  const handleClick = () => history.push('/');
+
+  return <img onClick={handleClick} className="header-logo" src={'/header-logo.png'} alt="logo"/>
 }
 
 export default Logo;
