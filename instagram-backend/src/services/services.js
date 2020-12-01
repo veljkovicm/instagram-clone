@@ -208,7 +208,11 @@ class Services {
 
   static async search({ query}) {
     return User.findAll({
-      attributes: ['username', ['full_name', 'fullName']],
+      attributes: [
+        'username',
+        ['full_name', 'fullName'],
+        'avatar'
+      ],
       where: {
         [Op.or]: {
           username: {

@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     usersArray.push({
       username: user.username,
       fullName: user.fullName,
-      imageUrl: 'https://via.placeholder.com/50',
+      avatar: user.avatar,
     })
   })
 
