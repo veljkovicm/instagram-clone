@@ -89,7 +89,7 @@ const Post = (props) => {
           </Link>
           </div>
         <div className="single-post__user-badge__username">
-          <Link ti={`/u/${username}`}>
+          <Link to={`/u/${username}`}>
             {username}
           </Link>
         </div>
