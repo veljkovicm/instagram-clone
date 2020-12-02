@@ -1,0 +1,85 @@
+.user-list {
+  position: absolute;
+  left: 50%;
+  top: 400px;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  z-index: 999;
+  &__backdrop {
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: -0%;
+    top: 0;
+    z-index: 998;
+  }
+  &__header {
+    text-align: center;
+    position: relative;
+    padding: 12px 0;
+    border-bottom: 1px solid #dbdbdb;
+    &__title {
+      margin: 0;
+    }
+    &__close-icon {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      background: url('/icons/cross.svg') no-repeat;
+      cursor: pointer;
+    }
+  }
+  &__list-wrapper {
+    overflow-y: scroll;
+    min-height: 357px;
+  }
+  &__single {
+    display: flex;
+    justify-content: flex-start;
+    padding: 5px 16px;
+    &__avatar {
+      width: 30px;
+      height: 30px;
+      margin-right: 12px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        max-width: 100%;
+      }
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      line-height: 18px;
+      &__username {
+        font-size: 14px;
+        color: #262626;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &__name {
+        font-size: 14px;
+        color: #8e8e8e;
+      }
+    }
+    &__button {
+      padding: 5px 9px;
+      height: 30px;
+      border-radius: 4px;
+      font-weight: bold;
+      &-wrapper {
+        margin-left: auto;
+      }
+    }
+  }
+}
