@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import './userPosts.css';
+import './userPosts.scss';
 
 const UserPosts = (props) => {
   const {
@@ -22,8 +22,14 @@ const UserPosts = (props) => {
           <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
         </div>
         <div className="user-profile__posts__single__hover">
-          <div>L: {post.likeCount ? post.likeCount : 0}</div>
-          <div>C: {post.commentCount ? post.commentCount : 0}</div>
+          <div className="user-profile__posts__single__hover__likes">
+            <div className="user-profile__posts__single__hover__likes__icon"/>
+            <span>{post.likeCount ? post.likeCount : 0}</span>
+            </div>
+          <div className="user-profile__posts__single__hover__comments">
+            <div className="user-profile__posts__single__hover__comments__icon"/>
+            <span>{post.commentCount ? post.commentCount : 0}</span>
+          </div>
         </div>
       </div>
     )
@@ -32,20 +38,46 @@ const UserPosts = (props) => {
   if(userPosts.length) {
     postsMarkup = formatPosts(userPosts);
   } else {
-    postsMarkup = (
-      <div>NO USER POSTS</div>
-    )
+    if(isOwnProfile) {
+      postsMarkup = (
+        <div className="user-profile__user-posts-empty own">
+          <div className="user-profile__user-posts-empty__image-wrapper">
+            <img src="/posts-placeholder.jpg" alt=""/>
+          </div>
+          <div className="user-profile__user-posts-empty__description">
+            <h4>Start capturing and sharing your moments</h4>
+            <p>Get the app to share your first photo and video</p>
+            <div className="auth-page-app-links">
+              <div className="auth-page-app-links__ios" alt="ios"/>
+              <div className="auth-page-app-links__android" alt="android"/>
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      postsMarkup = (
+        <div className="user-profile__user-posts-empty others">
+          <div className="user-profile__user-posts-empty__badge" />
+          <h4>No Posts Yet</h4>
+        </div>
+      )
+    }
   }
 
   if(savedPosts.length) {
     savedPostsMarkup = formatPosts(savedPosts);
   } else {
     savedPostsMarkup = (
-      <div>NO SAVED POSTS</div>
+      <div className="user-profile__saved-posts-empty">
+        <div className="user-profile__saved-posts-empty__badge" />
+        <h4 className="user-profile__saved-posts-empty__title">Save</h4>
+        <p className="user-profile__saved-posts-empty__text">
+          Save photos that you want to see again.
+          No one is notified, and only you can see what you've saved.
+        </p>
+      </div>
     )
   }
-
-  
 
   if(activeTab === 'feed') {
     activeTabPosts = postsMarkup;
@@ -58,9 +90,9 @@ const UserPosts = (props) => {
   }
 
   const tabControls = (
-    <div className="user-profile__controls-wrapper">
-      <span onClick={() => handleTabClick('feed')}>Feed</span>
-      <span onClick={() => handleTabClick('saved')}>Saved</span>
+    <div className="user-profile__controls">
+      <span className={`user-profile__controls__single feed ${activeTab === 'feed' ? 'tab-active' : ''}`} onClick={() => handleTabClick('feed')}>Feed</span>
+      <span className={`user-profile__controls__single saved ${activeTab === 'saved' ? 'tab-active' : ''}`} onClick={() => handleTabClick('saved')}>Saved</span>
     </div>
   )
 

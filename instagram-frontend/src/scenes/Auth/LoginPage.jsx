@@ -107,8 +107,8 @@ const Login = (props) => {
         </div>
         <div className="auth-page-app-links">
           <p>Get the app</p>
-          <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__ios" alt="ios"/>
-          <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__android" alt="android"/>
+          <div className="auth-page-app-links__ios" alt="ios"/>
+          <div className="auth-page-app-links__android" alt="android"/>
         </div>
       </div>
     </div>

@@ -44,7 +44,7 @@ form * {
 
 .page-content {
   max-width: 975px;
-  padding: 0 15px;
+  padding: 0 20px;
   margin: 0 auto;
 }
 
@@ -71,7 +71,6 @@ button {
 button:disabled {
   cursor: not-allowed;
 }
-
 
 .btn-blue {
   background-color: #2795f6;

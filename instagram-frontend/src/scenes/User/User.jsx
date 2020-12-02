@@ -6,8 +6,6 @@ import Header from 'templates/components/Header';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
 import UserPosts from './components/UserPosts/UserPosts.jsx';
 
-import './user.css';
-
 const User = (props) => {
   const {
     getUser,
@@ -44,10 +42,10 @@ const User = (props) => {
     return <p>LOADING</p>
   }
   return (
-    <>
+  <>
       <Header path={`/u/${username}`}/>
       <Helmet><title>{`Profile - ${username}`}</title></Helmet>
-      <div className="user-profile-wrapper">
+      <div className="user-profile-wrapper page-content">
         <UserHeader
           // TODO move first 5 actions to userHeader folder, connect with redux
           uploadAvatar={uploadAvatar}
