@@ -71,3 +71,16 @@ button {
 button:disabled {
   cursor: not-allowed;
 }
+
+
+.btn-blue {
+  background-color: #2795f6;
+  color: #fff;
+  border: 1px solid #2795f6;
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #262626;
+  border: 1px solid #dbdbdb;
+}

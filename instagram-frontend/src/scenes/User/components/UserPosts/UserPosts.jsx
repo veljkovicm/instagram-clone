@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import './userPosts.css';
+
 const UserPosts = (props) => {
   const {
     posts: {
@@ -16,7 +18,9 @@ const UserPosts = (props) => {
   const formatPosts = (posts) => {
     return posts.map((post) =>
       <div key={post.id} className="user-profile__posts__single">
-        <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
+        <div>
+          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
+        </div>
         <div className="user-profile__posts__single__hover">
           <div>L: {post.likeCount ? post.likeCount : 0}</div>
           <div>C: {post.commentCount ? post.commentCount : 0}</div>

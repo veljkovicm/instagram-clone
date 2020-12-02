@@ -1,3 +1,8 @@
+.user-profile-wrapper {
+  max-width: 935px;
+  margin: 0 auto;
+}
+
 .user-profile__posts__single {
   max-width: 33%;
   position: relative;

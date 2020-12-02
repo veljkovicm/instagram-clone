@@ -47,7 +47,7 @@ const User = (props) => {
     <>
       <Header path={`/u/${username}`}/>
       <Helmet><title>{`Profile - ${username}`}</title></Helmet>
-      <div className="user-profile-wrapper page-content">
+      <div className="user-profile-wrapper">
         <UserHeader
           // TODO move first 5 actions to userHeader folder, connect with redux
           uploadAvatar={uploadAvatar}
