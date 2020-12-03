@@ -4,17 +4,10 @@ import { useParams } from 'react-router-dom';
 import Post from 'templates/components/Post';
 import Header from 'templates/components/Header';
 
-
 import './singlePost.css';
 
 const SinglePost = (props) => {
-  const {
-    // post,
-    postComment,
-    postData,
-    getPost,
-    likeAction,
-  } = props;
+  const { getPost } = props;
   const { postId } = useParams();
 
   const [ post, setPost ] = useState(null);
@@ -27,9 +20,9 @@ const SinglePost = (props) => {
 
 
   return (
-    <div className="single-post-wrapper">
+    <div className="single-post-wrapper page-content">
       <Header />
-      { post ? <Post postComment={postComment} likeAction={likeAction} {...post}/> : <p>LOADING</p>}
+      { post ? <Post post={post} type="single" /> : <p>LOADING</p>}
     </div>
   )
 };

@@ -33,7 +33,7 @@ const Feed = (props) => {
     posts ? 
     posts.map((post) => {
       return <div key={post.id}>
-        <Post {...post} />
+        <Post post={post} type="feed" />
         </div>
     }) : <div>LOADING</div>
     // loading component
@@ -45,7 +45,6 @@ const Feed = (props) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('caption', caption);
-    console.log(formData);
     upload({ formData }).then((res) => {
       setPosts((oldPosts) => [
         res,

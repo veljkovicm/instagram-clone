@@ -1,146 +1,56 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
-import { formatDistance} from 'date-fns';
-
+import {
+  PostComments,
+  PostControls,
+  PostHeader,
+} from './components';
 import './post.scss';
 
 const Post = (props) => {
   const {
-    id,
-    caption,
-    fileName,
-    avatar,
-    uploadedAt,
-    username,
     postComment,
-    comments,
     likeAction,
-    isLiked,
-    likeCount,
-    isSaved,
     savePostAction,
+    post,
+    type,
   } = props;
+  let postMarkup;
 
-  const [ comment, setComment ] = useState('');
-  const [ postComments, setPostComments ] = useState(comments || []);
-  const [ liked, setLiked ] = useState(isLiked || false);
-  const [ saved, setSaved ] = useState(isSaved || false);
-  const [ likeCounter, setLikeCounter ] = useState(likeCount || 0);
-
-  console.log({avatar});
-  let commentInput = null
-  const history = useHistory();
-  const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
-
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    postComment({ id, comment })
-    .then((res) => {
-      setPostComments((prevState) => [
-        ...prevState,
-        res.payload,
-      ]);
-      setComment('');
-    })
-  }
-
-  const handleChange = (e) => {
-    setComment(e.target.value);
-  }
-
-  const handleCommentIconClick = () => {
-    history.push(`/p/${id}`)
-  }
-
-  const commentsMarkup = (
-    postComments.map((comment, i) => {
-      return <div key={i}>
-        <span><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
-        <span>{comment.comment}</span>
-      </div>
-    })
-  )
-  const handleLikeIconClick = () => {
-    console.log('LIKE');
-    console.log({liked});
-    console.log({likeCounter});
-    setLiked(!liked);
-    if(liked) {
-      setLikeCounter(likeCounter - 1)
-    } else {
-      setLikeCounter(likeCounter + 1)
-    }
-    likeAction({ postId: id, liked });
-  }
-
-  const handleSavePostClick = () => {
-    setSaved(!saved);
-    savePostAction({ postId: id, saved });
-  }
-
-  return (
-    <div className="single-post">
-      <div className="single-post__user-badge">
-        <div className="single-post__user-badge__avatar">
-          <Link to={`/u/${username}`}>
-            <img src={avatarSrc} alt="userAvatar"/>
-          </Link>
-          </div>
-        <div className="single-post__user-badge__username">
-          <Link to={`/u/${username}`}>
-            {username}
-          </Link>
+  if(type === 'feed') {
+    postMarkup = (
+      <div className="post feed-post">
+        <PostHeader avatar={post.avatar} username={post.username} />
+        <div className="single_post__image-wrapper">
+          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image" width="60%"/>
         </div>
-        {/* dot menu */}
+        <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
+        <PostComments postComment={postComment} post={post} />
       </div>
-      <div className="single_post__image-wrapper">
-        <img src={`http://localhost:5000/uploads/${fileName}`} alt="post-image" width="60%"/>
+    )
+  } else {
+    postMarkup = (
+      <div className="post single-post">
+        <div className="single_post__image-wrapper">
+          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image" width="60%"/>
+        </div>
+        <div className="post__details">
+          <PostHeader avatar={post.avatar} username={post.username} />
+          <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
+          <PostComments postComment={postComment} post={post} />
+        </div>
       </div>
-      <div className="single-post__actions-wrapper" style={{ display: 'flex' }}>
-        <div onClick={handleLikeIconClick}>{liked ? 'Unlike' : 'Like'}</div>
-        <div onClick={handleCommentIconClick}>Comment</div> 
-        <div>Direct</div>
-        <div onClick={handleSavePostClick}>{saved ? 'SAVED' : 'Save'}</div>
-      </div>
-      {likeCounter > 0 ? <p>{likeCounter} {likeCounter === 1 ? 'like' : 'likes'}</p> : null}
-      <div className="single-post__caption-wrapper">
-        <Link to={`/u/${username}`}>{username}</Link>
-        <span>{caption}</span>
-      </div>
-      <hr/>
-      {commentsMarkup}
-      {`${uploadTime} ago`}
-      <form onSubmit={handleCommentSubmit}>
-        <input
-          type="text"
-          onChange={handleChange}
-          value={comment}
-          placeholder="Add a comment"
-          ref={(input) => { commentInput = input; }}
-        />
-        <button onClick={handleCommentSubmit}>Post</button>
-      </form>
-      {/* move comment to separate component */}
-      {/* deleting a comment is only possible in single post popup */}
-    </div>
-  )
+    )
+  }
+
+  return postMarkup;
 }
 
 Post.propTypes = {
-  id: PropTypes.string.isRequired,
-  caption: PropTypes.string,
-  fileName: PropTypes.string.isRequired,
-  avatar: PropTypes.string,
-  uploadedAt: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  post: PropTypes.object.isRequired,
+  type: PropTypes.string,
   postComment: PropTypes.func.isRequired,
-  comments: PropTypes.array,
   likeAction: PropTypes.func.isRequired,
-  isLiked: PropTypes.bool,
-  likeCount: PropTypes.number,
-  isSaved: PropTypes.bool,
   savePostAction: PropTypes.func.isRequired,
 }
 
