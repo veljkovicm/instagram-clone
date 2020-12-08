@@ -33,7 +33,7 @@
         background-image: url('/icons/grid.svg');
       }
       &.saved {
-        background-image: url('/icons/saved.svg');
+        background-image: url('/icons/saved-tab.svg');
       }
       &.tab-active {
         color: #262626;
@@ -51,7 +51,7 @@
           background-image: url('/icons/grid-active.svg');
         }
         &.saved {
-          background-image: url('/icons/saved-active.svg');
+          background-image: url('/icons/saved-active-tab.svg');
         }
       }
     }

@@ -89,3 +89,7 @@ button:disabled {
   color: #262626;
   border: 1px solid #dbdbdb;
 }
+
+img {
+  max-width: 100%;
+}

@@ -20,10 +20,12 @@ const SinglePost = (props) => {
 
 
   return (
-    <div className="single-post-wrapper page-content">
+    <>
       <Header />
-      { post ? <Post post={post} type="single" /> : <p>LOADING</p>}
-    </div>
+      <div className="single-post-wrapper page-content">
+        { post ? <Post post={post} type="single" /> : <p>LOADING</p>}
+      </div>
+    </>
   )
 };
 

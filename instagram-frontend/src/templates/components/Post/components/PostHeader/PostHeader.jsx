@@ -8,13 +8,13 @@ const PostHeader = (props) => {
   const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
   return (
-    <div className="single-post__user-badge">
-        <div className="single-post__user-badge__avatar">
+    <div className="user-post__header">
+        <div className="user-post__header__avatar">
           <Link to={`/u/${username}`}>
             <img src={avatarSrc} alt="userAvatar"/>
           </Link>
           </div>
-        <div className="single-post__user-badge__username">
+        <div className="user-post__header__username">
           <Link to={`/u/${username}`}>
             {username}
           </Link>

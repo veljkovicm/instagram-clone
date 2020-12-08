@@ -19,25 +19,27 @@ const Post = (props) => {
 
   if(type === 'feed') {
     postMarkup = (
-      <div className="post feed-post">
+      <div className="user-post feed-post">
         <PostHeader avatar={post.avatar} username={post.username} />
-        <div className="single_post__image-wrapper">
-          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image" width="60%"/>
+        <div className="user-post__image-wrapper">
+          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image" />
         </div>
-        <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
-        <PostComments postComment={postComment} post={post} />
+        <div className="user-post__details">
+          <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
+          <PostComments postComment={postComment} post={post} />
+        </div>
       </div>
     )
   } else {
     postMarkup = (
-      <div className="post single-post">
-        <div className="single_post__image-wrapper">
-          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image" width="60%"/>
+      <div className="user-post single-post">
+        <div className="user-post__image-wrapper">
+          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image"/>
         </div>
-        <div className="post__details">
+        <div className="user-post__details">
           <PostHeader avatar={post.avatar} username={post.username} />
+          <PostComments postComment={postComment} post={post} type={type} />
           <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
-          <PostComments postComment={postComment} post={post} />
         </div>
       </div>
     )
