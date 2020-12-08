@@ -252,6 +252,9 @@ class Services {
             model: User,
             attributes: [ 'username', 'avatar' ],
           },
+          order: [
+            [ 'createdAt', 'DESC' ]
+          ],
         },
         {
           model: Likes,

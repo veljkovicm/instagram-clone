@@ -110,6 +110,7 @@ router.post('/comment', async (req, res) => {
         statusCode: 200,
         message: 'Comment submitted successfully!',
         payload: {
+          id: response.id,
           comment: response.comment,
           createdAt: response.createdAt,
           user: {
