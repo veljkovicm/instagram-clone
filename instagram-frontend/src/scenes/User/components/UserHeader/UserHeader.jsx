@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { UserListPopup } from 'templates/components/Popups';
 
-import './userHeader.css';
+import './userHeader.scss';
 
 const UserHeader = (props) => {
   const {
@@ -16,7 +16,7 @@ const UserHeader = (props) => {
     postCount,
     myUsername,
   } = props;
-  console.log('>> user.avatar', user.avatar);
+
   const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
   const [ following, setFollowing ] = useState(user.following);
   const [ popup, setPopup ] = useState();
@@ -68,7 +68,7 @@ const UserHeader = (props) => {
 
 
   return (
-    <div className="user-profile__header">
+    <div className="profile-header">
       {
         popup 
           &&
@@ -84,12 +84,11 @@ const UserHeader = (props) => {
         />
       }
       <div
-          className="user-profile__avatar"
-          onClick={user.isOwnProfile ? handleAvatarIconClick : null}
-          style={{ backgroundImage: `url(${avatar})`}}
-        >
-          <div className={user.isOwnProfile ? 'user-profile__avatar_hover' : ''} />
-        </div>
+        className="profile-header__avatar"
+        onClick={user.isOwnProfile ? handleAvatarIconClick : null}
+        style={{ backgroundImage: `url(${avatar})`}}
+      >
+        <div className={user.isOwnProfile ? 'profile-header__avatar__hover' : ''} />
         <form onSubmit={handleSubmit}>
           <input
             type="file"
@@ -100,21 +99,30 @@ const UserHeader = (props) => {
             onChange={handleSubmit}
           />
         </form>
-        <div className="user-profile__header-info">
-          <h3>{username}</h3>
-          {
-            !user.isOwnProfile ?
-              <button onClick={() => handleFollowButtonClick(username)}>{following ? 'Following' : 'Follow'}</button>
-            :
-              <button onClick={handleEditButtonClick}>Edit profile</button>
-          }
-          <div className="user-profile__user-stats">
-            <span>{postCount} posts</span>
-            <span onClick={() => handlePopupLinkClick('follower')}>{`${user.followerCount} followers`}</span>
-            <span onClick={() => handlePopupLinkClick('followed')}>{`${followingCount} following`}</span>
+      </div>
+        <div className="profile-header__info">
+          <div className="profile-header__info__top">
+            <h2 className="profile-header__info__username">{username}</h2>
+            {
+              !user.isOwnProfile ?
+              <button
+                className={`profile-header__info__follow-button ${following ? 'btn-white' : 'btn-blue'}`}
+                onClick={() => handleFollowButtonClick(username)}
+              >
+                {following ? 'Following' : 'Follow'}
+              </button>
+              :
+              <button className="profile-header__info__edit-button" onClick={handleEditButtonClick}>Edit profile</button>
+            }
           </div>
-          <div className="user-profile__bio">
-            <span>Something about me</span>
+          <div className="profile-header__info__user-stats">
+            <span className="profile-header__info__user-stats__posts"><b>{postCount}</b> posts</span>
+            <span className="profile-header__info__user-stats__followers"onClick={() => handlePopupLinkClick('follower')}><b>{user.followerCount}</b> followers</span>
+            <span className="profile-header__info__user-stats__following" onClick={() => handlePopupLinkClick('followed')}><b>{followingCount}</b> following</span>
+          </div>
+          <div className="profile-header__bio">
+            <h1 className="profile-header__bio__name">{user.fullName}</h1>
+            <p className="profile-header__bio__text">Something about me</p>
           </div>
         </div>
     </div>

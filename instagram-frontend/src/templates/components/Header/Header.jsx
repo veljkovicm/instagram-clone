@@ -7,7 +7,7 @@ import {
   NavigationMenu,
 } from './components';
 
-import './header.css';
+import './header.scss';
 
 const Header = (props) => {
   const {
@@ -23,17 +23,19 @@ const Header = (props) => {
 
   return (
     <div className="page-header">
-      <Logo />
-      <SearchBar />
-      {
-        isLoggedIn ?
-          <NavigationMenu username={username} path={path} />
-        : 
-          <div className="page-header__buttons-wrapper">
-            <button onClick={() => handleButtonClick('/sign_in')}>Sign In</button>
-            <button onClick={() => handleButtonClick('/sign_up')}>Sign up</button>
-          </div>
-      }
+      <div className="page-header__inner">
+        <Logo />
+        <SearchBar />
+        {
+          isLoggedIn ?
+            <NavigationMenu username={username} path={path} />
+          : 
+            <div className="page-header__buttons-wrapper">
+              <button onClick={() => handleButtonClick('/sign_in')}>Sign In</button>
+              <button onClick={() => handleButtonClick('/sign_up')}>Sign up</button>
+            </div>
+        }
+      </div>
     </div>
   )
 }

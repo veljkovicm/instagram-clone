@@ -32,9 +32,7 @@ const Feed = (props) => {
   const markup = (
     posts ? 
     posts.map((post) => {
-      return <div key={post.id}>
-        <Post {...post} />
-        </div>
+      return <Post post={post} type="feed" key={post.id} />
     }) : <div>LOADING</div>
     // loading component
   )
@@ -45,7 +43,6 @@ const Feed = (props) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('caption', caption);
-    console.log(formData);
     upload({ formData }).then((res) => {
       setPosts((oldPosts) => [
         res,
@@ -55,14 +52,16 @@ const Feed = (props) => {
 
   }
   return (
-    <div className="feed">
+  <div className="feed">
       <Header path="/feed" />
-      <form onSubmit={handleSubmit}>
-        <input type="file" name="myImage" onChange={handleChange}/>
-        <input type="text" name="description" onChange={handleChange} />
-        <button type="submit" onClick={handleSubmit}>upload</button>
-      </form>
-      {markup}
+      <div className="page-content">
+        <form onSubmit={handleSubmit}>
+          <input type="file" name="myImage" onChange={handleChange}/>
+          <input type="text" name="description" onChange={handleChange} />
+          <button type="submit" onClick={handleSubmit}>upload</button>
+        </form>
+        {markup}
+      </div>
     </div>
   )
 };

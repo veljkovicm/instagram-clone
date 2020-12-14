@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 
-import './userListPopup.css';
+import './userListPopup.scss';
 
 const UserListPopup = (props) => {
   const {
@@ -65,10 +65,10 @@ const UserListPopup = (props) => {
           <img src={user[type].avatar ? `http://localhost:5000/uploads/${user[type].avatar}` : 'http://localhost:5000/uploads/no-img.png'} alt="" width="30" />
         </div>
         <div className="user-list__single__info">
-          <div onClick={() => linkTarget(user[type].username)}>
+          <div className="user-list__single__info__username" onClick={() => linkTarget(user[type].username)}>
             {user[type].username}
           </div>
-          <div onClick={() => linkTarget(user[type].username)}>
+          <div  className="user-list__single__info__name">
             {user[type].fullName}
           </div>
         </div>
@@ -77,6 +77,7 @@ const UserListPopup = (props) => {
           myUsername !== user[type].username
             ? 
               <button
+                className={` user-list__single__button ${user.isFollowing ? 'btn-white' : 'btn-blue'}`}
                 type="button" 
                 onClick={() => handleFollowButtonClick({
                   username: user[type].username,
@@ -100,9 +101,11 @@ const UserListPopup = (props) => {
       <div className="user-list">
         <div className="user-list__header">
           <h4 className="user-list__header__title">{type === 'follower' ? 'Followers' : 'Following'}</h4>
-          <span className="user-list__header__close-icon" onClick={closePopup}>x</span>
+          <div className="user-list__header__close-icon" onClick={closePopup} />
         </div>
-        {markup}
+        <div className="user-list__list-wrapper">
+          {markup}
+        </div>
       </div>
     </div>
   )
