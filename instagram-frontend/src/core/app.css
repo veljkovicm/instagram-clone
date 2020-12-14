@@ -37,9 +37,6 @@ form {
   display: flex;
   flex-direction: column;
 }
-form * {
-  margin: 10px 0;
-}
 
 #root {
   position: relative;
