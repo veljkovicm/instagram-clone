@@ -4,6 +4,10 @@ import { upload, getPosts } from './actions';
 
 // import notify from notifications component
 
+const mapStateToProps = (state) => ({
+  user: state.global.user.currentUser,
+});
+
 const mapDispatchToProps = { upload, getPosts };
 
-export default connect(null, mapDispatchToProps)(FeedPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FeedPage);

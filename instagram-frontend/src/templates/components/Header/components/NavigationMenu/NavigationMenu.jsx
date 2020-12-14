@@ -23,8 +23,10 @@ const NavigationBar = (props) => {
   }
   const handleNavClick = (path) => {
     setMenuActive(false);
-    history.push(`${path}`);
-    window.location.reload();
+    if(window.location.pathname !== path) {
+      history.push(`${path}`);
+      window.location.reload();
+    }
   }
 
   const handleLogout = () => {

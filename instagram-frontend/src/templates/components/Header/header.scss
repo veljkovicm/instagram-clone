@@ -1,7 +1,11 @@
 .page-header {
+  position: fixed;
+  width: 100%;
+  top: 0;
   background-color: #fff;
   border-bottom: 1px solid #dbdbdb;
   padding: 7px 0;
+  z-index: 999;
   &__inner {
     max-width: 975px;
     margin: 0 auto;
