@@ -221,6 +221,7 @@
         max-height: 385px;
         padding: 16px;
         overflow-y: scroll;
+        scrollbar-width: none;
         &::-webkit-scrollbar {
           display: none;
         }
