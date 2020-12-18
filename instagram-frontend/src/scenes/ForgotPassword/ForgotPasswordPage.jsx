@@ -47,9 +47,25 @@ const ForgotPassword = (props) => {
             <p className="forgot-password__description-text">Enter your email or username and we'll send you a link to get back into your account</p>
           </div>
           <div className="forgot-password__form-wrapper">
-            <form onSubmit={handleForgotPassowrd}>
-              <input type="text" name="email" label="email" onChange={handleInputChange(setEmail)} value={email} />
-              <button type="submit" onClick={handleForgotPassowrd}>{loading ? 'Loading...' : 'Send Login Link'}</button>
+            <form onSubmit={handleForgotPassowrd}  className="forgot-password__form">
+              <div className="forgot-password__form__input-wrapper">
+                <input
+                  type="text"
+                  name="email"
+                  onChange={handleInputChange(setEmail)}
+                  value={email}
+                  className="forgot-password__form__input"
+                  className={`forgot-password__form__input ${email.length ? 'not-empty' : ''}`}
+                />
+                <label htmlFor="email" className={`forgot-password__form__input-label ${email.length ? 'not-empty' : ''}`}>Email</label>
+              </div>
+              <button
+                className="button-blue"
+                type="submit"
+                onClick={handleForgotPassowrd}
+              >
+                {loading ? 'Loading...' : 'Send Login Link'}
+              </button>
             </form>
           </div>
           <div className="forgot-password__signup-link__wrapper">

@@ -51,7 +51,6 @@ const Login = (props) => {
         <div className="login-page__main-wrapper__inner">
           <h1 className="login-page__logo">Instagram</h1>
           <div className="login-page__form-wrapper">
-            <Loading />
             <form onSubmit={handleLogin} className="login-page__form">
               <div className="login-page__form__input-wrapper">
                 <input

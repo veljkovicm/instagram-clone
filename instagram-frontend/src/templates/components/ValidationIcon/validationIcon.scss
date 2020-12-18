@@ -1,0 +1,15 @@
+.validation-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  background-image: url('/32f0a4f27407.png');
+  font-size: 0;
+  &.input-valid {
+    background-position: -225px -333px;
+  }
+  &.input-invalid {
+    background-position: -249px -333px;
+  }
+}

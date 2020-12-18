@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib/validators';
-import ValidationIcon from 'templates/components/ValidationIcon.jsx';
+import ValidationIcon from 'templates/components/ValidationIcon/ValidationIcon.jsx';
 
 import Loading from 'templates/components/Loading';
 
@@ -93,7 +93,6 @@ const Signup = (props) => {
     signup(userData);
   }
 
-
   return (
     <div className="signup-page">
       <Helmet><title>Instagram - Sign up</title></Helmet>
@@ -110,56 +109,67 @@ const Signup = (props) => {
         <div className="signup-page__form-wrapper">
           <Loading />
           <form onSubmit={handleSignup} className="signup-page__form">
-            <input
-              type="text"
-              name="email"
-              onChange={handleInputChange}
-              value={userData.email}
-              placeholder="email"
-              onBlur={handleEmailValidation}
-            />
-            <ValidationIcon changed={hasChanged.email} valid={isValid.email} />
-            <input
-              type="text"
-              name="username"
-              onChange={handleInputChange}
-              value={userData.username}
-              placeholder="username"
-              onBlur={handleUsernameValidation}
-            />
-            <ValidationIcon changed={hasChanged.username} valid={isValid.username} />
-            <input
-              type="text"
-              name="fullName"
-              onChange={handleInputChange}
-              value={userData.fullName}
-              placeholder="full name"
-              onBlur={handleFullNameValidation}
-            />
-            <ValidationIcon changed={hasChanged.fullName} valid={isValid.fullName} />
-            <input
-              type="password"
-              name="password"
-              onChange={handlePasswordChange}
-              value={userData.password}
-              onBlur={handlePasswordValidation}
-            />
-            <ValidationIcon changed={hasChanged.password} valid={isValid.password} />
-
+            <div className="signup-page__form__input-wrapper">
+              <input
+                type="text"
+                name="email"
+                onChange={handleInputChange}
+                value={userData.email}
+                onBlur={handleEmailValidation}
+                className={`login-page__form__input ${userData.email.length ? 'not-empty' : ''}`}
+              />
+              <label htmlFor="email" className={`login-page__form__input-label ${userData.email.length ? 'not-empty' : ''}`}>Email</label>
+              <ValidationIcon changed={hasChanged.email} valid={isValid.email} />
+            </div>
+            <div className="signup-page__form__input-wrapper">
+              <input
+                type="text"
+                name="fullName"
+                onChange={handleInputChange}
+                value={userData.fullName}
+                onBlur={handleFullNameValidation}
+                className={`login-page__form__input ${userData.fullName.length ? 'not-empty' : ''}`}
+              />
+              <label htmlFor="fullName" className={`login-page__form__input-label ${userData.fullName.length ? 'not-empty' : ''}`}>Full name</label>
+              <ValidationIcon changed={hasChanged.fullName} valid={isValid.fullName} />
+            </div>
+            <div className="signup-page__form__input-wrapper">
+              <input
+                type="text"
+                name="username"
+                onChange={handleInputChange}
+                value={userData.username}
+                onBlur={handleUsernameValidation}
+                className={`login-page__form__input ${userData.username.length ? 'not-empty' : ''}`}
+              />
+              <label htmlFor="username" className={`login-page__form__input-label ${userData.username.length ? 'not-empty' : ''}`}>Username</label>
+              <ValidationIcon changed={hasChanged.username} valid={isValid.username} />
+            </div>
+            <div className="signup-page__form__input-wrapper">
+              <input
+                type="password"
+                name="password"
+                onChange={handlePasswordChange}
+                value={userData.password}
+                onBlur={handlePasswordValidation}
+                className={`login-page__form__input ${userData.password.length ? 'not-empty' : ''}`}
+              />
+              <label htmlFor="username" className={`login-page__form__input-label ${userData.password.length ? 'not-empty' : ''}`}>Password</label>
+              <ValidationIcon changed={hasChanged.password} valid={isValid.password} />
+            </div>
             <button
+              className="button-blue"
               type="submit"
               onClick={handleSignup}
               disabled={!Object.values(isValid).every(i => i === true)}
             >
-              {loading ? 'Loading...' : 'signup'}
+              {loading ? 'Loading...' : 'Sign up'}
             </button>
           </form>
           <p className="signup-page__disclaimer">
             By signing up, you agree to our <b>Terms</b>, <b>Data Policy</b> and <b>Cookies Policy</b>
           </p>
         </div>
-        
-        
       </div>
       <div className="signup-page__login-link">
         <p>Have an account?<a href="/sign_in">Log in</a></p>

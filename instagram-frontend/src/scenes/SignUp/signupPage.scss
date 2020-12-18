@@ -29,8 +29,6 @@
     // font-size: 17px;
     text-align: center;
   }
-
-  
   &__facebook-link {
     background-color: #2795f6;
     padding: 6px 0;
@@ -57,6 +55,68 @@
       margin-bottom: 18px;
     }
   }
+  &__form {
+    max-width: 258px;
+    margin: 0 auto;
+  
+    &__input-wrapper {
+      position: relative;
+      margin: 4px 0;
+      &.psw {
+        position: relative;
+        input {
+          padding-right: 40px;
+        }
+        .password-visibility-toggle {
+          position: absolute;
+          right: 10px;
+          top: 11px;
+          margin: 0;
+          height: 10px;
+          font-size: 14px;
+          font-weight: 600;
+          user-select: none;
+          cursor: pointer;
+        }
+      }
+    }
+    &__input {
+      width: 258px;
+      height: 38px;
+      margin: 0;
+      padding-left:10px;
+      background-color: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+      resize: none;
+      font-size: 12px;
+      &-label {
+        position: absolute;
+        pointer-events: none;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        margin: 0;
+        transition: all 0.2s ease-in-out;
+        color: #262626;
+        font-size: 12px;
+        color: grey;
+        &.not-empty {
+          font-size: 10px;
+          transform: translateY(-90%);
+        }
+      }
+      &:focus {
+        border-color: #999595;
+      }
+      &.not-empty {
+        padding-top: 17px;
+      }
+    }
+  }
+
+
+
   &__disclaimer {
     margin: 10px 0 40px;
     padding: 0 8px;
@@ -76,6 +136,19 @@
     a {
       color: #0094f6;
       margin-left: 5px;
+    }
+  }
+  .button-blue {
+    margin-top: 14px;
+    background-color: #2795f6;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    height: 30px;
+    font-size: 14px;
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #b2dffc;
     }
   }
 }
