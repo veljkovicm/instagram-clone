@@ -6,15 +6,13 @@ body {
   box-sizing: border-box;
 }
 
-
 html {
   overflow-y: scroll;
 }
 
-/* clicked links should not change color */
-
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 body {
@@ -47,7 +45,7 @@ form {
 .page-content {
   max-width: 975px;
   padding: 0 20px;
-  margin: 0 auto;
+  margin: 55px auto 0;
 }
 
 .forbidden {

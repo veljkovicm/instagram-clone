@@ -62,15 +62,15 @@ const Settings = (props) => {
       <div className="page-content">
         <div className="settings__page">
           <div className="settings__tabs">
-            <a href="#" className="settings__tabs__link active">Edit profile</a>
-            <a href="#" className="settings__tabs__link forbidden">Change Password</a>
-            <a href="#" className="settings__tabs__link forbidden">Apps and Websites</a>
-            <a href="#" className="settings__tabs__link forbidden">Email and SMS</a>
-            <a href="#" className="settings__tabs__link forbidden">Push Notifications</a>
-            <a href="#" className="settings__tabs__link forbidden">Manage Contacts</a>
-            <a href="#" className="settings__tabs__link forbidden">Privacy and Security</a>
-            <a href="#" className="settings__tabs__link forbidden">Login Activity</a>
-            <a href="#" className="settings__tabs__link forbidden">Emails from Instagram</a>
+            <span className="settings__tabs__link active">Edit profile</span>
+            <span className="settings__tabs__link forbidden">Change Password</span>
+            <span className="settings__tabs__link forbidden">Apps and Websites</span>
+            <span className="settings__tabs__link forbidden">Email and SMS</span>
+            <span className="settings__tabs__link forbidden">Push Notifications</span>
+            <span className="settings__tabs__link forbidden">Manage Contacts</span>
+            <span className="settings__tabs__link forbidden">Privacy and Security</span>
+            <span className="settings__tabs__link forbidden">Login Activity</span>
+            <span className="settings__tabs__link forbidden">Emails from Instagram</span>
           </div>
           <div className="settings__profile">
               <div className="settings__profile__section">

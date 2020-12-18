@@ -32,16 +32,11 @@ const Feed = (props) => {
 
 
   return (
-  <div className="feed">
+    <div className="feed">
       <Header path="/feed" />
       <div className="feed__posts-wrapper page-content">
-        <div className="feed__posts">
-          {markup}
-        </div>
-        <Sidebar
-          user={user}
-          setPosts={setPosts}
-        />
+        <div className="feed__posts">{markup}</div>
+        <Sidebar user={user} setPosts={setPosts} />
       </div>
     </div>
   )
