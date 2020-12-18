@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
+import Header from 'templates/components/Header';
 import Loading from 'templates/components/Loading';
 
 import './forgotPassword.scss';
@@ -38,6 +38,7 @@ const ForgotPassword = (props) => {
   return (
     <>
       <Helmet><title>Reset password</title></Helmet>
+      <Header />
       <div className="forgot-password__wrapper">
         <div className="forgot-password">
           <Loading />

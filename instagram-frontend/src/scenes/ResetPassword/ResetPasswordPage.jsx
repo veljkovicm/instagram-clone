@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
-
+import Header from 'templates/components/Header';
 import Loading from 'templates/components/Loading';
 
 import './resetPassword.scss';
@@ -47,6 +47,7 @@ const ResetPassword = (props) => {
   return (
     <div className="reset-password">
       <Helmet><title>Reset password</title></Helmet>
+      <Header />
       <div className="reset-password__inner">
         <Loading />
         <div className="reset-password__logo">Instagram</div>

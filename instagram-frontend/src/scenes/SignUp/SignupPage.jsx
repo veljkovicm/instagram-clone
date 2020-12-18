@@ -4,7 +4,7 @@ import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib/validators';
 import ValidationIcon from 'templates/components/ValidationIcon/ValidationIcon.jsx';
-
+import Header from 'templates/components/Header';
 import Loading from 'templates/components/Loading';
 
 import './signupPage.scss';
@@ -96,6 +96,7 @@ const Signup = (props) => {
   return (
     <div className="signup-page">
       <Helmet><title>Instagram - Sign up</title></Helmet>
+      <Header />
       <div className="signup-page__wrapper">
         <div className="signup-page__logo">Instagram</div>
         <h4 className="signup-page__description">Sign up to see photos and videos from your friends.</h4>

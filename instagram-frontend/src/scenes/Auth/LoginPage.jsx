@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Loading from 'templates/components/Loading';
+import Header from 'templates/components/Header';
 
 import './loginPage.scss';
 
@@ -46,6 +46,7 @@ const Login = (props) => {
   return (
     <div className="login-page page-content">
       <Helmet><title>Instagram - Log in</title></Helmet>
+      <Header />
       <div className="login-page__image-wrapper"></div>
       <div className="login-page__main-wrapper">
         <div className="login-page__main-wrapper__inner">
