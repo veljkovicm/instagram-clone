@@ -138,6 +138,7 @@ const Signup = (props) => {
               <input
                 type="text"
                 name="username"
+                maxLength="30"
                 onChange={handleInputChange}
                 value={userData.username}
                 onBlur={handleUsernameValidation}
