@@ -125,6 +125,7 @@ const Settings = (props) => {
                       className="settings__profile__section__input"
                       type="text"
                       name="username"
+                      maxLength="30"
                       onChange={handleChange(setUsername)}
                       value={username}
                       placeholder="Username"
