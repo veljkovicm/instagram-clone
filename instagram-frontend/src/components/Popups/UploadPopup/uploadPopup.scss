@@ -32,7 +32,8 @@
       height: 24px;
       right: 14px;
       top: 17px;
-      background: url('/icons/cross.svg') no-repeat;
+      background: url('/icons/icons-sprite.svg') no-repeat;
+      background-position: 0 -24px;
       cursor: pointer;
     }
   }

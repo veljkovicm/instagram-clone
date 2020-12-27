@@ -29,11 +29,21 @@
       text-transform: uppercase;
       color: #8E8E8E;
       cursor: pointer;
-      &.feed {
-        background-image: url('/icons/grid.svg');
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 19px;
+        content: "";
+        width: 12px;
+        height: 12px;
+        display: block;
+        background: url('/icons/icons-sprite.svg');
       }
-      &.saved {
-        background-image: url('/icons/saved-tab.svg');
+      &.feed::after {
+        background-position: 0 -148px;
+      }
+      &.saved::after {
+        background-position: 0 -372px;
       }
       &.tab-active {
         color: #262626;
@@ -47,11 +57,11 @@
           height: 1px;
           background-color: #262626;
         }
-        &.feed {
-          background-image: url('/icons/grid-active.svg');
+        &.feed::after {
+          background-position: 0 -136px;
         }
-        &.saved {
-          background-image: url('/icons/saved-active-tab.svg');
+        &.saved::after {
+          background-position: 0 -360px;
         }
       }
     }
