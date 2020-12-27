@@ -162,6 +162,7 @@ const Settings = (props) => {
                       name="bio"
                       cols="30"
                       rows="3"
+                      maxLength="150"
                       onChange={handleChange(setBio)}
                       value={bio}
                       id="settings-bio"
