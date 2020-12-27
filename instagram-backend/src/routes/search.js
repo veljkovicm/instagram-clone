@@ -5,24 +5,20 @@ import Services from '../services/services.js';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const usersArray = [];
   const { query } = req.body;
-  console.log('>> req.body', req.body);
   const searchResult = await Services.search({ query });
 
-  searchResult.forEach(user => {
-    usersArray.push({
+  searchResult.map((user) => {
+    return {
       username: user.username,
-      fullName: user.fullName,
+      fullName: user.userName,
       avatar: user.avatar,
-    })
-  })
-
-  console.log('searchResult', searchResult);
+    };
+  });
 
   return res.status(200).json({
     statusCode: 200,
-    result: usersArray,
+    result: searchResult,
   })
 });
 
