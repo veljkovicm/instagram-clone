@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib/validators';
 import ValidationIcon from 'templates/components/ValidationIcon/ValidationIcon.jsx';
 import Header from 'templates/components/Header';
-import Loading from 'templates/components/Loading';
 
 import './signupPage.scss';
 
@@ -108,7 +107,6 @@ const Signup = (props) => {
         </div>
         <div className="auth-page-divider"><span>OR</span></div>
         <div className="signup-page__form-wrapper">
-          <Loading />
           <form onSubmit={handleSignup} className="signup-page__form">
             <div className="signup-page__form__input-wrapper">
               <input

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from 'templates/components/Header';
-import Loading from 'templates/components/Loading';
 
 import './forgotPassword.scss';
 
@@ -41,7 +40,6 @@ const ForgotPassword = (props) => {
       <Header />
       <div className="forgot-password__wrapper">
         <div className="forgot-password">
-          <Loading />
           <div className="forgot-password__description">
             <div className="forgot-password__description-image" />
             <h4 className="forgot-password__description-title">Trouble Logging In?</h4>

@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import Header from 'templates/components/Header';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
 import UserPosts from './components/UserPosts/UserPosts.jsx';
+import Loading from 'templates/components/Loading/Loading.jsx';
 
 const User = (props) => {
   const {
@@ -39,10 +40,10 @@ const User = (props) => {
   }, [ username ]);
 
   if(!dataLoaded) {
-    return <p>LOADING</p>
+    return <Loading />
   }
   return (
-  <>
+    <>
       <Header path={`/u/${username}`}/>
       <Helmet><title>{`Profile - ${username}`}</title></Helmet>
       <div className="user-profile-wrapper page-content">

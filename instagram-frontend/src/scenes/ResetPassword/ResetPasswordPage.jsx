@@ -4,7 +4,6 @@ import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-rou
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
 import Header from 'templates/components/Header';
-import Loading from 'templates/components/Loading';
 
 import './resetPassword.scss';
 
@@ -49,7 +48,6 @@ const ResetPassword = (props) => {
       <Helmet><title>Reset password</title></Helmet>
       <Header />
       <div className="reset-password__inner">
-        <Loading />
         <div className="reset-password__logo">Instagram</div>
         <div className="reset-password__form-wrapper">
           <form onSubmit={handleResetPassword} className="reset-password__form">
