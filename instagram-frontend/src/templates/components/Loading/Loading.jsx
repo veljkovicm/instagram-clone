@@ -1,20 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Loading = (props) => {
-  const { isLoading } = props;
+import './loading.scss';
 
-  if (!isLoading) {
-    return null;
-  }
-
+const Loading = () => {
   return (
-    <div className="loading-container">LOADING</div>
+    <div className="loading-container" />
   );
-};
-
-Loading.propTypes = {
-  isLoading: PropTypes.bool,
 };
 
 export default Loading;

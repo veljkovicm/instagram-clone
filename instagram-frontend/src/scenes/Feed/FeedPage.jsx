@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from 'templates/components/Header/';
 import Post from 'templates/components/Post';
 import Sidebar from './components/Sidebar.jsx';
+import Loading from 'templates/components/Loading/Loading.jsx';
 
 import './feed.scss';
 
@@ -21,16 +22,19 @@ const Feed = (props) => {
   }, [])
 
 
+  if(!posts) {
+    return <Loading />
+  }
 
-  const markup = (
-    posts ? 
+  const markup = 
     posts.map((post) => {
-      return <Post post={post} type="feed" key={post.id} />
-    }) : <div>LOADING</div>
-    // loading component
-  )
-
-
+      return <Post
+        post={post}
+        type="feed"
+        key={post.id}
+      />
+    });
+  
   return (
     <div className="feed">
       <Header path="/feed" />
