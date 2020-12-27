@@ -1,5 +1,5 @@
 import { API } from 'lib';
-import { startLoading, stopLoading } from 'templates/components/Loading/actions';
+import { startLoading, stopLoading } from 'components/Loading/actions';
 
 
 export const signup = ({ email, username, password, fullName }) => async (dispatch, getState) => {

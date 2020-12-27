@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import Post from 'templates/components/Post';
-import Header from 'templates/components/Header';
-import Loading from 'templates/components/Loading';
-
+import {
+  Post,
+  Header,
+  Loading,
+} from 'components';
 
 const SinglePost = (props) => {
   const { getPost } = props;

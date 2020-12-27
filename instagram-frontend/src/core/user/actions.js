@@ -1,7 +1,7 @@
 // import { reduxActionsGenerator } from '@src/lib';
 import { reduxActionsGenerator } from 'lib';
 import axios from 'axios';
-import { startLoading, stopLoading} from 'templates/components/Loading/actions';
+import { startLoading, stopLoading} from 'components/Loading/actions';
 
 
 export const actionTypes = reduxActionsGenerator([

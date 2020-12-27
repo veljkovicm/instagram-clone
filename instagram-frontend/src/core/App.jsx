@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { checkUser } from './user/actions';
-import Loading from 'templates/components/Loading';
+import { Loading } from 'components';
 
 import setupStore from './store';
 import globalReducer from './reducer';

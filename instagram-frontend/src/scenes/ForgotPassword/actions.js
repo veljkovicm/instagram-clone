@@ -1,5 +1,5 @@
 import { API } from 'lib';
-import { startLoading, stopLoading } from 'templates/components/Loading/actions';
+import { startLoading, stopLoading } from 'components/Loading/actions';
 
 export const forgotPassword = ({ email }) => async (dispatch, getState) => {
   const  { isLoading } = getState().auth;

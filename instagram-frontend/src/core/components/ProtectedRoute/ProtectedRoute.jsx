@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Loading from 'templates/components/Loading';
+import { Loading } from 'components';
 
 
 const ProtectedRoute = (props) => {
