@@ -1,6 +1,6 @@
 import { API } from 'lib';
 
-export const updateSettings = (userData) => async (dispatch, getState) => {
+export const updateSettings = (userData) => async () => {
     const body = userData;
     const response = await API({ method: 'POST', path: '/u/update-settings', body });
 
