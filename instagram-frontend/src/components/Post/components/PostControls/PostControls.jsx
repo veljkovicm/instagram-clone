@@ -41,10 +41,10 @@ const PostControls = (props) => {
   return (
     <div className="user-post__actions-wrapper">
       <div className="user-post__actions-inner">
-        <div className={`user-post__actions__like ${liked ? 'liked' : ''}`} onClick={handleLikeIconClick} />
-        <div className="user-post__actions__comment" onClick={handleCommentIconClick} /> 
-        <div className="user-post__actions__direct" />
-        <div  className={`user-post__actions__save ${saved ? 'saved' : ''}`} onClick={handleSavePostClick} />
+        <div className={`user-post__actions__single like ${liked ? 'liked' : ''}`} onClick={handleLikeIconClick} />
+        <div className="user-post__actions__single comment" onClick={handleCommentIconClick} /> 
+        <div className="user-post__actions__single direct" />
+        <div  className={`user-post__actions__single save ${saved ? 'saved' : ''}`} onClick={handleSavePostClick} />
       </div>
       <div className="user-post__like-counter">
         {likeCounter > 0 ? <span>{likeCounter} {likeCounter === 1 ? 'like' : 'likes'}</span> : null}

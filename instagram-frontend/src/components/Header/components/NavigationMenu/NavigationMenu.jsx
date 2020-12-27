@@ -56,7 +56,7 @@ const NavigationBar = (props) => {
         <div
           className={`navigation-menu__item user-menu ${menuActive === 'user' || path === '/u/' + username ? 'active' : ''}`} 
           onClick={() => handleMenuClick('user')}
-          style={{ backgroundImage: `url(${avatarSrc})` }}
+          style={{ background: `url(${avatarSrc})` }}
         >
           {menuActive === 'user' &&
           <div className="navigation-menu__dropdown user">
