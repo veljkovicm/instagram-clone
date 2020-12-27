@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { UserListPopup } from 'templates/components/Popups';
+import { UserListPopup } from 'components';
 
 import './userHeader.scss';
 

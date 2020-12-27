@@ -1,99 +1,71 @@
 import { API } from 'lib';
 
-export const getUser = ({ username }) => async (dispatch, getState) => {
-  try {
-    const response = await API({ method: 'GET', path: `/u/${username}` });
-    console.log('response', response);
-    if(response.data.statusCode === 200) {
-      console.log('user response', response);
-      return response.data.payload;
-    } else if (response.data.statusCode === 401) {
-      // dispatch notification here
-      console.log('NOT ALLOWED!')
-    } else {
-      console.log('Something went wrong');
-    }
-  } catch (error) {
-    console.error(error);
+export const getUser = ({ username }) => async () => {
+  const response = await API({ method: 'GET', path: `/u/${username}` });
+
+  if(response.data.statusCode === 200) {
+    return response.data.payload;
+  } else if (response.data.statusCode === 401) {
+    console.log('NOT ALLOWED!')
+  } else {
+    console.log(response.message);
   }
+  
 }
 
-export const uploadAvatar = ({ formData }) => async (dispatch, getState) => {
-  try {
-    const headers = {
-      'Content-Type': 'multipart/form-data'
-    }
+export const uploadAvatar = ({ formData }) => async () => {
+  
+  const headers = {
+    'Content-Type': 'multipart/form-data'
+  }
 
-    const response = await API({ method: 'POST', path: '/u/upload-avatar', body: formData, headers });
+  const response = await API({ method: 'POST', path: '/u/upload-avatar', body: formData, headers });
 
-    if(response.data.statusCode === 200) {
-      console.log('SUCCESS');
-      return response.data.payload;
-    } else if (response.data.statusCode === 401) {
-      // dispatch notification here
-      console.log('NOT ALLOWED!')
-    } else {
-      // dispatch notification here
-      console.log('Something went wrong')
-    }
-  } catch (error) {
-    // dispatch error message
+  if(response.data.statusCode === 200) {
+    return response.data.payload;
+  } else if (response.data.statusCode === 401) {
+    console.log('NOT ALLOWED!')
+  } else {
+    console.log(response.message);
   }
 }
 
 
-export const followUser = (username) => async (dispatch, getState) => {
+export const followUser = (username) => async () => {
   const body = {
     username,
   }
 
   const response = await API({ method: 'POST', path:'/u/follow', body });
 
-  if(response.data.statusCode === 200) {
-    console.log('FOLLOWING');
-  } else if (response.data.statusCode === 401) {
-    // dispatch notification here
-    console.log('NOT ALLOWED!')
-  } else {
-    // dispatch notification here
-    console.log('Something went wrong');
+  if(response.data.statusCode !== 200) {
+    console.log(response.message);
   }
 }
 
-export const unfollowUser = (username) => async (dispatch, getState) => {
+export const unfollowUser = (username) => async () => {
   const body = {
     username,
   }
 
   const response = await API({ method: 'POST', path:'/u/unfollow', body });
 
-  if(response.data.statusCode === 200) {
-    console.log('NOT FOLLOWING');
-  } else if (response.data.statusCode === 401) {
-    // dispatch notification here
-    console.log('NOT ALLOWED!')
-  } else {
-    // dispatch notification here
-    console.log('Something went wrong');
+  if(response.data.statusCode !== 200) {
+    console.log(response.message);
   }
 }
 
-export const getFollowList = ({ listType, username }) => async (dispatch, getState) => {
-
+export const getFollowList = ({ listType, username }) => async () => {
   const body = { username };
-
   const path = listType === 'follower' ? '/u/get-follower-list' : 'u/get-following-list';
 
   const response = await API({ method: 'POST', path, body });
   
   if(response.data.statusCode === 200) {
-    console.log(response);
     return response.data.payload;
   } else if (response.data.statusCode === 401) {
-    // dispatch notification here
     console.log('NOT ALLOWED!')
   } else {
-    // dispatch notification here
-    console.log('Something went wrong');
+    console.log(response.message);
   }
 }

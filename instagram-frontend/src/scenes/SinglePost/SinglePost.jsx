@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import Post from 'templates/components/Post';
-import Header from 'templates/components/Header';
-
-import './singlePost.css';
+import {
+  Post,
+  Header,
+  Loading,
+} from 'components';
 
 const SinglePost = (props) => {
   const { getPost } = props;
@@ -18,12 +19,15 @@ const SinglePost = (props) => {
     });
   }, [])
 
+  if(!post) {
+    return <Loading />
+  }
 
   return (
     <>
       <Header />
       <div className="single-post-wrapper page-content">
-        { post ? <Post post={post} type="single" /> : <p>LOADING</p>}
+        <Post post={post} type="single" />
       </div>
     </>
   )

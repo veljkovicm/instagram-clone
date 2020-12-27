@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Loading } from 'components';
 
 
 const ProtectedRoute = (props) => {
@@ -15,24 +16,27 @@ const ProtectedRoute = (props) => {
     title,
     ...rest
   } = props;
-  console.log('1 props', props);
+
   useEffect(() => {
     checkUser();
   }, []);
 
+
+  if(loading) {
+    return <Loading />
+  }
+
   return (
     <>
       { title ? <Helmet><title>{`Instagram - ${title}`}</title></Helmet> : null }
-      { loading ? <p>LOADING THIS....</p> : // add spinner
-        <Route
-          {...rest}
-          render={(routeProps) => (isLoggedIn ? (
-            <RouteComponent {...routeProps} />
-          ) : (
-            <Redirect to={redirectTo} />
-          ))}
-        />
-      }
+      <Route
+        {...rest}
+        render={(routeProps) => (isLoggedIn ? (
+          <RouteComponent {...routeProps} />
+        ) : (
+          <Redirect to={redirectTo} />
+        ))}
+      />
     </>
   );
 };

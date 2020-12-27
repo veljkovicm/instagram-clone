@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib/validators';
-import ValidationIcon from 'templates/components/ValidationIcon/ValidationIcon.jsx';
-import Header from 'templates/components/Header';
+import {
+  Header,
+  ValidationIcon
+} from 'components';
 
 import './signupPage.scss';
 

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Header from 'templates/components/Header';
 import UserHeader from './components/UserHeader/UserHeader.jsx';
 import UserPosts from './components/UserPosts/UserPosts.jsx';
-import Loading from 'templates/components/Loading/Loading.jsx';
+import {
+  Header,
+  Loading,
+} from 'components';
 
 const User = (props) => {
   const {

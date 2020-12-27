@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import { checkUser } from 'core/user/actions';
-import { stopLoading } from 'templates/components/Loading/actions';
+import { stopLoading } from 'components/Loading/actions';
 
 const mapStateToProps = (state) => ({
   isLoggedIn: !!state.global.user.currentUser,

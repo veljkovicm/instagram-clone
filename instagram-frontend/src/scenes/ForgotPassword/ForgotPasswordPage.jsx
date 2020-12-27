@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Header from 'templates/components/Header';
+import { Header } from 'components';
 
 import './forgotPassword.scss';
 

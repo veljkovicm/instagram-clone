@@ -1,11 +1,15 @@
 import { API } from 'lib';
 
-export const getPost = ({ postId }) => async () => {
+export const search = ({ query }) => async () => {
 
-  const response = await API({ method: 'GET', path: `/p/get-post/${postId}` });
-  
+  const body = {
+    query,
+  }
+  const response = await API({ method: 'POST', path: '/search', body });
+
   if(response.data.statusCode === 200) {
-    return response.data.post;
+    return response.data.result;
+    
   } else if (response.data.statusCode === 401) {
     console.log('NOT ALLOWED!')
   } else {

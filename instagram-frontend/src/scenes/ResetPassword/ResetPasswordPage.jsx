@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
-import Header from 'templates/components/Header';
+import { Header } from 'components';
 
 import './resetPassword.scss';
 

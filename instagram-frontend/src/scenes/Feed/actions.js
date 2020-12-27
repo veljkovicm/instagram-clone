@@ -1,57 +1,27 @@
 import { API } from 'lib';
-import { startLoading, stopLoading } from 'templates/components/Loading/actions';
 
 
-export const upload = ({ formData }) => async (dispatch, getState) => {
+export const upload = ({ formData }) => async () => {
+  const headers = {
+    'Content-Type': 'multipart/form-data'
+  }
 
-  try {
-    const headers = {
-      'Content-Type': 'multipart/form-data'
-    }
+  const response = await API({ method: 'POST', path: '/p/upload', body: formData, headers });
 
-    const response = await API({ method: 'POST', path: '/p/upload', body: formData, headers });
-
-    if(response.data.statusCode === 200) {
-      console.log('SUCCESS');
-      return response.data.payload.newPost;
-    } else if (response.data.statusCode === 401) {
-      // dispatch notification here
-      console.log('NOT ALLOWED!')
-    } else {
-      // dispatch notification here
-      console.log('Something went wrong')
-    }
-  } catch (error) {
-    // dispatch error message
-    console.log(error);
+  if(response.data.statusCode === 200) {
+    return response.data.payload.newPost;
+  } else {
+    console.log(response.message);
   }
 }
 
-export const getPosts = () => async(dispatch, getState) => {
-  try {
-    // dispatch(startLoading());
+export const getPosts = () => async () => {
+  const response = await API({ method: 'GET', path: '/p/posts'})
 
-    const response = await API({ method: 'GET', path: '/p/posts'})
-
-
-    if(response.data.statusCode === 200) {
-      console.log('SUCCESS');
-      return response.data;
-    } else if (response.data.statusCode === 401) {
-      // dispatch notification here
-      console.log('NOT ALLOWED!')
-    } else {
-      // dispatch notification here
-      console.log('Something went wrong')
-    }
-
-
-  } catch (error) {
-    // dispatch error message
-    dispatch(stopLoading());
-    console.error(error);
-  } finally {
-    dispatch(stopLoading());
+  if(response.data.statusCode === 200) {
+    return response.data;
+  } else {
+    console.log(response.message);
   }
 }
 
