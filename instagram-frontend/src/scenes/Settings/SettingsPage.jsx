@@ -99,7 +99,7 @@ const Settings = (props) => {
               <form className="settings__profile__form" onSubmit={handleSubmit}>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="settings-name">Name</label>
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <input
@@ -108,6 +108,7 @@ const Settings = (props) => {
                       name="name"
                       onChange={handleChange(setName)}
                       value={name}
+                      id="settings-name"
                     />
                     <div className="settings__profile__section__description">
                       <span>Help people discover your account by using the name you're known by: either your full name, nickname, or business name.</span>
@@ -117,7 +118,7 @@ const Settings = (props) => {
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="settings-username">Username</label>
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <input
@@ -127,6 +128,7 @@ const Settings = (props) => {
                       onChange={handleChange(setUsername)}
                       value={username}
                       placeholder="Username"
+                      id="settings-username"
                     />
                     <div className="settings__profile__section__description">
                       <span>
@@ -138,7 +140,7 @@ const Settings = (props) => {
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="website">Website</label>
+                    <label htmlFor="settings-website">Website</label>
                   </div>
                   <input
                     className="settings__profile__section__input"
@@ -147,11 +149,12 @@ const Settings = (props) => {
                     onChange={handleChange(setWebsite)}
                     value={website}
                     placeholder="Website"
+                    id="settings-website"
                   />
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="bio">Bio</label>
+                    <label htmlFor="settings-bio">Bio</label>
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <textarea
@@ -161,6 +164,7 @@ const Settings = (props) => {
                       rows="3"
                       onChange={handleChange(setBio)}
                       value={bio}
+                      id="settings-bio"
                     />
                     <div className="settings__profile__section__description">
                       <span>
@@ -172,7 +176,7 @@ const Settings = (props) => {
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="settings-email">Email</label>
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <input
@@ -182,12 +186,13 @@ const Settings = (props) => {
                       onChange={handleChange(setEmail)}
                       value={email}
                       placeholder="Email"
+                      id="settings-email"
                     />
                   </div>
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="phone-number">Phone Number</label>
+                    <label htmlFor="settings-phone-number">Phone Number</label>
                   </div>
                   <input
                     className="settings__profile__section__input"
@@ -196,11 +201,12 @@ const Settings = (props) => {
                     onChange={handleChange(setPhoneNumber)}
                     value={phoneNumber}
                     placeholder="Phone Number"
+                    id="settings-phone-number"
                   />
                 </div>
                 <div className="settings__profile__section">
                   <div className="settings__profile__section__label">
-                    <label htmlFor="gender">Gender</label>
+                    <label htmlFor="settings-gender">Gender</label>
                   </div>
                   <input
                     className="settings__profile__section__input"
@@ -209,6 +215,7 @@ const Settings = (props) => {
                     onChange={handleChange(setGender)}
                     value={gender}
                     placeholder="Gender"
+                    id="settings-gender"
                   />
                 </div>
               </form>
