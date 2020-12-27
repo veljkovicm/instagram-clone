@@ -34,12 +34,13 @@ export const checkUser = () => async (dispatch, getState) => {
     config.headers['x-auth-token'] = token;
   }
 
-   axios.get('http://localhost:5000/auth/check-token', config)
-    .then(response => {
-      return dispatch({ type: actionTypes.SET_USER, data: response.data.payload })
-    }).then(() => dispatch(stopLoading()))
-    .catch((err) => {
-      console.log('ERROR: ', err);
-      dispatch(stopLoading());
-    });
+  axios.get('http://localhost:5000/auth/check-token', config)
+  .then(response => {
+    return dispatch({ type: actionTypes.SET_USER, data: response.data.payload })
+  })
+  .then(() => dispatch(stopLoading()))
+  .catch((err) => {
+    console.log('ERROR: ', err);
+    dispatch(stopLoading());
+  });
 }

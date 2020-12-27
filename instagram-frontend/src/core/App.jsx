@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { checkUser } from './user/actions';
+import Loading from 'templates/components/Loading';
 
 import setupStore from './store';
 import globalReducer from './reducer';
@@ -95,7 +96,7 @@ const App = () => {
     <PageNotFound path={defaultPath} />
   );
   return (
-    loading ? <p>loading</p> :
+    loading ? <Loading /> :
     <Provider store={store}>
       <Router>
         <Switch>
