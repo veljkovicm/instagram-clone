@@ -91,7 +91,7 @@ const UserPosts = (props) => {
 
   const tabControls = (
     <div className="user-profile__controls">
-      <span className={`user-profile__controls__single feed ${activeTab === 'feed' ? 'tab-active' : ''}`} onClick={() => handleTabClick('feed')}>Feed</span>
+      <span className={`user-profile__controls__single feed ${activeTab === 'feed' ? 'tab-active' : ''}`} onClick={() => handleTabClick('feed')}>Posts</span>
       <span className={`user-profile__controls__single saved ${activeTab === 'saved' ? 'tab-active' : ''}`} onClick={() => handleTabClick('saved')}>Saved</span>
     </div>
   )

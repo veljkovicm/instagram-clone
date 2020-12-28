@@ -40,6 +40,7 @@
       line-height: 18px;
       &__username {
         color: #262626;
+        font-weight: bold;
         &:hover {
           text-decoration: underline;
         }
@@ -60,6 +61,7 @@
     border: none;
     background: transparent;
     color: #0095f6;
+    font-weight: bold;
     &:hover {
       text-decoration: underline;
     }

@@ -60,6 +60,7 @@
       min-width: 225px;
       padding: 17px 14px;
       font-size: 14px;
+      line-height: 15px;
       border-bottom: 1px solid #dbdbdb;
       &__image-wrapper {
         width: 32px;
@@ -77,6 +78,7 @@
       }
       &__username {
         color: #262626;
+        font-weight: bold;
       }
       &__name,
       &__username {

@@ -1,6 +1,20 @@
+@font-face {
+  font-family: 'Segoe UI';
+  src: local('Segoe UI'), url(/Segoe-UI.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Segoe UI-Bold';
+  font-weight: 600;
+  src: local('Segoe UI-Bold'), url(/Segoe-UI-Bold.woff) format('woff');
+}
+
+
 html,
 body {
   height: 100%;
+  font-family: 'Segoe UI';
+  font-size: 14px;
 }
 * {
   box-sizing: border-box;
