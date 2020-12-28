@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-
 import SinglePostPage from './SinglePost.jsx';
+import { getPost } from './actions';
 import {
   postComment,
   likeAction,
-} from 'components/Post/actions'
-import { getPost } from './actions';
+} from 'components/Post/actions';
 
 const mapDispatchToProps = {
   postComment,

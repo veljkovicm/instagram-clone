@@ -1,17 +1,12 @@
 import axios from 'axios';
 
-const apiUrlPrefix = '/api/1.0';
-
-const apiCall = async ({ method, path, headers = {}, body, params, disableAPIPrefix = true }) => { // !!!!! WAS FALSE
+const apiCall = async ({ method, path, headers = {}, body, params }) => {
   try {
 
     // const baseURL = CONFIG.api.url;
-    const urlPrefix = disableAPIPrefix ? '' : apiUrlPrefix;
 
-    // const url = PATH.join(urlPrefix, path);
     const url = path;
     const token = localStorage.getItem('token');
-
 
     const response = await axios({
       baseURL: 'http://localhost:5000/',

@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Header } from 'components';
 
 import './forgotPassword.scss';
-
 
 const ForgotPassword = (props) => {
   const {
     isLoggedIn,
     loading,
     forgotPassword,
-    // notify,
   } = props;
-  const history = useHistory()
-
-
-  // debug this
-  if (isLoggedIn) {
-    // return <Redirect to="/" />;
-    history.push('/')
-  };
 
   const [ email, setEmail ] = useState('test111@test.com');
+
+  
+  if (isLoggedIn) {
+    return <Redirect to="/" />
+  };
+
 
   const handleInputChange = (setValue) => (e) => {
     setValue(e.target.value);
@@ -31,9 +27,9 @@ const ForgotPassword = (props) => {
 
   const handleForgotPassowrd = (e) => {
     e.preventDefault();
-
     forgotPassword({ email });
-  }
+  };
+
   return (
     <>
       <Helmet><title>Reset password</title></Helmet>
@@ -53,7 +49,6 @@ const ForgotPassword = (props) => {
                   name="email"
                   onChange={handleInputChange(setEmail)}
                   value={email}
-                  className="forgot-password__form__input"
                   className={`forgot-password__form__input ${email.length ? 'not-empty' : ''}`}
                 />
                 <label htmlFor="email" className={`forgot-password__form__input-label ${email.length ? 'not-empty' : ''}`}>Email</label>
@@ -68,7 +63,6 @@ const ForgotPassword = (props) => {
             </form>
           </div>
           <div className="forgot-password__signup-link__wrapper">
-
             <div className="forgot-password__signup-link__divider">
               <span>OR</span>
             </div>
@@ -88,7 +82,3 @@ ForgotPassword.propTypes = {
 }
 
 export default ForgotPassword;
-
-
-
-

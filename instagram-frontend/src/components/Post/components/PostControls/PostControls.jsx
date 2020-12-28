@@ -25,18 +25,18 @@ const PostControls = (props) => {
 
   const handleCommentIconClick = () => {
     history.push(`/p/${id}`);
-  }
+  };
 
   const handleLikeIconClick = () => {
     setLiked(!liked);
     setLikeCounter(liked ? likeCounter - 1 : likeCounter + 1);
     likeAction({ postId: id, liked });
-  }
+  };
 
   const handleSavePostClick = () => {
     setSaved(!saved);
     savePostAction({ postId: id, saved });
-  }
+  };
 
   return (
     <div className="user-post__actions-wrapper">

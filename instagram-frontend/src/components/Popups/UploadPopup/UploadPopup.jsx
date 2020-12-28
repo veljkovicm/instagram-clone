@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { upload } from './actions';
 
 import './uploadPopup.scss';
 
-const UploadPopup = (props) => {
-  const {
-    setPosts,
-    setShowPopup,
-  } = props;
+const UploadPopup = ({ setPosts, setShowPopup}) => {
 
   const [ file, setFile ] = useState();
   const [ caption, setCaption ] = useState('');
@@ -19,8 +16,6 @@ const UploadPopup = (props) => {
       setCaption(e.target.value);
     }
   }
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +35,6 @@ const UploadPopup = (props) => {
     setShowPopup(false);
   }
 
-
   return (
     <>
       <div className="upload-popup-backdrop" onClick={handlePopupClose} />
@@ -52,10 +46,22 @@ const UploadPopup = (props) => {
         <form onSubmit={handleSubmit} className="upload-popup__form">
           <label htmlFor="image">Select an image</label>
           <div className="upload-popup__form__image-preview">
-            { file ? <img src={URL.createObjectURL(file)} /> : null}
+            { file ? <img src={URL.createObjectURL(file)} alt="preview" /> : null}
           </div>
-          <input type="file" hidden id="image" onChange={handleChange} className="upload-popup__form__file-input"/>
-          <input type="text" name="description" placeholder="Post caption" onChange={handleChange} className="upload-popup__form__text-input" />
+          <input
+            type="file"
+            id="image"
+            onChange={handleChange}
+            className="upload-popup__form__file-input"
+            hidden
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Post caption"
+            onChange={handleChange}
+            className="upload-popup__form__text-input"
+          />
           <button
             type="submit"
             onClick={handleSubmit}
@@ -68,6 +74,11 @@ const UploadPopup = (props) => {
       </div>
     </>
   )
+}
+
+UploadPopup.propTypes = {
+  setPosts: PropTypes.func.isRequired,
+  setShowPopup: PropTypes.func.isRequired,
 }
 
 export default UploadPopup;

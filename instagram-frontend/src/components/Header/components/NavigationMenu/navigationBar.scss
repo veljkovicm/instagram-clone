@@ -48,9 +48,9 @@
     }
     &.user-menu {
       background-size: cover !important;
+      border-radius: 50%;
       &.active {
         border: 1px solid #000;
-        border-radius: 50%;
       }
     }
   }

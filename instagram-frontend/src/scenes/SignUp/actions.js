@@ -1,8 +1,7 @@
 import { API } from 'lib';
 import { startLoading, stopLoading } from 'components/Loading/actions';
 
-
-export const signup = ({ email, username, password, fullName }) => async (dispatch, getState) => {
+export const signup = ({ email, username, password, fullName }) => async (dispatch) => {
   const lowercaseEmail = email.toLowerCase();
   const lowercaseUsername = username.toLowerCase();
 
@@ -23,11 +22,11 @@ export const signup = ({ email, username, password, fullName }) => async (dispat
   } finally {
     dispatch(stopLoading());
   }
-}
+};
 
 export const checkAvailability = ({ email, username }) => async () => {
   const body = { email, username };
   const response = await API({ method: 'POST', path: '/user/check-availability', body });
 
   return response.data.taken;
-} 
+};

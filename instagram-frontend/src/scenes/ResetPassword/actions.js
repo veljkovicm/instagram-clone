@@ -12,7 +12,7 @@ export const resetPassword = ({ newPassword, token }) => async (dispatch, getSta
       token,
       newPassword,
     }
-    // export all routes to constants file?
+    // TODO: export all routes to constants file?
     await API({ method: 'POST', path: '/password/reset_password', body });
 
   } catch (error) {

@@ -1,6 +1,5 @@
 import { API } from 'lib';
 
-
 export const upload = ({ formData }) => async () => {
   const headers = {
     'Content-Type': 'multipart/form-data'

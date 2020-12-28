@@ -11,9 +11,8 @@ export const postComment = ({ comment, id }) => async () => {
   if(response.data.statusCode === 200) {
     return response.data;
   } else if (response.data.statusCode === 401) {
-    console.log('NOT ALLOWED!')
+    console.log('NOT ALLOWED!');
   } else {
-    // dispatch notification here
     console.log(response.message);
   }
 }

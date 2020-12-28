@@ -10,11 +10,9 @@ export const getUser = ({ username }) => async () => {
   } else {
     console.log(response.message);
   }
-  
 }
 
 export const uploadAvatar = ({ formData }) => async () => {
-  
   const headers = {
     'Content-Type': 'multipart/form-data'
   }

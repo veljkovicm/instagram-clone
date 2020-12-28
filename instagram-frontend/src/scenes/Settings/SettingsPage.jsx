@@ -28,11 +28,11 @@ const Settings = (props) => {
     if(!settingsChanged) {
       setSettingsChanged(true);
     }
-  }
+  };
 
   const handleAvatarClick = () => {
     avatarInput.click();
-  }
+  };
 
   const handleAvatarSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ const Settings = (props) => {
     uploadAvatar({ formData }).then((res) => {
       setAvatar(res.newAvatar);
     });
-  }
+  };
 
   const handleSubmit = () => {
     const userData = {
@@ -134,7 +134,7 @@ const Settings = (props) => {
                     <div className="settings__profile__section__description">
                       <span>
                         In most cases, you'll be able to change your username back to kaplareviccobe for another 14 days.
-                        <a href="#" className="forbidden">Learn more</a>
+                        <span className="forbidden">Learn more</span>
                       </span>
                     </div>
                   </div>

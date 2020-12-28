@@ -9,7 +9,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_USER:
       action.data.token && localStorage.setItem('token', action.data.token);
-      action.data.user && localStorage.setItem('user', JSON.stringify(action.data.user));
       return {
         ...state,
         currentUser: {

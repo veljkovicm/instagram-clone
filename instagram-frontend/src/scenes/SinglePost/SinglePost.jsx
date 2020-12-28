@@ -17,7 +17,7 @@ const SinglePost = (props) => {
     getPost({ postId }).then((res) => {
       setPost(res);
     });
-  }, [])
+  }, [ getPost, postId ])
 
   if(!post) {
     return <Loading />

@@ -9,19 +9,14 @@ import {
 
 import './feed.scss';
 
-const Feed = (props) => {
-  const {
-    getPosts,
-    user,
-  } = props;
-
+const Feed = ({ getPosts, user}) => {
   const [ posts, setPosts ] = useState();
 
   useEffect(() => {
-    getPosts({ userId: 'test'}).then((res) =>{
+    getPosts().then((res) =>{
       setPosts(res.posts);
     })
-  }, [])
+  }, [ getPosts ]);
 
 
   if(!posts) {

@@ -1,11 +1,6 @@
 // light-grey variable #fafafa;
-// global styling button-blue
 // blue color variable #0094f6  links
 // button blue background #2795f6
-// set default font sizes
-input:focus {
-  outline: none; // move global
-}
 
 .login-page {
   display: flex;
@@ -35,7 +30,7 @@ input:focus {
   &__logo {
     width: 175px;
     height: 51px;
-    background-image: url('/32f0a4f27407.png');
+    background-image: url('/images/32f0a4f27407.png');
     background-position: 0 -130px;
     margin: 25px 0 40px;
     font-size: 0;
@@ -120,7 +115,7 @@ input:focus {
   }
   &__facebook-link {
     display: inline-block;
-    background-image: url('/32f0a4f27407.png');
+    background-image: url('/images/32f0a4f27407.png');
     background-position: -414px -259px;
     background-repeat: no-repeat;
     padding-left: 21px;
@@ -166,7 +161,7 @@ input:focus {
       height: 40px;
       display: inline-block;
       margin: 0 5px;
-      background-image: url('/store-badges.png');
+      background-image: url('/images/store-badges.png');
       background-size: 100%;
     }
     &__ios {

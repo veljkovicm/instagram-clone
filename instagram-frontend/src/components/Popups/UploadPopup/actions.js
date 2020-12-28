@@ -1,12 +1,16 @@
 import { API } from 'lib';
 
-
 export const upload = async ({ formData }) => {
   const headers = {
     'Content-Type': 'multipart/form-data'
-  }
+  };
 
-  const response = await API({ method: 'POST', path: '/p/upload', body: formData, headers });
+  const response = await API({
+    method: 'POST',
+    path: '/p/upload',
+    body: formData,
+    headers
+  });
 
   if(response.data.statusCode === 200) {
     return response.data.payload.newPost;
@@ -15,4 +19,4 @@ export const upload = async ({ formData }) => {
   } else {
     console.log('Something went wrong')
   }
-}
+};

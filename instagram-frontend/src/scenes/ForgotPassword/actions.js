@@ -2,10 +2,7 @@ import { API } from 'lib';
 import { startLoading, stopLoading } from 'components/Loading/actions';
 
 export const forgotPassword = ({ email }) => async (dispatch, getState) => {
-  const  { isLoading } = getState().auth;
   const lowercaseEmail = email.toLowerCase();
-
-  if (isLoading) return;
 
   try {
     dispatch(startLoading());
@@ -15,7 +12,6 @@ export const forgotPassword = ({ email }) => async (dispatch, getState) => {
     await API({ method: 'POST', path: '/password/forgot_password', body })
 
   } catch (error) {
-    // dispatch error message
     dispatch(stopLoading());
     console.error(error);
   } finally {

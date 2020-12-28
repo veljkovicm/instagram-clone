@@ -19,7 +19,7 @@ const ProtectedRoute = (props) => {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [ checkUser ]);
 
 
   if(loading) {

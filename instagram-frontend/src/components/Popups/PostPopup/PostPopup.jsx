@@ -29,7 +29,7 @@ const PostPopup = (props) => {
 PostPopup.propTypes = {
   post: PropTypes.object.isRequired,
   setShowPopup: PropTypes.func.isRequired,
-  username: PropTypes.func,
+  username: PropTypes.string,
 }
 
 export default PostPopup;
