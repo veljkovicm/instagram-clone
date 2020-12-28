@@ -8,6 +8,9 @@ import Services from '../services/services.js';
 const router = express.Router();
 
 router.get('/:username', async (req, res) => {
+  let savedPostsArr = [];
+  let savedPostsIds = []
+
   const { username } = req.params;
   const user = await Services.getUser(username);
   let following = false;
@@ -21,19 +24,22 @@ router.get('/:username', async (req, res) => {
 
   if(req.user) {
     following = await Services.isFollowing({ followerId: req.user.id, followedId: user.id });
+    savedPostsIds = await Services.getSavedPostsList(req.user.id);
     if(username === req.user.username) {
       user.dataValues.isOwnProfile = true;
     }
   }
-  let savedPostsArr = [];
+
 
   if(req.user && user.id === req.user.id) {
     const savedPosts = await Services.getSavedPosts(req.user.id);
-    
     savedPosts.forEach((p) => {
+      const postLikesIds = _.map(p.post.likes, 'userId');
       savedPostsArr.push({
         likeCount: p.post.likes.length || 0,
         commentCount: p.post.comments.length || 0,
+        isSaved: _.includes(savedPostsIds, p.post.id),
+        isLiked: _.includes(postLikesIds, req.user.id),
         ...p.post.dataValues,
       });
     });
@@ -46,15 +52,16 @@ router.get('/:username', async (req, res) => {
   user.dataValues.followerCount = followerCount;
   user.dataValues.followingCount = followingCount;
 
-  const posts = await Services.getPosts(user.id);
+  const posts = await Services.getUserPosts(user.id);
   
   if(posts) {
     for(let post in posts) {
       posts[post].dataValues.likeCount = posts[post].likes.length;
       posts[post].dataValues.commentCount = posts[post].comments.length;
+      posts[post].dataValues.isSaved = _.includes(savedPostsIds, posts[post].id);
+      posts[post].dataValues.isLiked = _.some(posts[post].likes, { userId: req.user.id});
     }
   }
-  // maybe get only posts, without comments etc. load rest of the data on image popup
 
   return res.send({
     statusCode: 200,

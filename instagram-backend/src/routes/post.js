@@ -9,8 +9,10 @@ const router = express.Router();
 router.get('/posts', async (req, res) =>{
   const { id: userId } = req.user;
 
-  const posts = await Services.getPosts(userId);
+  const followingList = await Services.getFollowList({ listType: 'following', id: userId });
+  const userList = followingList.map(({ id }) => id);
 
+  const posts = await Services.getFeedPosts(userList, userId);
   const savedPosts = await Services.getSavedPostsList(userId);
 
   if(!posts) {
@@ -121,6 +123,7 @@ router.post('/comment', async (req, res) => {
           createdAt: response.createdAt,
           user: {
             username: req.user.username,
+            avatar: req.user.avatar,
           }
         },
       }).status(200);

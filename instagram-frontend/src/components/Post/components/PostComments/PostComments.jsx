@@ -25,9 +25,8 @@ const Comments = (props) => {
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments || []);
 
-
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const avatarSrc = (avatar || post.user.avatar) ? `http://localhost:5000/uploads/${avatar || post.user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const userAvatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
 
   const handleCommentSubmit = (e) => {
@@ -48,6 +47,15 @@ const Comments = (props) => {
 
   const commentsMarkup = (
     postComments.map((comment) => {
+      let avatarSrc;
+      // TODO refactor, no urls
+      if(comment.avatar) {
+        avatarSrc = `http://localhost:5000/uploads/${avatar}`;
+      } else if (comment.user) {
+        avatarSrc = `http://localhost:5000/uploads/${comment.user.avatar}`;
+      } else {
+        avatarSrc = 'http://localhost:5000/uploads/no-img.png';
+      }
       const commentedAt = formatDateShort(comment.createdAt);
       return <div className="user-post__comments__single" key={comment.id}>
         <div style={{ display: 'flex'}}>
@@ -83,7 +91,7 @@ const Comments = (props) => {
               <div className="user-post__caption__avatar">
                 <Link to={`/u/${username}`}>
                   <img
-                    src={avatarSrc}
+                    src={userAvatarSrc}
                     alt="user-avatar"
                     width="32"
                   />

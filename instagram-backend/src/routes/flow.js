@@ -52,7 +52,7 @@ router.post('/sign_up', async (req, res) => {
     email: lowercaseEmail,
     username: lowercaseUsername,
     password,
-    fullName
+    fullName,
   });
 
   const token = generateAccountConfirmationToken();

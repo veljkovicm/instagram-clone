@@ -11,6 +11,7 @@ const Settings = (props) => {
   } = props;
 
   let avatarInput = null;
+  const avatarSrc = props.user.avatar ? `http://localhost:5000/uploads/${props.user.avatar}` :  'http://localhost:5000/uploads/no-img.png';
 
   const [ name, setName ] = useState(props.user.fullName || '');
   const [ username, setUsername ] = useState(props.user.username);
@@ -19,7 +20,7 @@ const Settings = (props) => {
   const [ bio, setBio ] = useState(props.user.bio || '');
   const [ phoneNumber, setPhoneNumber ] = useState(props.user.phoneNumber || '');
   const [ gender, setGender ] = useState(props.user.gender || '');
-  const [ avatar, setAvatar ] = useState(`http://localhost:5000/uploads/${props.user.avatar}` ||  'http://localhost:5000/uploads/no-img.png'); // refactor, urls should not be visible
+  const [ avatar, setAvatar ] = useState(avatarSrc);
   const [ settingsChanged, setSettingsChanged ] = useState(false);
 
 

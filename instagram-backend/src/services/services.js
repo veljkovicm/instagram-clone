@@ -232,9 +232,44 @@ class Services {
     });
   };
 
-  static async getPosts(userId) {
+  static async getUserPosts(userId) {
     return Posts.findAll({
-      // where: { userId },
+      where: { userId },
+      order: [
+        [ 'uploaded_at', 'DESC' ]
+      ],
+      include: [
+        {
+          model: User,
+          attributes: [ 'username', 'avatar', ['full_name', 'fullName'] ],
+        },
+        {
+          model: Comments,
+          include: {
+            model: User,
+            attributes: [ 'username', 'avatar' ],
+          },
+          order: [
+            [ 'createdAt', 'DESC' ]
+          ],
+        },
+        {
+          model: Likes,
+        }
+      ],
+    });
+  };
+
+  static async getFeedPosts(followingList, userId) {
+    return Posts.findAll({
+      where: {
+        userId: {
+          [Op.in]: [
+            ...followingList,
+            userId
+          ],
+        }
+      },
       order: [
         [ 'uploaded_at', 'DESC' ]
       ],
@@ -273,12 +308,18 @@ class Services {
           include: [
             {
               model: Likes,
-              attributes: ['id'],
+              attributes: ['id', ['user_id', 'userId']],
             },
             {
               model: Comments,
-              attributes: ['id'],
-            }
+              include: {
+                model: User,
+              }
+            },
+            {
+              model: User,
+              attributes: [ 'username', 'avatar', ['full_name', 'fullName'] ],
+            },
           ]
         },
       ],

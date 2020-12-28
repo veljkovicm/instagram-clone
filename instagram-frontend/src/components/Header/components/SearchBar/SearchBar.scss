@@ -71,6 +71,8 @@
         background-image: url('/icons/no-avatar.png');
         img {
           max-width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
       &__name {
