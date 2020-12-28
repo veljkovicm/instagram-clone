@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { validateInput } from 'lib/validators';
+import { validateInput } from 'lib';
 import {
   Header,
   ValidationIcon

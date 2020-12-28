@@ -1,6 +1,4 @@
 import axios from 'axios';
-import PATH from 'path';
-
 
 const apiUrlPrefix = '/api/1.0';
 

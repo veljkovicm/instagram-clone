@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistance } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { formatDateShort } from 'lib/helpers';
+import { formatDateShort } from 'lib';
 
 {/* deleting a comment is only possible in single post popup */}
 
