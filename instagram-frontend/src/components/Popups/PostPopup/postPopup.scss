@@ -1,0 +1,9 @@
+.post-popup {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 935px;
+  transform: translate(-50%, -50%);
+}

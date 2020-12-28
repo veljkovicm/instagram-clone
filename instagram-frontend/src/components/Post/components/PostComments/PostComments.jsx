@@ -26,7 +26,7 @@ const Comments = (props) => {
 
 
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = (avatar || post.user.avatar) ? `http://localhost:5000/uploads/${avatar || post.user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
 
   const handleCommentSubmit = (e) => {

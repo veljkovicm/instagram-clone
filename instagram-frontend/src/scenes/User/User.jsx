@@ -44,6 +44,7 @@ const User = (props) => {
   if(!dataLoaded) {
     return <Loading />
   }
+
   return (
     <>
       <Header path={`/u/${username}`}/>
@@ -63,6 +64,7 @@ const User = (props) => {
         <UserPosts 
           posts={posts}
           isOwnProfile={user.isOwnProfile}
+          username={username}
         />
       </div>
     </>

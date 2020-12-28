@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { PostPopup } from 'components';
 
 import './userPosts.scss';
 
@@ -9,15 +10,28 @@ const UserPosts = (props) => {
       userPosts,
       savedPosts,
     },
+    username,
     isOwnProfile
   } = props;
 
   const [ activeTab, setActiveTab ] = useState('feed');
+  const [ showPopup, setShowPopup ] = useState(false);
+  const [ popupData, setPopupData ] = useState();
   let  activeTabPosts,postsMarkup, savedPostsMarkup;
+
+  const handlePostClick = (post) => {
+    setShowPopup(true);
+    setPopupData(post);
+    window.history.replaceState(null, post.caption, `/p/${post.id}`);
+  }
 
   const formatPosts = (posts) => {
     return posts.map((post) =>
-      <div key={post.id} className="user-profile__posts__single">
+      <div
+        key={post.id}
+        className="user-profile__posts__single"
+        onClick={() => handlePostClick(post)}
+      >
         <div>
           <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
         </div>
@@ -98,20 +112,33 @@ const UserPosts = (props) => {
 
 
   return (
-    <div className="user-profile__posts-wrapper">
-      <div className="user-profile__tab-controls">
-        {isOwnProfile ? tabControls : null}
+    <>
+      {
+        showPopup
+          &&
+        <div className="user-profile__post-popup">
+          <PostPopup
+            post={popupData}
+            setShowPopup={setShowPopup}
+            username={username} />
+        </div>
+      }
+      <div className="user-profile__posts-wrapper">
+        <div className="user-profile__tab-controls">
+          {isOwnProfile ? tabControls : null}
+        </div>
+        <div className="user-profile__posts">
+          {activeTabPosts}
+        </div>
       </div>
-      <div className="user-profile__posts">
-        {activeTabPosts}
-      </div>
-    </div>
+    </>
   )
 }
 
 UserPosts.propTypes = {
   posts: PropTypes.object,
   isOwnProfile: PropTypes.bool,
+  username: PropTypes.string,
 }
 
 export default UserPosts;

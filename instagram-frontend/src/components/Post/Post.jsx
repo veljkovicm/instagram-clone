@@ -37,7 +37,7 @@ const Post = (props) => {
           <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="post-image"/>
         </div>
         <div className="user-post__details">
-          <PostHeader avatar={post.avatar} username={post.username} />
+          <PostHeader avatar={post.avatar || post.user.avatar} username={post.username || post.user.username} />
           <PostComments postComment={postComment} post={post} type={type} />
           <PostControls likeAction={likeAction} savePostAction={savePostAction} post={post} />
         </div>
