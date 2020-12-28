@@ -1,9 +1,7 @@
-import db from '../../config/database.js';
-import sequelize from 'sequelize';
-
 // try replacing with 'bcrypt' package before deployment
 import bcrypt from 'bcryptjs';
-
+import sequelize from 'sequelize';
+import SavedPosts from '../models/SavedPosts.js';
 import {
   User,
   UserToken,
@@ -12,17 +10,12 @@ import {
   Followers,
   Likes,
 } from '../models/index.js';
-import database from '../../config/database.js';
-import SavedPosts from '../models/SavedPosts.js';
 
 const { Op } = sequelize;
 
 
-// separate to UserServices and EmailServices
-// separate to more classes?
 class Services {
-
-  static async verifyUser ( username, password ) {
+  static async verifyUser ({ username, password }) {
     const user = await User.findOne({
       where: {
         [Op.or]: [
@@ -69,16 +62,18 @@ class Services {
       bio: user.bio,
       gender: user.gender,
     };
-    
-    // TODO update last login time
 
-    return { userIsVerified: true, user: userData, message: 'User verified!' };
-
+    return {
+      userIsVerified: true,
+      user: userData,
+      message: 'User verified!'
+    };
   };
+
+
   static async getUserById(id) {
     return User.findOne({
       attributes: [
-        // 'id',
         'email',
         'fullName',
         'username',
@@ -90,10 +85,10 @@ class Services {
       ],
       where: { id },
     })
-  }
+  };
+
 
   static async getUser(username) {
-    console.log('>> username', username);
     return User.findOne({
       attributes: [
         'id',
@@ -102,23 +97,23 @@ class Services {
       ],
       where: { username },
     });
-  }
+  };
 
-  // TODO Refactor to check for email and username in one method
+
   static async userEmailExists (email) {
     const user = await User.findOne({
       where: { email: email }
     });
-  
+
     return !!user;
   };
 
-  // lowercase before checking
+
   static async usernameExists (username) {
     const user = await User.findOne({
       where: { username }
     });
-  
+
     return !!user;
   };
 
@@ -127,43 +122,43 @@ class Services {
     const hashedPassword = await  bcrypt.hash(password, 14);
 
     const user = await User.create({
-      email,
       password: hashedPassword,
+      registeredAt: new Date(),
+      email,
       username,
       fullName,
-      registeredAt: new Date(),
     });
 
     return { id: user.id, message: 'User was created successfully! Confirmation email has been sent to your inbox.'}
-  }
+  };
+
 
   static async createUserToken (data) {
-
-    console.log('>> data', data);
     return UserToken.create({
       createdAt: new Date(),
       ...data,
     })
-  }
+  };
 
-  static async findUserIdByToken({ token, type}) {
+  static async findUserIdByToken({ token, type }) {
     const userId = await UserToken.findOne({
       attributes: [['user_id', 'userId']],
       where: { token, type }
     });
+
     if(userId) {
       return userId;
     } else {
       return null;
     }
-  }
+  };
 
   static async getUserIdByUsername(username) {
     return User.findOne({
       attributes: [ 'id' ],
       where: { username }
     });
-  }
+  };
 
 
   static async confirmEmail(id) {
@@ -171,7 +166,8 @@ class Services {
       { confirmedAt: new Date() },
       { where: { id } }
     );
-  }
+  };
+
 
   static async confirmedUser(email) {
     const userData = await User.findOne({
@@ -184,7 +180,7 @@ class Services {
       email: userData && userData.dataValues.email,
       confirmed: userData && userData.dataValues.confirmed_at
     }
-  }
+  };
 
   static async updateUserPassword({ token, password, userId }) {
     const hashedPassword = await bcrypt.hash(password, 14);
@@ -200,13 +196,13 @@ class Services {
         return { message: 'Password updated successfully!'}
       })
       .catch(err => {
-        console.log(err);
         return { message: 'Something went wrong!'}
       })
     });
-  }
+  };
 
-  static async search({ query}) {
+
+  static async search(query) {
     return User.findAll({
       attributes: [
         'username',
@@ -222,9 +218,10 @@ class Services {
             [Op.iLike]: `%${query}%`,
           },
         },
-      }
-    })
+      },
+    });
   };
+
 
   static async addNewPost({ fileName, caption, userId }) {
     return Posts.create({
@@ -232,10 +229,10 @@ class Services {
       caption,
       userId,
       uploadedAt: new Date(),
-    })
-  }
+    });
+  };
 
-  static async getPosts({ userId }) {
+  static async getPosts(userId) {
     return Posts.findAll({
       // where: { userId },
       order: [
@@ -260,11 +257,11 @@ class Services {
           model: Likes,
         }
       ],
-      logging: console.log,
     });
-  }
+  };
 
-  static async getSavedPosts({ userId }) {
+
+ static async getSavedPosts(userId) {
     return SavedPosts.findAll({
       where: { userId },
       order: [
@@ -276,45 +273,48 @@ class Services {
           include: [
             {
               model: Likes,
-              attributes: ['id']
+              attributes: ['id'],
             },
             {
               model: Comments,
-              attributes: ['id']
+              attributes: ['id'],
             }
           ]
         },
       ],
-     
     });
-  }
+  };
 
-  static async getSavedPostsList({ userId }) {
+
+  static async getSavedPostsList(userId) {
     const posts = await SavedPosts.findAll({
       where: { userId },
       attributes: [ ['post_id', 'id'] ],
     });
 
-    return posts.map(({ id }) => id)
-  }
+    return posts.map(({ id }) => id);
+  };
 
-  static async postComment({ comment, postId, userId}) {
+
+  static async postComment({ comment, postId, userId }) {
     return Comments.create({
       comment,
       postId,
       userId,
       createdAt: new Date(),
-    })
-  }
+    });
+  };
+
 
   static async getComments(postId) {
     return Comments.fidnAll({
       where: { postId },
-      include: [ User ]
-    })
-  }
+      include: [ User ],
+    });
+  };
 
-  static async getPost({ postId }) {
+
+  static async getPost(postId) {
     return Posts.findOne({
       where: { id: postId },
       include: [
@@ -334,20 +334,24 @@ class Services {
         }
       ],
     });
-  }
+  };
+
+
   static async getOldAvatarUrl(id) {
     return User.findOne({
       attributes: ['avatar'],
       where: { id }
     });
-  }
+  };
+
 
   static async updateAvatar({ filename, userId }) {
     return User.update(
       { avatar: filename },
       { where: { id: userId } }
     );
-  }
+  };
+
 
   static async updateUserSettings({ userData, id }) {
     const fields = { ...userData }
@@ -355,52 +359,54 @@ class Services {
       { ...fields },
       { where: { id } },
     )
-    .then((res) => {
-      console.log(res);
+    .then(() => {
       return { message: 'User settings updated successfully!', statusCode: 200 }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       return { message: 'User settings update failed!', statusCode: 500 }
-    })
-  }
+    });
+  };
+
 
   static async follow({ followerId, followedId }) {
     return Followers.create({
-      followerId,
       id: followedId,
       followedAt: new Date(),
+      followerId,
     });
-  }
+  };
+
 
   static async unfollow({ followerId, followedId }) {
-    try { Followers.destroy({
-      where: { followerId, id: followedId }
-     });
+    try {
+      return Followers.destroy({
+        where: { followerId, id: followedId }
+      });
     } catch(err) {
-      return console.log(err);
+      console.log(err);
     }
-    return
-  }
+  };
+
 
   static async isFollowing({ followerId, followedId }) {
-    console.log({followerId, followedId});
     return Followers.findOne({
       where: { followerId, id: followedId }
-    })
-  }
+    });
+  };
 
 
   static async getFollowerCount(id) {
     return Followers.count({
       where: { id }
-    })
-  }
+    });
+  };
+
+
   static async getFollowingCount(id) {
     return Followers.count({
       where: { followerId: id }
-    })
-  }
+    });
+  };
 
 
   static async getFollowList({ listType, id }) {
@@ -428,51 +434,56 @@ class Services {
         ]
       });
     }
-  }
+  };
 
 
   static async like({ postId, userId }) {
     return Likes.create({
+      likedAt: new Date(),
       postId,
       userId,
-      likedAt: new Date(),
-    })
-  }
+    });
+  };
+
+
   static async unlike({ postId, userId }) {
     return Likes.destroy(
       { where: { postId, userId }}
-    )
-  }
+    );
+  };
+
 
   static async savePost({ postId, userId }) {
     return SavedPosts.create({
       postId,
       userId,
       savedAt: new Date(),
-    })
-  }
+    });
+  };
+
 
   static async unsavePost({ postId, userId }) {
     return SavedPosts.destroy({
       where: { postId, userId }
     });
-  }
+  };
+
 
   static async emailAvailable (email) {
     const user = await User.findOne({
       where: { email }
     });
-    console.log('user', !!user);
+
     return !!user;
-  }
+  };
 
   static async usernameAvailable (username) {
     const user =  await User.findOne({
       where: { username }
     });
     return !!user;
-  }
-}
+  };
+};
 
 
 export default Services;

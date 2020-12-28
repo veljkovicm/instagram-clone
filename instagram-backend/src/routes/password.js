@@ -1,19 +1,14 @@
 import express from 'express';
 import Services from '../services/services.js';
 import EmailServices from '../services/emailServices.js';
-// create index.js in services and export both from there
 import { generateResetPasswordToken } from '../lib/tokens.js';
-import config from 'config';
 
 
 const router = express.Router();
 
 router.post('/forgot_password', async (req, res) => {
-
   const { email } = req.body;
-
   const userExists = await Services.confirmedUser(email);
-
 
   if(!userExists.email) {
     return res.status(404).json({
@@ -29,41 +24,40 @@ router.post('/forgot_password', async (req, res) => {
 
   const token = generateResetPasswordToken();
 
-  await Services.createUserToken({ userId: userExists.id, token, type: 'password'});
+  await Services.createUserToken({
+    userId: userExists.id,
+    type: 'password',
+    token,
+  });
 
   await EmailServices.sendResetPasswordEmail({ email, token });
 
   return res.status(200).json({
     statusCode: 200,
     message: 'Reset password link has been sent to your email address',
-  })
+  });
 });
 
 
 router.post('/reset_password', async (req, res) => {
-
   const { newPassword, token } = req.body;
   const { userId }  = await Services.findUserIdByToken({
-    token,
     type: 'password',
-    usedAt: null
+    usedAt: null,
+    token,
   });
 
   if(!userId) {
-    return res.status(404).json({
-      message: 'Token not valid.'
-    });
+    return res.status(404).json({ message: 'Token not valid.' });
   }
 
   await Services.updateUserPassword({
-    token,
     password: newPassword,
+    token,
     userId,
   });
 
-  return res.send({
-    statusCode: 200,
-  }).status(200)
+  return res.send({ statusCode: 200 }).status(200);
 });
 
 

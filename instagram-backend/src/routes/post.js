@@ -1,7 +1,7 @@
 import express from 'express';
-import Services from '../services/services.js';
 import path from 'path';
 import _ from 'lodash';
+import Services from '../services/services.js';
 
 const router = express.Router();
 
@@ -9,9 +9,9 @@ const router = express.Router();
 router.get('/posts', async (req, res) =>{
   const { id: userId } = req.user;
 
-  const posts = await Services.getPosts({ userId });
+  const posts = await Services.getPosts(userId);
 
-  const savedPosts = await Services.getSavedPostsList({ userId });
+  const savedPosts = await Services.getSavedPostsList(userId);
 
   if(!posts) {
     return res.json({
@@ -26,7 +26,7 @@ router.get('/posts', async (req, res) =>{
     if(req.user.id) {
       isLiked = _.some(post.likes, { userId: req.user.id});
       isSaved = _.includes(savedPosts, post.id);
-    } 
+    }
     filteredResults.push({
       id: post.id,
       fileName: post.fileName,
@@ -46,7 +46,6 @@ router.get('/posts', async (req, res) =>{
     statusCode: 200,
     posts: filteredResults,
   }).status(200)
-
 });
 
 
@@ -56,7 +55,7 @@ router.post('/upload', async (req, res) => {
       statusCode: 400,
       message: 'No file uploaded!',
     }).status(400);
-  }
+  };
 
   const __dirname = path.resolve();
   const { file } = req.files;
@@ -74,27 +73,30 @@ router.post('/upload', async (req, res) => {
         message: err,
       }).status(500);
     }
-    const newPost = await Services.addNewPost({ fileName, caption, userId });
+    const newPost = await Services.addNewPost({
+      fileName,
+      caption,
+      userId
+    });
+
     newPost.dataValues.avatar = req.user.avatar;
     newPost.dataValues.username = req.user.username;
 
     return res.json({
       statusCode: 200,
-      payload: { newPost: {
-        ...newPost.dataValues,
-        username: req.user.username,
-        avatar: req.user.avatar,
-      } },
+      payload: {
+        newPost: {
+          ...newPost.dataValues,
+          username: req.user.username,
+          avatar: req.user.avatar,
+        },
+      },
     }).status(200);
   });
 });
 
 router.post('/comment', async (req, res) => {
-  const {
-    comment,
-    postId,
-  } = req.body;
-
+  const { comment, postId } = req.body;
   const { id: userId } = req.user;
 
   if(comment.trim() === '') {
@@ -104,7 +106,11 @@ router.post('/comment', async (req, res) => {
     }).status(400);
   };
 
-  Services.postComment({ comment, userId, postId })
+  Services.postComment({
+    comment,
+    userId,
+    postId 
+  })
     .then((response) => {
       return res.json({
         statusCode: 200,
@@ -118,7 +124,7 @@ router.post('/comment', async (req, res) => {
           }
         },
       }).status(200);
-    })
+  })
     .catch((err) => {
       console.log(err);
       return res.json({
@@ -132,7 +138,7 @@ router.get('/get-post/:postId', async (req, res) =>{
   const { postId } = req.params;
   let isLiked = false;
 
-  const post = await Services.getPost({ postId });
+  const post = await Services.getPost(postId);
 
   if(!post) {
     return res.json({
@@ -143,7 +149,7 @@ router.get('/get-post/:postId', async (req, res) =>{
 
   if(req.user) {
     isLiked = _.some(post.likes, { userId: req.user.id});
-  } 
+  }
   const filteredResults = {
     id: post.id,
     fileName: post.fileName,
@@ -156,7 +162,7 @@ router.get('/get-post/:postId', async (req, res) =>{
     isLiked: isLiked,
     likeCount: post.likes.length,
   };
-  
+
 
   return res.json({
     statusCode: 200,
@@ -167,6 +173,7 @@ router.get('/get-post/:postId', async (req, res) =>{
 router.post('/like-action', async (req, res) => {
   const { postId, liked } = req.body;
   let response;
+
   if(!postId) {
     return res.json({
       statusCode: 404,
@@ -179,7 +186,6 @@ router.post('/like-action', async (req, res) => {
   } else {
     response = await Services.like({ postId, userId: req.user.id });
   }
- 
 
   if(!response) {
     return res.json({
@@ -189,15 +195,15 @@ router.post('/like-action', async (req, res) => {
   } else {
     return res.json({
       statusCode: 200,
-      message: 'Action success!' 
+      message: 'Action success!',
     }).status(200);
   }
-
 });
 
 router.post('/save-post-action', async (req, res) => {
   const { postId, saved } = req.body;
   let response;
+
   if(!postId) {
     return res.json({
       statusCode: 404,
@@ -219,7 +225,7 @@ router.post('/save-post-action', async (req, res) => {
   } else {
     return res.json({
       statusCode: 200,
-      message: 'Action success!' 
+      message: 'Action success!',
     }).status(200);
   }
 });

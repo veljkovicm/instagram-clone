@@ -1,8 +1,8 @@
 import express from 'express';
-import Services from '../services/services.js';
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
+import Services from '../services/services.js';
 
 
 const router = express.Router();
@@ -28,18 +28,17 @@ router.get('/:username', async (req, res) => {
   let savedPostsArr = [];
 
   if(req.user && user.id === req.user.id) {
-    const savedPosts = await Services.getSavedPosts({ userId: req.user.id });
+    const savedPosts = await Services.getSavedPosts(req.user.id);
     
     savedPosts.forEach((p) => {
       savedPostsArr.push({
         likeCount: p.post.likes.length || 0,
         commentCount: p.post.comments.length || 0,
-        ...p.post.dataValues
+        ...p.post.dataValues,
       });
     });
   }
 
-  // console.log('>> \x1b[41m%s\x1b[0m', 'savedPostsArr', savedPostsArr);
   user.dataValues.following = !!following;
 
   const [ followerCount, followingCount ] = await Promise.all([ Services.getFollowerCount(user.id), Services.getFollowingCount(user.id) ]);
@@ -47,8 +46,7 @@ router.get('/:username', async (req, res) => {
   user.dataValues.followerCount = followerCount;
   user.dataValues.followingCount = followingCount;
 
-  // if function has one argument, don't pass as object? check whole project
-  const posts = await Services.getPosts({ userId: user.id });
+  const posts = await Services.getPosts(user.id);
   
   if(posts) {
     for(let post in posts) {
