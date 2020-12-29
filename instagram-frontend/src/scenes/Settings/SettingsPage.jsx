@@ -235,7 +235,7 @@ const Settings = (props) => {
                 >
                   Submit
                 </button>
-                {settingsUpdated && <span>Settings update successfully.</span>}
+                {settingsUpdated && <span>Settings updated successfully.</span>}
               </div>
             </div>
           </div>
