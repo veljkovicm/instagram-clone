@@ -74,6 +74,7 @@ class Services {
   static async getUserById(id) {
     return User.findOne({
       attributes: [
+        'id',
         'email',
         'fullName',
         'username',
@@ -93,7 +94,9 @@ class Services {
       attributes: [
         'id',
         ['full_name', 'fullName'],
-        'avatar'
+        'avatar',
+        'bio',
+        'website',
       ],
       where: { username },
     });

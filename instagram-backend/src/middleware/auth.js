@@ -1,7 +1,8 @@
 import config from 'config';
 import jwt from 'jsonwebtoken';
+import Services from '../services/services.js';
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   const token = req.header('x-auth-token');
 
   // Check for token
@@ -11,10 +12,10 @@ const auth = (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, config.jwtSecret);
+    const decodedToken = jwt.verify(token, config.jwtSecret);
   
-    // Add user from payload
-    req.user = decoded;
+    const user = await Services.getUserById(decodedToken.id);
+    req.user = user;
     next();
   } catch(e) {
     res.status(400).json({ message: 'Token is not valid'});
