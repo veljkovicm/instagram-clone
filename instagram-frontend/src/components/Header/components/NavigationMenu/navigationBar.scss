@@ -49,6 +49,7 @@
     &.user-menu {
       background-size: cover !important;
       border-radius: 50%;
+      box-sizing: initial;
       &.active {
         border: 1px solid #000;
       }

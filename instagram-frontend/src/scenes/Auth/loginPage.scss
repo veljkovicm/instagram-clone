@@ -4,19 +4,29 @@
 
 .login-page {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-top: 80px !important;
   padding: 0 50px;
   &__image-wrapper {
+    position: relative;
     width: 454px;
     height: 618px;
-    background-image: url('http://via.placeholder.com/454x618');
+    background-image: url('/images/login-image.png');
+    &::after {
+      position: absolute;
+      left: 148px;
+      top: 96px;
+      content: "";
+      width: 245px;
+      height: 435px;
+      display: block;
+      background-image: url('/images/login-image-inner.jpg');
+    }
   }
   &__main-wrapper {
     width: 100%;
     max-width: 350px;
-    margin-left: 40px;
     &__inner {
       max-width: 348px;
       display: flex;
@@ -106,7 +116,6 @@
     padding: 5px 0;
     border: 1px solid #dbdbdb;
     background-color: #fff;
-
     a {
       margin-left: 5px;
       color: #0094f6;

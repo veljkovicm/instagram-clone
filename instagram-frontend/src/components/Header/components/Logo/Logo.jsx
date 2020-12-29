@@ -7,9 +7,7 @@ const Logo = () => {
   const history = useHistory();
 
   const handleClick = () => {
-    if(window.location.pathname !== '/feed') {
-      history.push('/');
-    }
+    history.push('/');
   };
 
   return <img

@@ -42,7 +42,7 @@ const Login = (props) => {
     <div className="login-page page-content">
       <Helmet><title>Instagram - Log in</title></Helmet>
       <Header />
-      <div className="login-page__image-wrapper"></div>
+      <div className="login-page__image-wrapper" />
       <div className="login-page__main-wrapper">
         <div className="login-page__main-wrapper__inner">
           <h1 className="login-page__logo">Instagram</h1>

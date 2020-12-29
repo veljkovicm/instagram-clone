@@ -20,7 +20,7 @@ export const getPosts = () => async () => {
   if(response.data.statusCode === 200) {
     return response.data;
   } else {
-    console.log(response.message);
+    console.log(response);
   }
 }
 

@@ -22,6 +22,7 @@ const Settings = (props) => {
   const [ gender, setGender ] = useState(props.user.gender || '');
   const [ avatar, setAvatar ] = useState(avatarSrc);
   const [ settingsChanged, setSettingsChanged ] = useState(false);
+  const [ settingsUpdated, setSettingsUpdated ] = useState(false);
 
 
   const handleChange = (setValue) => (e) => {
@@ -54,7 +55,11 @@ const Settings = (props) => {
       phoneNumber,
       gender,
     };
-    updateSettings(userData);
+
+    updateSettings(userData).then(() => {
+      setSettingsUpdated(true);
+      setSettingsChanged(false);
+    });
   }
 
   return (
@@ -160,7 +165,7 @@ const Settings = (props) => {
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <textarea
-                      className="settings_profile__section__textarea"
+                      className="settings__profile__section__textarea"
                       name="bio"
                       cols="30"
                       rows="3"
@@ -222,13 +227,16 @@ const Settings = (props) => {
                   />
                 </div>
               </form>
-              <button
-                className="settings__profile__form__button"
-                onClick={handleSubmit}
-                disabled={!settingsChanged}
-              >
-                Submit
-              </button>
+              <div className="settings__profile__form__button-wrapper">
+                <button
+                  className="settings__profile__form__button"
+                  onClick={handleSubmit}
+                  disabled={!settingsChanged}
+                >
+                  Submit
+                </button>
+                {settingsUpdated && <span>Settings update successfully.</span>}
+              </div>
             </div>
           </div>
         </div>

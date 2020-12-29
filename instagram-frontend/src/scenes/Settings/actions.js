@@ -9,7 +9,7 @@ export const updateSettings = (userData) => async () => {
     } else if (response.data.statusCode === 401) {
       console.log('NOT ALLOWED!');
     } else {
-      console.log(response.message);
+      console.log(response);
       console.log('Something went wrong');
     }
 }
