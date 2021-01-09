@@ -1,7 +1,6 @@
 import { API } from 'lib';
 
 export const getPost = ({ postId }) => async () => {
-
   const response = await API({ method: 'GET', path: `/p/get-post/${postId}` });
   
   if(response.data.statusCode === 200) {
@@ -11,4 +10,4 @@ export const getPost = ({ postId }) => async () => {
   } else {
     console.log(response.message);
   }
-}
+};

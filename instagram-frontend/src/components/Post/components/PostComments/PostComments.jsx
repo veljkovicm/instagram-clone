@@ -12,6 +12,7 @@ const Comments = (props) => {
     postComment,
     type,
   } = props;
+
   const {
     id,
     username,
@@ -24,9 +25,8 @@ const Comments = (props) => {
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments || []);
 
-
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const avatarSrc = (avatar || post.user.avatar) ? `http://localhost:5000/uploads/${avatar || post.user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const userAvatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
 
 
   const handleCommentSubmit = (e) => {
@@ -39,21 +39,34 @@ const Comments = (props) => {
       ]);
       setComment('');
     })
-  }
+  };
 
   const handleChange = (e) => {
     setComment(e.target.value);
-  }
+  };
 
   const commentsMarkup = (
     postComments.map((comment) => {
+      let avatarSrc;
+      // TODO refactor, no urls
+      if(comment.avatar) {
+        avatarSrc = `http://localhost:5000/uploads/${avatar}`;
+      } else if (comment.user) {
+        avatarSrc = `http://localhost:5000/uploads/${comment.user.avatar}`;
+      } else {
+        avatarSrc = 'http://localhost:5000/uploads/no-img.png';
+      }
       const commentedAt = formatDateShort(comment.createdAt);
       return <div className="user-post__comments__single" key={comment.id}>
         <div style={{ display: 'flex'}}>
           { type === 'single'
-            && 
+              &&
             <div className="user-post__comments__single__avatar">
-              <img src={avatarSrc} alt="user-avatar" width="32" />
+              <img
+                src={avatarSrc}
+                alt="user-avatar"
+                width="32"
+              />
             </div>
           }
           <div className="user-post__comments__single__content" >
@@ -62,14 +75,12 @@ const Comments = (props) => {
             { type === 'single' && <span className="user-post__comments__single__timestamp">{commentedAt}</span> }
           </div>
         </div>
-        
       </div>
     })
   );
 
   return (
     <>
-      
       <div className="user-post__comments">
         {
           caption
@@ -79,7 +90,11 @@ const Comments = (props) => {
               && 
               <div className="user-post__caption__avatar">
                 <Link to={`/u/${username}`}>
-                  <img src={avatarSrc} alt="user-avatar" width="32" />
+                  <img
+                    src={userAvatarSrc}
+                    alt="user-avatar"
+                    width="32"
+                  />
                 </Link>
               </div>
             }

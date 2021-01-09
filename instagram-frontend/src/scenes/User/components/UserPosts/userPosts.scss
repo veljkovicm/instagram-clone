@@ -21,6 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1px;
     border-top: 1px solid #dbdbdb;
     &__single {
       position: relative;
@@ -113,14 +114,14 @@
         &__likes {
           margin-right: 30px;
           &__icon {
-            background: url('/32f0a4f27407.png') no-repeat -340px -335px;
+            background: url('/images/32f0a4f27407.png') no-repeat -340px -335px;
             width: 20px;
             height: 18px;
           }
         }
         &__comments {
           &__icon {
-            background: url('/32f0a4f27407.png') no-repeat -382px -334px;
+            background: url('/images/32f0a4f27407.png') no-repeat -382px -334px;
             width: 20px;
             height: 18px;
           }
@@ -133,7 +134,7 @@
   }
   &__user-posts-empty {
     &__badge {
-      background: url('/32f0a4f27407.png') no-repeat -128px -269px;
+      background: url('/images/32f0a4f27407.png') no-repeat -128px -269px;
       width: 62px;
 	    height: 62px;
     }
@@ -183,7 +184,7 @@
     &__badge {
       width: 62px;
       height: 62px;
-      background-image: url('/32f0a4f27407.png');
+      background-image: url('/images/32f0a4f27407.png');
       background-position: -192px -269px;
     }
     &__title {

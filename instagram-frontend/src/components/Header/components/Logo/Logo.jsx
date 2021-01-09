@@ -5,13 +5,18 @@ import './logo.scss';
 
 const Logo = () => {
   const history = useHistory();
+
   const handleClick = () => {
-    if(window.location.pathname !== '/feed') {
-      history.push('/')
-    }
+    history.push('/');
   };
 
-  return <img onClick={handleClick} className="header-logo" src={'/header-logo.png'} alt="logo"/>
-}
+  return <img
+    onClick={handleClick}
+    className="header-logo"
+    src={'/images/header-logo.png'}
+    alt="logo"
+  />
+
+};
 
 export default Logo;

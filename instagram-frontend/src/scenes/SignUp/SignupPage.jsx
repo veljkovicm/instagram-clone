@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib';
 import {
@@ -16,15 +16,8 @@ const Signup = (props) => {
     isLoggedIn,
     loading,
     signup,
-    // notify,
     checkAvailability,
   } = props;
-  const history = useHistory()
-
-
-  if (isLoggedIn) {
-    history.push('/')
-  }
 
   const [ userData, setUserData ] = useState({
     email: '',
@@ -32,7 +25,6 @@ const Signup = (props) => {
     username: '',
     fullName: ''
   });
-
 
   const [ isValid, setIsValid ] = useState({
     email: false,
@@ -48,6 +40,10 @@ const Signup = (props) => {
     fullName: false,
   });
 
+  if (isLoggedIn) {
+    return <Redirect to="/" />
+  }
+
   const handleInputChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -62,7 +58,7 @@ const Signup = (props) => {
     }
   }
 
-  const handleEmailValidation = async (e) => {
+  const handleEmailValidation = async () => {
     const validatedEmail = validateInput({ type: 'email', data: userData.email })
     const emailTaken = await checkAvailability({ email: userData.email });
 
@@ -70,7 +66,7 @@ const Signup = (props) => {
     setIsValid({ ...isValid, email: validatedEmail && !emailTaken });
   }
 
-  const handleUsernameValidation = async (e) => {
+  const handleUsernameValidation = async () => {
     const validatedUsername = validateInput({ type: 'username', data: userData.username });
     const usernameTaken = await checkAvailability({ username: userData.username });
 
@@ -78,11 +74,11 @@ const Signup = (props) => {
     setIsValid({ ...isValid, username: validatedUsername && !usernameTaken });
   }
 
-  const handlePasswordValidation = (e) => {
+  const handlePasswordValidation = () => {
     setHasChanged({ ...hasChanged, password: true });
   }
 
-  const handleFullNameValidation = (e) => {
+  const handleFullNameValidation = () => {
     const validatedFullName = validateInput({ type: 'full-name', data: userData.fullName });
 
     setHasChanged({ ...hasChanged, fullName: true });
@@ -178,8 +174,8 @@ const Signup = (props) => {
       </div>
       <div className="auth-page-app-links">
         <p>Get the app</p>
-        <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__ios" alt="ios" />
-        <div src="http://via.placeholder.com/136x40" className="auth-page-app-links__android" alt="android" />
+        <div className="auth-page-app-links__ios" alt="ios" />
+        <div className="auth-page-app-links__android" alt="android" />
       </div>
     </div>
   )

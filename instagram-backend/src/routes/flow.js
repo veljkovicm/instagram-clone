@@ -1,12 +1,11 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
+import config from 'config';
 import Services from '../services/services.js';
 import EmailServices from '../services/emailServices.js';
 import { validateInput } from '../lib/validators.js'
-
 import { generateAccountConfirmationToken } from '../lib/tokens.js';
-import config from 'config';
-import jwt from 'jsonwebtoken';
-import path from 'path';
+
 
 const router = express.Router();
 
@@ -18,6 +17,9 @@ router.post('/sign_up', async (req, res) => {
     fullName,
   } = req.body;
 
+  const lowercaseEmail = email.toLowerCase();
+  const lowercaseUsername = username.toLowerCase();
+
   const validData = validateInput(req.body);
 
   if (!validData) {
@@ -26,8 +28,8 @@ router.post('/sign_up', async (req, res) => {
       message: 'Invalid input!',
     }).status(400);
   }
-  const userEmailExists = await Services.userEmailExists(email);
-  
+  const userEmailExists = await Services.userEmailExists(lowercaseEmail);
+
   if (userEmailExists) {
     return res.send({
       statusCode: 401,
@@ -36,7 +38,7 @@ router.post('/sign_up', async (req, res) => {
     }).status(401);
   }
 
-  const usernameExists = await Services.usernameExists(username);
+  const usernameExists = await Services.usernameExists(lowercaseUsername);
   
   if (usernameExists) {
     return res.send({
@@ -46,14 +48,23 @@ router.post('/sign_up', async (req, res) => {
     }).status(401);
   }
 
-  const { id, message } = await Services.createUser({ email, password, username, fullName });
+  const { id, message } = await Services.createUser({
+    email: lowercaseEmail,
+    username: lowercaseUsername,
+    password,
+    fullName,
+  });
 
   const token = generateAccountConfirmationToken();
 
-  console.log({id, email, token});
-  await Services.createUserToken({ userId: id, email, token, type: 'confirmation' });
+  await Services.createUserToken({
+    type: 'confirmation',
+    userId: id,
+    email: lowercaseEmail,
+    token,
+  });
 
-  await EmailServices.sendConfirmationEmail({ email, token });
+  await EmailServices.sendConfirmationEmail({ email: lowercaseEmail, token });
 
   return res.send({
     statusCode: 200,
@@ -64,15 +75,16 @@ router.post('/sign_up', async (req, res) => {
   }).status(200)
 });
 
+
 router.post('/sign_in', async (req, res) => {
   const {
     username,
     password,
-    rememberMe,
   } = req.body;
 
+  const lowerCaseUsername = username.toLowerCase();
 
-  const { userIsVerified, user, message } = await Services.verifyUser(username, password);
+  const { userIsVerified, user, message } = await Services.verifyUser({ username: lowerCaseUsername, password });
 
   if (!userIsVerified) {
     return res.send({
@@ -110,19 +122,16 @@ router.post('/sign_in', async (req, res) => {
   }).status(200)
 });
 
-router.post('/logout', async (req, res) => {
-
-});
-
 
 router.post('/confirm', async (req, res) => {
   const { token } = req.query;
 
   if (!token) {
     return res.send({
-      statusCode: 404,
-      message: 'Token not found.'
-    }).status(401);
+        statusCode: 404,
+        message: 'Token not found.'
+      })
+      .status(401);
   };
   const { userId } =  await Services.findUserIdByToken({ token, type: 'confirmation'});
 
@@ -134,39 +143,37 @@ router.post('/confirm', async (req, res) => {
   };
 
   await Services.confirmEmail(userId);
-  // update used_at field in token table too
 
-   res.status(200).json({ message: 'Your email address is confirmed. Please, log in.'})
+  return res.status(200)
+    .json({ message: 'Your email address is confirmed. Please, log in.'});
 
   // Cannot set headers after they are sent to the client ???
   // .redirect('/');
 });
 
 
-// move to different file?
-router.post('/check-availability', async( req, res) => {
+router.post('/check-availability', async ( req, res) => {
   const { email, username } = req.body;
+  const lowerCaseEmail = email.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase();
 
   if (email) {
-    const isEmailTaken = await Services.emailAvailable(email.toLowerCase());
-    return res.json({
-      statusCode: 200,
-      taken: isEmailTaken,
-    }).status(200);
+    const isEmailTaken = await Services.emailAvailable(lowerCaseEmail);
+
+    return res
+      .json({
+        statusCode: 200,
+        taken: isEmailTaken,
+      }).status(200);
+
   } else if (username) {
-    const isUsernameTaken = await Services.usernameAvailable(username.toLowerCase());
+    const isUsernameTaken = await Services.usernameAvailable(lowerCaseUsername);
+
     return res.json({
       statusCode: 200,
       taken: isUsernameTaken,
     }).status(200);
   }
-});
-
-
-router.get('/test', async (req, res) => {
-  return res.send({
-    statusCode: 200,
-  }).status(200)
 });
 
 

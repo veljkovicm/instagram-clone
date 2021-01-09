@@ -1,6 +1,5 @@
-// import { reduxActionsGenerator } from '@src/lib';
-import { reduxActionsGenerator } from 'lib';
 import axios from 'axios';
+import { reduxActionsGenerator } from 'lib';
 import { startLoading, stopLoading} from 'components/Loading/actions';
 
 
@@ -16,11 +15,10 @@ export const clearUser = () => ({
 export const setUser = (data) => ({
   type: actionTypes.SET_USER,
   data: data,
-
 });
 
 
-export const checkUser = () => async (dispatch, getState) => {
+export const checkUser = () => async (dispatch) => {
   dispatch(startLoading())
   const token = localStorage.getItem('token');
 
@@ -43,4 +41,5 @@ export const checkUser = () => async (dispatch, getState) => {
     console.log('ERROR: ', err);
     dispatch(stopLoading());
   });
-}
+};
+

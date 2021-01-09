@@ -1,27 +1,32 @@
 // light-grey variable #fafafa;
-// global styling button-blue
 // blue color variable #0094f6  links
 // button blue background #2795f6
-// set default font sizes
-input:focus {
-  outline: none; // move global
-}
 
 .login-page {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-top: 80px !important;
   padding: 0 50px;
   &__image-wrapper {
+    position: relative;
     width: 454px;
     height: 618px;
-    background-image: url('http://via.placeholder.com/454x618');
+    background-image: url('/images/login-image.png');
+    &::after {
+      position: absolute;
+      left: 148px;
+      top: 96px;
+      content: "";
+      width: 245px;
+      height: 435px;
+      display: block;
+      background-image: url('/images/login-image-inner.jpg');
+    }
   }
   &__main-wrapper {
     width: 100%;
     max-width: 350px;
-    margin-left: 40px;
     &__inner {
       max-width: 348px;
       display: flex;
@@ -35,7 +40,7 @@ input:focus {
   &__logo {
     width: 175px;
     height: 51px;
-    background-image: url('/32f0a4f27407.png');
+    background-image: url('/images/32f0a4f27407.png');
     background-position: 0 -130px;
     margin: 25px 0 40px;
     font-size: 0;
@@ -111,7 +116,6 @@ input:focus {
     padding: 5px 0;
     border: 1px solid #dbdbdb;
     background-color: #fff;
-
     a {
       margin-left: 5px;
       color: #0094f6;
@@ -120,7 +124,7 @@ input:focus {
   }
   &__facebook-link {
     display: inline-block;
-    background-image: url('/32f0a4f27407.png');
+    background-image: url('/images/32f0a4f27407.png');
     background-position: -414px -259px;
     background-repeat: no-repeat;
     padding-left: 21px;
@@ -166,7 +170,7 @@ input:focus {
       height: 40px;
       display: inline-block;
       margin: 0 5px;
-      background-image: url('/store-badges.png');
+      background-image: url('/images/store-badges.png');
       background-size: 100%;
     }
     &__ios {

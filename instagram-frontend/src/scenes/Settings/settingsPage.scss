@@ -53,8 +53,13 @@
     &__form {
       display: flex;
       flex-direction: column;
-      &__button {
+      &__button-wrapper {
         margin-left: 195px;
+        display: flex;
+        align-items: center;
+      }
+      &__button {
+        margin-right: 20px;
         height: 30px;
         padding: 0 8px;
         background: #0095f6;
@@ -99,19 +104,19 @@
       }
       &__textarea {
         width: 355px;
-        min-width: 355px;
-        max-width: 355px;
         height: 60px;
+        min-width: 355px;
+        max-width: 355px !important;
         max-height: 100px;
+        border: 1px solid #dbdbdb;
         padding: 5px 0 0 10px;
-        margin-bottom: 32px;
       }
       &__description {
         font-size: 12px;
         color: #8e8e8e;
-      }
-      a {
-        color: #0095f6;
+        .forbidden {
+          color: #0095f6;
+        }
       }
       b {
         font-size: 14px;

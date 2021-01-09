@@ -6,4 +6,4 @@ export {
   Logo,
   SearchBar,
   NavigationMenu,
-}
+};

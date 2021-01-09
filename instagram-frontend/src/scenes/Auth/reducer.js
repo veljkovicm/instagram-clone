@@ -1,6 +1,5 @@
 const initialState = {
   isLoading: false,
-  failedLoginAttempts: 0,
 };
 
 export default (state = initialState, action) => {
@@ -14,16 +13,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-      };
-    case 'auth.RESET_FAILED_LOGIN_ATTEMPTS':
-      return {
-        ...state,
-        failedLoginAttempts: 0,
-      };
-    case 'auth.INCREMENT_FAILED_LOGIN_ATTEMPTS':
-      return {
-        ...state,
-        failedLoginAttempts: state.failedLoginAttempts + 1,
       };
     default:
       return state;

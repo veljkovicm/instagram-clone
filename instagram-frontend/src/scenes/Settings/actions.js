@@ -7,11 +7,9 @@ export const updateSettings = (userData) => async () => {
     if(response.data.statusCode === 200) {
       console.log('SUCCESS');
     } else if (response.data.statusCode === 401) {
-      // dispatch notification here
-      console.log('NOT ALLOWED!')
+      console.log('NOT ALLOWED!');
     } else {
-      // dispatch notification here
-      console.log(response)
-      console.log('Something went wrong')
+      console.log(response);
+      console.log('Something went wrong');
     }
 }

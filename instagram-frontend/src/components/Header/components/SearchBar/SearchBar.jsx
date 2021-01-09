@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './SearchBar.scss';
 
-const SearchBar = (props) => {
+const SearchBar = ({ search }) => {
   const [ result, setResult ] = useState([]);
   const [ searchQuery, setSearchQuery ] = useState('');
   const [ showSearch, setShowSearch ] = useState(false);
@@ -11,11 +11,8 @@ const SearchBar = (props) => {
   const [ loading, setLoading ] = useState(false);
   const [ backdropVisible, setBackdropVisible ] = useState(false);
 
-  const {
-    search,
-    //get loading from props?
-  } = props;
   let markup;
+
   const handleInputChange = async (e) => {
     if(e.target.value.length === 0) {
       setResult([])
@@ -25,17 +22,39 @@ const SearchBar = (props) => {
     await search({ query: e.target.value}).then((res) => {
       setLoading(false);
       setResult(res);
-      console.log(res);
-      console.log('>> result', result);
       setShowSearch(true);
-    })
-  }
+    });
+  };
+
+  const handleClearInput = () => {
+    setSearchQuery('');
+    setShowSearch(false);
+    setResult([]);
+    setFocus(false);
+  };
+
+  const handleFocus = () => {
+    setFocus(true);
+    setShowSearch(true);
+    setBackdropVisible(true);
+  };
+
+  const handleBackdropClick = () => {
+    setFocus(false);
+    setShowSearch(false);
+    setBackdropVisible(false);
+  };
+
   if(result.length > 0) {
     markup = (
-      result.map((user, i) => {
+      result.map((user) => {
         const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
-        return <a href={`/u/${user.username}`} className="header-search__results__single" key={i}>
-          <div className="header-search__results__single__image-wrapper"><img src={avatarSrc} /></div>
+        return <a
+          href={`/u/${user.username}`}
+          className="header-search__results__single"
+          key={user.id}
+        >
+          <div className="header-search__results__single__image-wrapper"><img src={avatarSrc} alt="avatar" /></div>
           <div className="header-search__results__single__info">
             <span className="header-search__results__single__username">{user.username}</span>
             <span className="header-search__results__single__name">{user.fullName}</span>
@@ -48,29 +67,12 @@ const SearchBar = (props) => {
       <div className="header-search__results-empty">No users found</div>
     )
   }
-  const handleClearInput = () => {
-    setSearchQuery('');
-    setShowSearch(false);
-    setResult([]);
-    setFocus(false);
-  }
-  const handleFocus = () => {
-    setFocus(true);
-    setShowSearch(true);
-    setBackdropVisible(true);
-  }
-
-  const handleBackdropClick = () => {
-    setFocus(false);
-    setShowSearch(false);
-    setBackdropVisible(false);
-  }
 
   const showMarkup = showSearch && focus;
 
   return (
     <div className="header-search">
-      <div className={`backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick}></div>
+      <div className={`header-search__backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick} />
         <form className="header-search__form">
           <input
             type="text"
@@ -80,14 +82,14 @@ const SearchBar = (props) => {
             onFocus={handleFocus}
             className="header-search__form__input"
           />
-          { focus && !loading ? <span onClick={handleClearInput} className="header-search__form__clear" /> : null} {/*clear input */}
-          { loading && <span className="header-search__form__loading">L</span> } {/*loading indicator */}
+          { focus && !loading ? <span onClick={handleClearInput} className="header-search__form__clear" /> : null}
+          { loading && <span className="header-search__form__loading">L</span> }
         </form>
         <div className="header-search__results">
           {showMarkup && markup}
         </div>
     </div>
-  )
+  );
 }
 
 SearchBar.propTypes = {

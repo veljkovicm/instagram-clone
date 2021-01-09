@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { UploadPopup } from 'components';
 
-const FeedSidebar = (props) => {
-  const {
-    user,
-    setPosts,
-  } = props;
-
+const FeedSidebar = ({ user, setPosts }) => {
   const {
     username,
     fullName,
@@ -29,7 +25,7 @@ const FeedSidebar = (props) => {
       <div className="sidebar__user">
         <div className="sidebar__user__avatar">
           <Link to={`/u/${username}`}>
-            <img src={avatarSrc} />
+            <img src={avatarSrc} alt="avatar" />
           </Link>
         </div>
         <div className="sidebar__user__info">
@@ -43,5 +39,11 @@ const FeedSidebar = (props) => {
     </div>
   )
 }
+
+FeedSidebar.propTypes = {
+  user: PropTypes.object.isRequired,
+  setPosts: PropTypes.func.isRequired,
+}
+
 
 export default FeedSidebar;

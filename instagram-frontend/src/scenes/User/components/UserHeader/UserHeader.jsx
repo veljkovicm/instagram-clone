@@ -117,12 +117,13 @@ const UserHeader = (props) => {
           </div>
           <div className="profile-header__info__user-stats">
             <span className="profile-header__info__user-stats__posts"><b>{postCount}</b> posts</span>
-            <span className="profile-header__info__user-stats__followers"onClick={() => handlePopupLinkClick('follower')}><b>{user.followerCount}</b> followers</span>
+            <span className="profile-header__info__user-stats__followers" onClick={() => handlePopupLinkClick('follower')}><b>{user.followerCount}</b> followers</span>
             <span className="profile-header__info__user-stats__following" onClick={() => handlePopupLinkClick('followed')}><b>{followingCount}</b> following</span>
           </div>
           <div className="profile-header__bio">
             <h1 className="profile-header__bio__name">{user.fullName}</h1>
-            <p className="profile-header__bio__text">Something about me</p>
+            <p className="profile-header__bio__text">{user.bio}</p>
+            <a href={user.website} className="profile-header__website-link">{user.website}</a>
           </div>
         </div>
     </div>

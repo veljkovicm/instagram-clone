@@ -1,6 +1,4 @@
 import { connect } from 'react-redux';
-
-// import notify from notifications component
 import { resetPassword } from './actions';
 import ResetPasswordPage from './ResetPasswordPage.jsx';
 
@@ -12,7 +10,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   resetPassword,
-  // notify,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage);

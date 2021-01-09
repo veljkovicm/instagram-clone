@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   padding: 30px 20px 0;
-  margin: 55px 0 35px;
+  margin: 55px 0 44px;
   &__avatar {
     width: 100%;
     max-width: 150px;
@@ -89,12 +89,19 @@
   &__bio {
     &__name {
       font-size: 16px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       font-weight: bold;
       color: #262626;
     }
     &__text {
+      color: #262626;
+      font-size: 16px;
       margin: 0;
     }
+  }
+  &__website-link {
+    font-size: 16px;
+    color: #00376b;
+    font-weight: bold;
   }
 }

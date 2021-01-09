@@ -47,7 +47,7 @@ const UserPosts = (props) => {
         </div>
       </div>
     )
-  }
+  };
 
   if(userPosts.length) {
     postsMarkup = formatPosts(userPosts);
@@ -56,7 +56,7 @@ const UserPosts = (props) => {
       postsMarkup = (
         <div className="user-profile__user-posts-empty own">
           <div className="user-profile__user-posts-empty__image-wrapper">
-            <img src="/posts-placeholder.jpg" alt=""/>
+            <img src="/images/posts-placeholder.jpg" alt=""/>
           </div>
           <div className="user-profile__user-posts-empty__description">
             <h4>Start capturing and sharing your moments</h4>
@@ -108,7 +108,7 @@ const UserPosts = (props) => {
       <span className={`user-profile__controls__single feed ${activeTab === 'feed' ? 'tab-active' : ''}`} onClick={() => handleTabClick('feed')}>Posts</span>
       <span className={`user-profile__controls__single saved ${activeTab === 'saved' ? 'tab-active' : ''}`} onClick={() => handleTabClick('saved')}>Saved</span>
     </div>
-  )
+  );
 
 
   return (

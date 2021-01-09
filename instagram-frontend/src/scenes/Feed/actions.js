@@ -1,6 +1,5 @@
 import { API } from 'lib';
 
-
 export const upload = ({ formData }) => async () => {
   const headers = {
     'Content-Type': 'multipart/form-data'
@@ -21,7 +20,7 @@ export const getPosts = () => async () => {
   if(response.data.statusCode === 200) {
     return response.data;
   } else {
-    console.log(response.message);
+    console.log(response);
   }
 }
 

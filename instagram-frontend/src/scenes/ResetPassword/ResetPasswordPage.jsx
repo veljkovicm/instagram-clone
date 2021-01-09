@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
 import { Header } from 'components';
@@ -13,20 +13,15 @@ const ResetPassword = (props) => {
     isLoggedIn,
     loading,
     resetPassword,
-    // notify,
   } = props;
-  const history = useHistory();
   const location = useLocation();
-
-
-  // debug this
-  if (isLoggedIn) {
-    // return <Redirect to="/" />;
-    history.push('/')
-  }  
 
   const [ password, setPassword ] = useState('');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
+
+  if (isLoggedIn) {
+    return <Redirect to="/" />
+  }
 
   const handleInputChange = (setValue) => (e) => {
     setValue(e.target.value);
@@ -60,13 +55,12 @@ const ResetPassword = (props) => {
                 className={`reset-password__form__input ${password.length ? 'not-empty' : ''}`}
               />
               <label htmlFor="password" className={`login-page__form__input-label ${password.length ? 'not-empty' : ''}`}>New Password</label>
-
               {
                 password.length ?
                   <div className="password-visibility-toggle" onClick={handlePasswordVisibility}>
                     {passwordVisible ? 'Hide' : 'Show'}
                   </div>
-                : null 
+                : null
               }
             </div>
             <button

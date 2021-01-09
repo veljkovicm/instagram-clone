@@ -9,8 +9,6 @@ class EmailServices {
       to: 'marchello92@gmail.com', // replace with user email,
       from: config.sendGrid.sender,
       subject: 'Instagram Clone - Registraction confirmation email',
-      // text: 'text?',
-      html: '<p>TEST HTML</p>', // not needed with template?
       templateId: config.sendGrid.confirmation.template,
       dynamic_template_data: {
         name: 'Confirmation email',
@@ -29,14 +27,14 @@ class EmailServices {
   }
 
   static async sendResetPasswordEmail ({ email, token }) {
-    sgMail.setApiKey(config.sendGrid.key)
+    sgMail.setApiKey(config.sendGrid.key);
+
     const linkUrl = config.sendGrid.passwordReset.url + token;
+
     const msg = {
       to: 'marchello92@gmail.com', // replace with user email,
       from: config.sendGrid.sender,
       subject: 'Instagram Clone - Reset password request',
-      // text: 'text?',
-      html: '<p>TEST HTML</p>', // not needed with template?
       templateId: config.sendGrid.passwordReset.template,
       dynamic_template_data: {
         subject: 'Instagram Clone - Reset password request',

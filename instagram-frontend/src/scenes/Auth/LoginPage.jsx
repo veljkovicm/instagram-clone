@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Header } from 'components';
 
@@ -11,19 +11,15 @@ const Login = (props) => {
     isLoggedIn,
     loading,
     login,
-    // notify,
   } = props;
-  const history = useHistory()
-
-  // debug this
-  if (isLoggedIn) {
-    // return <Redirect to="/" />;
-    history.push('/feed')
-  }  
 
   const [ username, setUsername ] = useState('test2@test.com');
   const [ password, setPassword ] = useState('11');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
+
+  if (isLoggedIn) {
+    return <Redirect to="/" />
+  }
 
   const handleInputChange = (setValue) => (e) => {
     setValue(e.target.value);
@@ -42,12 +38,11 @@ const Login = (props) => {
     setPasswordVisible(!passwordVisible);
   }
 
-
   return (
     <div className="login-page page-content">
       <Helmet><title>Instagram - Log in</title></Helmet>
       <Header />
-      <div className="login-page__image-wrapper"></div>
+      <div className="login-page__image-wrapper" />
       <div className="login-page__main-wrapper">
         <div className="login-page__main-wrapper__inner">
           <h1 className="login-page__logo">Instagram</h1>
@@ -107,8 +102,8 @@ const Login = (props) => {
         </div>
         <div className="auth-page-app-links">
           <p>Get the app</p>
-          <div className="auth-page-app-links__ios" alt="ios"/>
-          <div className="auth-page-app-links__android" alt="android"/>
+          <div className="auth-page-app-links__ios" alt="ios" />
+          <div className="auth-page-app-links__android" alt="android" />
         </div>
       </div>
     </div>

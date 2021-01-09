@@ -11,6 +11,7 @@ const Settings = (props) => {
   } = props;
 
   let avatarInput = null;
+  const avatarSrc = props.user.avatar ? `http://localhost:5000/uploads/${props.user.avatar}` :  'http://localhost:5000/uploads/no-img.png';
 
   const [ name, setName ] = useState(props.user.fullName || '');
   const [ username, setUsername ] = useState(props.user.username);
@@ -19,8 +20,9 @@ const Settings = (props) => {
   const [ bio, setBio ] = useState(props.user.bio || '');
   const [ phoneNumber, setPhoneNumber ] = useState(props.user.phoneNumber || '');
   const [ gender, setGender ] = useState(props.user.gender || '');
-  const [ avatar, setAvatar ] = useState(`http://localhost:5000/uploads/${props.user.avatar}` ||  'http://localhost:5000/uploads/no-img.png'); // refactor, urls should not be visible
+  const [ avatar, setAvatar ] = useState(avatarSrc);
   const [ settingsChanged, setSettingsChanged ] = useState(false);
+  const [ settingsUpdated, setSettingsUpdated ] = useState(false);
 
 
   const handleChange = (setValue) => (e) => {
@@ -28,11 +30,11 @@ const Settings = (props) => {
     if(!settingsChanged) {
       setSettingsChanged(true);
     }
-  }
+  };
 
   const handleAvatarClick = () => {
     avatarInput.click();
-  }
+  };
 
   const handleAvatarSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const Settings = (props) => {
     uploadAvatar({ formData }).then((res) => {
       setAvatar(res.newAvatar);
     });
-  }
+  };
 
   const handleSubmit = () => {
     const userData = {
@@ -53,7 +55,11 @@ const Settings = (props) => {
       phoneNumber,
       gender,
     };
-    updateSettings(userData);
+
+    updateSettings(userData).then(() => {
+      setSettingsUpdated(true);
+      setSettingsChanged(false);
+    });
   }
 
   return (
@@ -134,7 +140,7 @@ const Settings = (props) => {
                     <div className="settings__profile__section__description">
                       <span>
                         In most cases, you'll be able to change your username back to kaplareviccobe for another 14 days.
-                        <a href="#" className="forbidden">Learn more</a>
+                        <span className="forbidden">Learn more</span>
                       </span>
                     </div>
                   </div>
@@ -159,7 +165,7 @@ const Settings = (props) => {
                   </div>
                   <div className="settings__profile__section__input-wrapper">
                     <textarea
-                      className="settings_profile__section__textarea"
+                      className="settings__profile__section__textarea"
                       name="bio"
                       cols="30"
                       rows="3"
@@ -221,13 +227,16 @@ const Settings = (props) => {
                   />
                 </div>
               </form>
-              <button
-                className="settings__profile__form__button"
-                onClick={handleSubmit}
-                disabled={!settingsChanged}
-              >
-                Submit
-              </button>
+              <div className="settings__profile__form__button-wrapper">
+                <button
+                  className="settings__profile__form__button"
+                  onClick={handleSubmit}
+                  disabled={!settingsChanged}
+                >
+                  Submit
+                </button>
+                {settingsUpdated && <span>Settings updated successfully.</span>}
+              </div>
             </div>
           </div>
         </div>

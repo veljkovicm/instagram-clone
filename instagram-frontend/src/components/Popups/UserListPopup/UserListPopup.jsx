@@ -15,6 +15,7 @@ const UserListPopup = (props) => {
     myUsername,
     setFollowingCount,
   } = props;
+
   const [ usersData, setUsersData ] = useState(data); 
 
   const params = useParams();
@@ -62,7 +63,11 @@ const UserListPopup = (props) => {
     usersData.map((user, index) =>
       <div className="user-list__single" key={user[type].id}>
         <div className="user-list__single__avatar" onClick={() => linkTarget(user[type].username)}>
-          <img src={user[type].avatar ? `http://localhost:5000/uploads/${user[type].avatar}` : 'http://localhost:5000/uploads/no-img.png'} alt="" width="30" />
+          <img
+            src={user[type].avatar ? `http://localhost:5000/uploads/${user[type].avatar}` : 'http://localhost:5000/uploads/no-img.png'}
+            alt="avatar"
+            width="30"
+          />
         </div>
         <div className="user-list__single__info">
           <div className="user-list__single__info__username" onClick={() => linkTarget(user[type].username)}>
@@ -97,16 +102,20 @@ const UserListPopup = (props) => {
 
   return (
     <div>
-    <div className="user-list__backdrop" onClick={closePopup} style={{ display: type === null ? 'none' : 'block'}} />
-      <div className="user-list">
-        <div className="user-list__header">
-          <h4 className="user-list__header__title">{type === 'follower' ? 'Followers' : 'Following'}</h4>
-          <div className="user-list__header__close-icon" onClick={closePopup} />
+      <div
+        className="user-list__backdrop"
+        onClick={closePopup}
+        style={{ display: type === null ? 'none' : 'block'}}
+      />
+        <div className="user-list">
+          <div className="user-list__header">
+            <h4 className="user-list__header__title">{type === 'follower' ? 'Followers' : 'Following'}</h4>
+            <div className="user-list__header__close-icon" onClick={closePopup} />
+          </div>
+          <div className="user-list__list-wrapper">
+            {markup}
+          </div>
         </div>
-        <div className="user-list__list-wrapper">
-          {markup}
-        </div>
-      </div>
     </div>
   )
 }
@@ -116,6 +125,10 @@ UserListPopup.propTypes = {
   data: PropTypes.array.isRequired,
   setPopup: PropTypes.func.isRequired,
   setPopupData: PropTypes.func.isRequired,
+  unfollowUser: PropTypes.func.isRequired,
+  followUser: PropTypes.func.isRequired,
+  myUsername: PropTypes.string,
+  setFollowingCount: PropTypes.func.isRequired,
 }
 
 export default UserListPopup;

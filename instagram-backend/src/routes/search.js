@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   const { query } = req.body;
-  const searchResult = await Services.search({ query });
+  const searchResult = await Services.search(query);
 
   searchResult.map((user) => {
     return {

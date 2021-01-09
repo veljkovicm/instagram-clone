@@ -39,7 +39,11 @@ const User = (props) => {
       console.log(err);
       history.push('/feed');
     });
-  }, [ username ]);
+  }, [
+    username,
+    getUser,
+    history
+  ]);
 
   if(!dataLoaded) {
     return <Loading />
@@ -51,7 +55,6 @@ const User = (props) => {
       <Helmet><title>{`Profile - ${username}`}</title></Helmet>
       <div className="user-profile-wrapper page-content">
         <UserHeader
-          // TODO move first 5 actions to userHeader folder, connect with redux
           uploadAvatar={uploadAvatar}
           followUser={followUser}
           unfollowUser={unfollowUser}

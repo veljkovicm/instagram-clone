@@ -1,15 +1,27 @@
 .header-search {
   position: relative;
   margin-left: 100px;
-  z-index: 997;
+  z-index: 994;
+  &__backdrop {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: -0%;
+    top: 0;
+    z-index: 993;
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
   &__form {
     position: relative;
-    z-index: 997;
+    z-index: 994;
     &__clear {
       position: absolute;
       top: 7px;
       right: 8px;
-      background: url('/32f0a4f27407.png') no-repeat -321px -336px;
+      background: url('/images/32f0a4f27407.png') no-repeat -321px -336px;
       width: 14px;
       height: 14px;
       cursor: pointer;
@@ -34,7 +46,6 @@
         }
       }
       &::placeholder {
-        
         background: url('/icons/magnifier.png') no-repeat;
         background-position: 45px 1px;
 
@@ -48,7 +59,7 @@
     min-width: 225px;
     max-height: 350px;
     background: #fff;
-    z-index: 997;
+    z-index: 994;
     overflow-y: auto;
     border: 1px solid #dbdbdb;
     box-shadow: -2px -6px 16px 2px rgba(0,0,0,0.2);
@@ -71,6 +82,8 @@
         background-image: url('/icons/no-avatar.png');
         img {
           max-width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
       &__name {

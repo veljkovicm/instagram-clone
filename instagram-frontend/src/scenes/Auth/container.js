@@ -1,6 +1,4 @@
 import { connect } from 'react-redux';
-
-// import notify from notifications component
 import { login } from './actions';
 import LoginPage from './LoginPage.jsx';
 
@@ -12,7 +10,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   login,
-  // notify,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
