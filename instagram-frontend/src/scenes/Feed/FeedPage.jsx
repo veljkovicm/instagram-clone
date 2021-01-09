@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Sidebar from './components/Sidebar.jsx';
 import {
@@ -12,16 +12,10 @@ import './feed.scss';
 const Feed = ({ getPosts, user}) => {
   const [ posts, setPosts ] = useState();
 
-  const mountedRef = useRef(true);
-
   useEffect(() => {
     getPosts().then((res) =>{
-      if (!mountedRef.current) return null;
       setPosts(res.posts);
     });
-    return () => { 
-      mountedRef.current = false
-    }
   }, [ getPosts ]);
 
 

@@ -204,7 +204,7 @@ router.post('/like-action', async (req, res) => {
 });
 
 router.post('/save-post-action', async (req, res) => {
-  const { postId, saved } = req.body;
+  const { postId } = req.body;
   let response;
 
   if(!postId) {
@@ -214,12 +214,14 @@ router.post('/save-post-action', async (req, res) => {
     }).status(404);
   }
 
-  if(saved) {
+  const userSavedPosts = await Services.getSavedPostsList(req.user.id);
+
+  if(userSavedPosts.includes(postId)) {
     response = await Services.unsavePost({ postId, userId: req.user.id });
   } else {
     response = await Services.savePost({ postId, userId: req.user.id });
   }
- 
+
   if(!response) {
     return res.json({
       statusCode: 500,

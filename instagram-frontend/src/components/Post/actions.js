@@ -31,8 +31,8 @@ export const likeAction = ({ postId, liked }) => async () => {
   }
 }
 
-export const savePostAction = ({ postId, saved }) => async () => {
-  const body = { postId, saved };
+export const savePostAction = (postId) => async () => {
+  const body = { postId };
 
   const response = await API({ method: 'POST', path: '/p/save-post-action', body });
 

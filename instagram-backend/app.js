@@ -1,9 +1,7 @@
 import express from 'express';
-import path from 'path';
 import  flowRoutes from './src/routes/flow.js';
 import passwordRoutes from './src/routes//password.js';
 import searchRoute from './src/routes/search.js';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import postRoutes from './src/routes/post.js';
@@ -34,19 +32,15 @@ app.use(express.json());
 
 
 app.get('/auth/check-token', checkUser );
-app.get('/', (req, res) => res.send('INDEX'));
 
-// User routes
-// remove auth from userRoutes
-// clean up all routes
+
+
 app.use('/u', auth, userRoutes);
 app.use('/user', flowRoutes);
 app.use('/p', auth, postRoutes);
 app.use('/password', passwordRoutes);
 app.use('/search', searchRoute);
-app.use('/protected', auth, (req, res) => {
-  return res.status(200).json({ message: 'AUTHENTICATED', user: req.user})
-} )
+
 
 const PORT = process.env.PORT || 5000;
 

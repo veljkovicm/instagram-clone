@@ -35,7 +35,7 @@ const PostControls = (props) => {
 
   const handleSavePostClick = () => {
     setSaved(!saved);
-    savePostAction({ postId: id, saved });
+    savePostAction(id);
   };
 
   return (
