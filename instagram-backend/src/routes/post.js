@@ -137,9 +137,10 @@ router.post('/comment', async (req, res) => {
     });
 });
 
-router.get('/get-post/:postId', async (req, res) =>{
+router.get('/get-post/:postId', async (req, res) => {
   const { postId } = req.params;
   let isLiked = false;
+  let isSaved = false;
 
   const post = await Services.getPost(postId);
 
@@ -151,7 +152,10 @@ router.get('/get-post/:postId', async (req, res) =>{
   }
 
   if(req.user) {
+    const savedPosts = await Services.getSavedPostsList(req.user.id);
+
     isLiked = _.some(post.likes, { userId: req.user.id});
+    isSaved = _.includes(savedPosts, post.id);
   }
   const filteredResults = {
     id: post.id,
@@ -162,8 +166,9 @@ router.get('/get-post/:postId', async (req, res) =>{
     avatar: post.user.avatar,
     fullName: post.user.fullName,
     comments: post.comments,
-    isLiked: isLiked,
     likeCount: post.likes.length,
+    isLiked,
+    isSaved,
   };
 
 
