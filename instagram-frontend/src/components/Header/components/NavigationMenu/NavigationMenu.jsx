@@ -36,7 +36,7 @@ const NavigationBar = (props) => {
     history.push('/');
   }
 
-  const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : '/icons/no-avatar.jpg';
+  const avatarSrc = avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-avatar.jpg`;
 
   return (
     <div className="navigation-menu__wrapper">

@@ -26,7 +26,7 @@ const Comments = (props) => {
   const [ postComments, setPostComments ] = useState(comments || []);
 
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
-  const userAvatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const userAvatarSrc = avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
 
 
   const handleCommentSubmit = (e) => {
@@ -50,11 +50,11 @@ const Comments = (props) => {
       let avatarSrc;
       // TODO refactor, no urls
       if(comment.avatar) {
-        avatarSrc = `http://localhost:5000/uploads/${avatar}`;
+        avatarSrc = `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}`;
       } else if (comment.user) {
-        avatarSrc = `http://localhost:5000/uploads/${comment.user.avatar}`;
+        avatarSrc = `${process.env.REACT_APP_ENV_spacesURL}/avatars/${comment.user.avatar}`;
       } else {
-        avatarSrc = 'http://localhost:5000/uploads/no-img.png';
+        avatarSrc = `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
       }
       const commentedAt = formatDateShort(comment.createdAt);
       return <div className="user-post__comments__single" key={comment.id}>

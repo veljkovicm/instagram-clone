@@ -33,7 +33,7 @@ const UserPosts = (props) => {
         onClick={() => handlePostClick(post)}
       >
         <div>
-          <img src={`http://localhost:5000/uploads/${post.fileName}`} alt="user-post" />
+          <img src={`${process.env.REACT_APP_ENV_spacesURL}/posts/${post.fileName}`} alt="user-post" />
         </div>
         <div className="user-profile__posts__single__hover">
           <div className="user-profile__posts__single__hover__likes">

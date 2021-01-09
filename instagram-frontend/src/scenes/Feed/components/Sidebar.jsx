@@ -16,9 +16,8 @@ const FeedSidebar = ({ user, setPosts }) => {
     setShowPopup(!showPopup);
   }
 
-  const avatarSrc = avatar ? `http://localhost:5000/uploads/${avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
 
-  
   return (
     <div className="sidebar">
       { showPopup && <UploadPopup setPosts={setPosts} setShowPopup={setShowPopup} /> }

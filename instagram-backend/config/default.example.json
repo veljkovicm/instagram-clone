@@ -17,5 +17,11 @@
       "url": "",
       "template": ""
     }
+  },
+  "AWS": {
+    "accessKey": "",
+    "secretKey": "",
+    "spacesEndpoint": "",
+    "bucketName": ""
   }
 }

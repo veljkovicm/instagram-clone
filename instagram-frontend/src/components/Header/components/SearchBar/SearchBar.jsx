@@ -48,7 +48,7 @@ const SearchBar = ({ search }) => {
   if(result.length > 0) {
     markup = (
       result.map((user) => {
-        const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+        const avatarSrc = user.avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${user.avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
         return <a
           href={`/u/${user.username}`}
           className="header-search__results__single"

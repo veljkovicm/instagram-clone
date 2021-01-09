@@ -17,7 +17,7 @@ const UserHeader = (props) => {
     myUsername,
   } = props;
 
-  const avatarSrc = user.avatar ? `http://localhost:5000/uploads/${user.avatar}` : 'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = user.avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${user.avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
   const [ following, setFollowing ] = useState(user.following);
   const [ popup, setPopup ] = useState();
   const [ popupData, setPopupData ] = useState({});
@@ -51,7 +51,10 @@ const UserHeader = (props) => {
     const formData = new FormData();
     formData.append('file', e.target.files[0]);
     uploadAvatar({ formData }).then((res) => {
-      setAvatar(res?.newAvatar);
+      setTimeout(() => { 
+        setAvatar(res?.newAvatar);
+        // TODO add loading spinner while loading image
+      }, 500);
     });
   }
 

@@ -1,9 +1,8 @@
 import express from 'express';
-import path from 'path';
-import fs from 'fs';
+import config from 'config';
+import AWS from 'aws-sdk';
 import _ from 'lodash';
 import Services from '../services/services.js';
-
 
 const router = express.Router();
 
@@ -76,13 +75,14 @@ router.get('/:username', async (req, res) => {
 });
 
 router.post('/upload-avatar', async (req, res) => {
+  let params = {};
   if(req.file === null) {
     return res.json({
       statusCode: 400,
       message: 'No file uploaded',
     }).status(400);
   }
-  const __dirname = path.resolve();
+
   const { file } = req.files;
   if(file.mimetype !=='image/jpeg' && file.mimetype !== 'image/png') {
     return res.json({
@@ -93,13 +93,22 @@ router.post('/upload-avatar', async (req, res) => {
 
   const { avatar: oldAvatar } =  await Services.getOldAvatarUrl(req.user.id);
 
+  const spacesEndpoint = new AWS.Endpoint(`${config.AWS.spacesEndpoint}/avatars`);
+  const s3 = new AWS.S3({
+    endpoint: spacesEndpoint,
+    accessKeyId: config.AWS.accessKey,
+    secretAccessKey: config.AWS.secretKey,
+  });
+
   if(oldAvatar) {
-    console.log('>> oldAvatar', oldAvatar);
-    fs.unlink(`${__dirname}/public/uploads/${oldAvatar}`, function(err) {
-      if (err) {
-        console.log('Not found!')
-      }
-    })
+    params = {
+      Bucket: config.AWS.bucketName,
+      Key: oldAvatar,
+    };
+
+    s3.deleteObject(params, (err) => {
+      if (err) console.log(err, err.stack);
+    });
   }
 
   const { id: userId } = req.user;
@@ -108,31 +117,31 @@ router.post('/upload-avatar', async (req, res) => {
 
   const filename = `avatar-${userId}-${timestamp}.${fileExtension}`;
 
-  file.mv(`${__dirname}/public/uploads/${filename}`, async (err) => {
-    if(err) {
-      console.error(err);
-      return res.json({
-        statusCode: 500,
-        message: err,
-      }).status(500);
-    }
+  await Services.updateAvatar({ filename, userId });
 
-    await Services.updateAvatar({ filename, userId});
+  params = {
+    Body: file.data,
+    Bucket: config.AWS.bucketName,
+    Key: filename,
+    ACL: 'public-read',
+  };
 
-    // reformat. not looking good with url in here?
-    const newAvatar = `http://localhost:5000/uploads/${filename}`;
+  const newAvatar = `http://instagram-assets.fra1.digitaloceanspaces.com/avatars/${filename}`;
 
-    res.json({
-      statusCode: 200,
-      message: 'Avatar updated successfully!',
-      payload: { newAvatar },
-    }).status(200);
-  })
+  await s3.putObject(params, (err, data) => {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+  });
 
+  return res.json({
+    statusCode: 200,
+    message: 'Avatar updated successfully!',
+    payload: { newAvatar },
+  }).status(200);
 });
 
 
-router.post('/update-settings', async (req,res) => {
+router.post('/update-settings', async (req, res) => {
   const userData = req.body;
   const { id } = req.user;
 
@@ -143,8 +152,8 @@ router.post('/update-settings', async (req,res) => {
 
 
   const { message, statusCode } = await Services.updateUserSettings({ userData, id });
-  console.log({message, statusCode});
-  res.json({
+
+  return res.json({
     statusCode,
     message,
   }).status(statusCode)
@@ -157,12 +166,11 @@ router.post('/follow', async (req,res) => {
 
   const { id: followedId } = await Services.getUserIdByUsername(username);
 
-  
   const { id: followerId } = req.user;
-  
+
   await Services.follow({ followerId, followedId });
 
-  res.json({
+  return res.json({
     statusCode: 200,
     message: 'Follow action succesful',
   }).status(200)
@@ -179,7 +187,7 @@ router.post('/unfollow', async (req,res) => {
 
   await Services.unfollow({ followerId, followedId });
 
-  res.json({
+  return res.json({
     statusCode: 200,
     message: 'Unfollow action succesful',
   }).status(200)
@@ -195,7 +203,7 @@ router.post('/get-follower-list', async (req, res) => {
   followerList.map((user) => {
     const isFollowing = _.some(followingList, { id: user.followerId});
     user.dataValues.isFollowing = isFollowing;
-  
+
     return user;
   });
 
@@ -222,7 +230,6 @@ router.post('/get-following-list', async (req, res) => {
     payload: followingList,
   }).status(200);
 });
-
 
 
 export default router;
