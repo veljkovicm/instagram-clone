@@ -72,7 +72,7 @@ const SearchBar = ({ search }) => {
 
   return (
     <div className="header-search">
-      <div className={`backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick} />
+      <div className={`header-search__backdrop${backdropVisible ? ' show' : ''}`} onClick={handleBackdropClick} />
         <form className="header-search__form">
           <input
             type="text"

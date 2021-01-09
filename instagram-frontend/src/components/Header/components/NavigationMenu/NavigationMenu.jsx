@@ -52,6 +52,7 @@ const NavigationBar = (props) => {
           className={`navigation-menu__item notifications  ${menuActive === 'notifications' ? 'active' : ''}`}
           onClick={() => handleMenuClick('notifications')}
         >
+          <div className="backdrop" />
           { menuActive === 'notifications' && <div className="navigation-menu__dropdown notifications">No new notifications</div> }
         </div>
         <div
@@ -63,7 +64,7 @@ const NavigationBar = (props) => {
             menuActive === 'user'
               &&
             <div className="navigation-menu__dropdown user">
-              <div className="backdrop"></div>
+              <div className="backdrop" />
               <div className="navigation-menu__dropdown-item profile"  onClick={() => handleNavClick(`/u/${username}`)}>Profile</div>
               <div className="navigation-menu__dropdown-item settings"  onClick={() => handleNavClick('/settings')}>Settings</div>
               <div className="navigation-menu__dropdown-item log-out"  onClick={handleLogout}>Log Out</div>
