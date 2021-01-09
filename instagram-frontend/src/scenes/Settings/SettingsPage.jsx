@@ -11,7 +11,7 @@ const Settings = (props) => {
   } = props;
 
   let avatarInput = null;
-  const avatarSrc = props.user.avatar ? `http://localhost:5000/uploads/${props.user.avatar}` :  'http://localhost:5000/uploads/no-img.png';
+  const avatarSrc = props.user.avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${props.user.avatar}` :  `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
 
   const [ name, setName ] = useState(props.user.fullName || '');
   const [ username, setUsername ] = useState(props.user.username);
@@ -41,7 +41,10 @@ const Settings = (props) => {
     const formData = new FormData();
     formData.append('file', e.target.files[0]);
     uploadAvatar({ formData }).then((res) => {
-      setAvatar(res.newAvatar);
+      setTimeout(() => { 
+        setAvatar(res.newAvatar);
+        // TODO add loading spinner while loading image
+      }, 500);
     });
   };
 

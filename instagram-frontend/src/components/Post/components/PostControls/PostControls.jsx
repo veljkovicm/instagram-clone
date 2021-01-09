@@ -43,7 +43,7 @@ const PostControls = (props) => {
       <div className="user-post__actions-inner">
         <div className={`user-post__actions__single like ${liked ? 'liked' : ''}`} onClick={handleLikeIconClick} />
         <div className="user-post__actions__single comment" onClick={handleCommentIconClick} /> 
-        <div className="user-post__actions__single direct" />
+        <div className="user-post__actions__single direct forbidden" />
         <div  className={`user-post__actions__single save ${saved ? 'saved' : ''}`} onClick={handleSavePostClick} />
       </div>
       <div className="user-post__like-counter">

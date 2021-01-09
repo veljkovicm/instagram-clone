@@ -1,12 +1,13 @@
 import express from 'express';
-import path from 'path';
+import config from 'config';
+import AWS from 'aws-sdk';
 import _ from 'lodash';
 import Services from '../services/services.js';
 
 const router = express.Router();
 
 
-router.get('/posts', async (req, res) =>{
+router.get('/posts', async (req, res) => {
   const { id: userId } = req.user;
 
   const followingList = await Services.getFollowList({ listType: 'following', id: userId });
@@ -59,42 +60,53 @@ router.post('/upload', async (req, res) => {
     }).status(400);
   };
 
-  const __dirname = path.resolve();
   const { file } = req.files;
   const timestamp = new Date().getTime();
   const { caption } = req.body;
   const { id: userId } = req.user;
 
+  if(file.mimetype !=='image/jpeg' && file.mimetype !== 'image/png') {
+    return res.json({
+      statusCode: 400,
+      message: 'Unsupported file type. Please use JPG/PNG',
+    }).status(400)
+  };
+
   const fileName = `${timestamp}-${file.name}`;
 
-  file.mv(`${__dirname}/public/uploads/${fileName}`, async (err) => {
-    if(err) {
-      console.error(err);
-      return res.json({
-        statusCode: 500,
-        message: err,
-      }).status(500);
-    }
-    const newPost = await Services.addNewPost({
-      fileName,
-      caption,
-      userId
-    });
-
-    newPost.dataValues.avatar = req.user.avatar;
-    newPost.dataValues.username = req.user.username;
-
-    return res.json({
-      statusCode: 200,
-      payload: {
-        newPost: {
-          ...newPost.dataValues,
-          username: req.user.username,
-          avatar: req.user.avatar,
-        },
-      },
-    }).status(200);
+  const spacesEndpoint = new AWS.Endpoint(`${config.AWS.spacesEndpoint}/posts`);
+  const s3 = new AWS.S3({
+      endpoint: spacesEndpoint,
+      accessKeyId: config.AWS.accessKey,
+      secretAccessKey: config.AWS.secretKey,
   });
+  const params = {
+    Body: file.data,
+    Bucket: config.AWS.bucketName,
+    Key: fileName,
+    ACL: 'public-read',
+  };
+
+  s3.putObject(params, (err) => {
+    if (err) console.log(err, err.stack);
+  });
+
+  const newPost = await Services.addNewPost({
+    fileName,
+    caption,
+    userId,
+  });
+
+  return res.json({
+    statusCode: 200,
+    payload: {
+      newPost: {
+        ...newPost.dataValues,
+        username: req.user.username,
+        avatar: req.user.avatar,
+      },
+    },
+  }).status(200);
 });
 
 router.post('/comment', async (req, res) => {

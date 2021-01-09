@@ -64,7 +64,7 @@ const UserListPopup = (props) => {
       <div className="user-list__single" key={user[type].id}>
         <div className="user-list__single__avatar" onClick={() => linkTarget(user[type].username)}>
           <img
-            src={user[type].avatar ? `http://localhost:5000/uploads/${user[type].avatar}` : 'http://localhost:5000/uploads/no-img.png'}
+            src={user[type].avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${user[type].avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`}
             alt="avatar"
             width="30"
           />

@@ -16,7 +16,7 @@ const checkUser = async (req, res, next) => {
     const user = await Services.getUserById(decodedToken.id);
     return res.status(200).json({ message: 'User is authenticated!', payload: user });
   } catch(e) {
-    res.status(400).json({ message: 'Token is not valid'});
+    return res.status(400).json({ message: 'Token is not valid'});
   }
 }
 

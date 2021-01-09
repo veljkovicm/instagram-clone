@@ -22,7 +22,7 @@ const Post = (props) => {
       <div className="user-post feed-post">
         <PostHeader avatar={post.avatar} username={post.username} />
         <div className="user-post__image-wrapper">
-          <img src={`http://localhost:5000/uploads/${post.fileName}`} />
+          <img src={`${process.env.REACT_APP_ENV_spacesURL}/posts/${post.fileName}`} />
         </div>
         <div className="user-post__details">
           <PostControls
@@ -38,7 +38,7 @@ const Post = (props) => {
     postMarkup = (
       <div className="user-post single-post">
         <div className="user-post__image-wrapper">
-          <img src={`http://localhost:5000/uploads/${post.fileName}`} />
+          <img src={`${process.env.REACT_APP_ENV_spacesURL}/posts/${post.fileName}`} />
         </div>
         <div className="user-post__details">
           <PostHeader avatar={post.avatar ? post.avatar : post.user?.avatar} username={post.username || post.user?.username} />
