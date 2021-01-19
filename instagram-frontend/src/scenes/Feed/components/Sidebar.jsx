@@ -19,23 +19,25 @@ const FeedSidebar = ({ user, setPosts }) => {
   const avatarSrc = avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
 
   return (
-    <div className="sidebar">
+    <>
       { showPopup && <UploadPopup setPosts={setPosts} setShowPopup={setShowPopup} /> }
-      <div className="sidebar__user">
-        <div className="sidebar__user__avatar">
-          <Link to={`/u/${username}`}>
-            <img src={avatarSrc} alt="avatar" />
-          </Link>
-        </div>
-        <div className="sidebar__user__info">
-          <div className="sidebar__user__info__username">
-            <Link to={`/u/${username}`}>{username}</Link>
+      <div className="sidebar">
+        <div className="sidebar__user">
+          <div className="sidebar__user__avatar">
+            <Link to={`/u/${username}`}>
+              <img src={avatarSrc} alt="avatar" />
+            </Link>
           </div>
-          <div className="sidebar__user__info__name">{fullName}</div>
+          <div className="sidebar__user__info">
+            <div className="sidebar__user__info__username">
+              <Link to={`/u/${username}`}>{username}</Link>
+            </div>
+            <div className="sidebar__user__info__name">{fullName}</div>
+          </div>
         </div>
+        <button className="sidebar__upload-button" onClick={handleButtonClick}>Upload</button>
       </div>
-      <button className="sidebar__upload-button" onClick={handleButtonClick}>Upload</button>
-    </div>
+    </>
   )
 }
 

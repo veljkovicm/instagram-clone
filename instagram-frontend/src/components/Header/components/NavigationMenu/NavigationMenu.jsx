@@ -52,8 +52,14 @@ const NavigationBar = (props) => {
           className={`navigation-menu__item notifications  ${menuActive === 'notifications' ? 'active' : ''}`}
           onClick={() => handleMenuClick('notifications')}
         >
-          <div className="backdrop" />
-          { menuActive === 'notifications' && <div className="navigation-menu__dropdown notifications">No new notifications</div> }
+          { menuActive === 'notifications' && (
+            <>
+              <div className="navigation-menu__dropdown notifications">
+                <div className="backdrop" />
+                <p>No new notifications</p>
+              </div>
+            </>
+          )}
         </div>
         <div
           className={`navigation-menu__item user-menu ${menuActive === 'user' || path === '/u/' + username ? 'active' : ''}`} 
