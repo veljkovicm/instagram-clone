@@ -87,9 +87,7 @@ router.post('/upload', async (req, res) => {
     ACL: 'public-read',
   };
 
-  s3.putObject(params, (err) => {
-    if (err) console.log(err, err.stack);
-  });
+  await s3.putObject(params).promise();
 
   const newPost = await Services.addNewPost({
     fileName,
