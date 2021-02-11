@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { Helmet } from 'react-helmet';
-import { Header } from 'components';
+import { Header, Spinner } from 'components';
 
 import './resetPassword.scss';
 
@@ -67,9 +67,9 @@ const ResetPassword = (props) => {
               className="button-blue"
               type="submit"
               onClick={handleResetPassword}
-              disabled={!password.length}
+              disabled={!password.length || loading}
             >
-              {loading ? 'Loading...' : 'Reset password'}
+              {loading ? <Spinner /> : 'Reset password'}
             </button>
           </form>
         </div>

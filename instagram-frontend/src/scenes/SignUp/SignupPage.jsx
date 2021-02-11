@@ -5,7 +5,8 @@ import { Helmet } from 'react-helmet';
 import { validateInput } from 'lib';
 import {
   Header,
-  ValidationIcon
+  ValidationIcon,
+  Spinner,
 } from 'components';
 
 import './signupPage.scss';
@@ -159,9 +160,9 @@ const Signup = (props) => {
               className="button-blue"
               type="submit"
               onClick={handleSignup}
-              disabled={!Object.values(isValid).every(i => i === true)}
+              disabled={!Object.values(isValid).every(i => i === true) || loading}
             >
-              {loading ? 'Loading...' : 'Sign up'}
+              {loading ? <Spinner /> : 'Sign up'}
             </button>
           </form>
           <p className="signup-page__disclaimer">

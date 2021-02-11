@@ -154,7 +154,7 @@
     font-weight: 600;
     &:disabled {
       cursor: not-allowed;
-      background-color: #b2dffc;
+      opacity: 0.3;
     }
   }
 }

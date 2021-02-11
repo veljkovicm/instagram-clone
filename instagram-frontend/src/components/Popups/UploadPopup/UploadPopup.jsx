@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { upload } from './actions';
+import { Spinner } from 'components';
 
 import './uploadPopup.scss';
 
@@ -8,6 +9,7 @@ const UploadPopup = ({ setPosts, setShowPopup}) => {
 
   const [ file, setFile ] = useState();
   const [ caption, setCaption ] = useState('');
+  const [ loading, setLoading ] = useState(false);
 
   const handleChange =  (e) => {
     if(e.target.files) {
@@ -19,6 +21,7 @@ const UploadPopup = ({ setPosts, setShowPopup}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('caption', caption);
@@ -27,8 +30,9 @@ const UploadPopup = ({ setPosts, setShowPopup}) => {
         res,
         ...oldPosts,
       ]);
+      setShowPopup(false);
+      setLoading(false);
     });
-    setShowPopup(false);
   }
 
   const handlePopupClose = () => {
@@ -66,9 +70,9 @@ const UploadPopup = ({ setPosts, setShowPopup}) => {
             type="submit"
             onClick={handleSubmit}
             className="upload-popup__form__button"
-            disabled={!file}
+            disabled={!file || loading}
           >
-            Share
+            {loading ? <Spinner /> : 'Share'}
           </button>
         </form>
       </div>

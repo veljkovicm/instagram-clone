@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Header } from 'components';
+import { Header, Spinner } from 'components';
 
 import './loginPage.scss';
 
@@ -80,8 +80,9 @@ const Login = (props) => {
                 type="submit"
                 onClick={handleLogin}
                 className="button-blue"
+                disabled={loading}
               >
-                {loading ? 'Loading...' : 'Log In'}
+                {loading ? <Spinner /> : 'Log In'}
               </button>
             </form>
 
