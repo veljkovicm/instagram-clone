@@ -84,13 +84,15 @@ router.post('/sign_in', async (req, res) => {
 
   const lowerCaseUsername = username.toLowerCase();
 
-  const { userIsVerified, user, message } = await Services.verifyUser({ username: lowerCaseUsername, password });
+  const { userIsVerified, user, message, field } = await Services.verifyUser({ username: lowerCaseUsername, password });
 
   if (!userIsVerified) {
     return res.send({
       statusCode: 401,
-      payload: {},
-      message
+      payload: {
+        message,
+        field,
+      },
     }).status(401);
   };
 

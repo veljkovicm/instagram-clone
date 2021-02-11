@@ -30,6 +30,7 @@ class Services {
         userIsVerified: false,
         user: {},
         message: 'User with this email does not exist!',
+        field: 'email',
       }
     }
 
@@ -39,7 +40,8 @@ class Services {
       return {
         userIsVerified: false,
         user: {},
-        message: 'Invalid credentials, try again.'
+        message: 'Invalid credentials, try again.',
+        field: 'password',
       }
     }
 
@@ -47,7 +49,8 @@ class Services {
       return {
         userIsVerified: false,
         user: {},
-        message: 'User email not confirmed. Please check your inbox'
+        message: 'User email not confirmed. Please check your inbox',
+        field: 'email',
       }
     }
 

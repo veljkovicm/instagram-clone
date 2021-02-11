@@ -103,6 +103,9 @@
       &.not-empty {
         padding-top: 17px;
       }
+      &.error {
+        border: 1px solid red !important;
+      }
     }
   }
   &__forgot-password-link {
