@@ -16,6 +16,7 @@ const Login = (props) => {
   const [ username, setUsername ] = useState('test2@test.com');
   const [ password, setPassword ] = useState('11');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
+  const [ error, setError ] = useState({});
 
   if (isLoggedIn) {
     return <Redirect to="/" />
@@ -31,6 +32,11 @@ const Login = (props) => {
       username,
       password,
       rememberMe: true,
+    })
+    .then((res) => {
+      if(res) {
+        setError({ message: res.message, field: res.field });
+      }
     });
   }
 
@@ -55,7 +61,11 @@ const Login = (props) => {
                   label="username"
                   onChange={handleInputChange(setUsername)}
                   value={username}
-                  className={`login-page__form__input ${username.length ? 'not-empty' : ''}`}
+                  className={`
+                    login-page__form__input
+                    ${username.length ? 'not-empty' : ''}
+                    ${error.field === 'email' ? 'error' : ''}
+                  `}
                 />
                 <label htmlFor="username" className={`login-page__form__input-label ${username.length ? 'not-empty' : ''}`}>Username or email</label>
               </div>
@@ -65,7 +75,11 @@ const Login = (props) => {
                   name="password"
                   onChange={handleInputChange(setPassword)}
                   value={password}
-                  className={`login-page__form__input ${password.length ? 'not-empty' : ''}`}
+                  className={`
+                    login-page__form__input
+                    ${password.length ? 'not-empty' : ''}
+                    ${error.field === 'password' ? 'error' : ''}
+                  `}
                 />
                 <label htmlFor="password" className={`login-page__form__input-label ${password.length ? 'not-empty' : ''}`}>Password</label>
                 {
@@ -80,7 +94,11 @@ const Login = (props) => {
                 type="submit"
                 onClick={handleLogin}
                 className="button-blue"
-                disabled={loading}
+                disabled={
+                  loading ||
+                  !username ||
+                  !password
+                }
               >
                 {loading ? <Spinner /> : 'Log In'}
               </button>

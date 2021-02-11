@@ -14,10 +14,17 @@ export const login = ({ username, password, rememberMe }) => async (dispatch) =>
       rememberMe,
     }
 
-    const response = await API({ method: 'POST', path: '/user/sign_in', body });
+    const response = await API({
+      method: 'POST',
+      path: '/user/sign_in',
+      body
+    });
 
-    dispatch(setUser(response.data.payload));
-
+    if (response.data.statusCode === 200) {
+      dispatch(setUser(response.data.payload));
+    } else {
+      return { message: response.data.payload.message, field: response.data.payload.field }
+    }
   } catch (error) {
     dispatch(stopLoading());
     console.error(error);
