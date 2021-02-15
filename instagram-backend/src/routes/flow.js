@@ -156,19 +156,19 @@ router.post('/confirm', async (req, res) => {
 
 router.post('/check-availability', async ( req, res) => {
   const { email, username } = req.body;
-  const lowerCaseEmail = email.toLowerCase();
-  const lowerCaseUsername = username.toLowerCase();
-
+  
   if (email) {
+    const lowerCaseEmail = email.toLowerCase();
     const isEmailTaken = await Services.emailAvailable(lowerCaseEmail);
-
+    
     return res
-      .json({
-        statusCode: 200,
-        taken: isEmailTaken,
-      }).status(200);
-
+    .json({
+      statusCode: 200,
+      taken: isEmailTaken,
+    }).status(200);
+    
   } else if (username) {
+    const lowerCaseUsername = username.toLowerCase();
     const isUsernameTaken = await Services.usernameAvailable(lowerCaseUsername);
 
     return res.json({

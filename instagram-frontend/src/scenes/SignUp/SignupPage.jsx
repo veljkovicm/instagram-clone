@@ -72,7 +72,7 @@ const Signup = (props) => {
     const usernameTaken = await checkAvailability({ username: userData.username });
 
     setHasChanged({ ...hasChanged, username: true });
-    setIsValid({ ...isValid, username: validatedUsername && !usernameTaken });
+    setIsValid({ ...isValid, username: !!validatedUsername && !usernameTaken });
   }
 
   const handlePasswordValidation = () => {
