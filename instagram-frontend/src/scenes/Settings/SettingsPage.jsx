@@ -142,7 +142,7 @@ const Settings = (props) => {
                     />
                     <div className="settings__profile__section__description">
                       <span>
-                        In most cases, you'll be able to change your username back to kaplareviccobe for another 14 days.
+                        In most cases, you'll be able to change your username back to {username} for another 14 days.
                         <span className="forbidden">Learn more</span>
                       </span>
                     </div>

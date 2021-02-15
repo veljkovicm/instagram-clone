@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistance } from 'date-fns';
-import { Link } from 'react-router-dom';
 import { formatDateShort } from 'lib';
 
 {/* deleting a comment is only possible in single post popup */}
@@ -15,16 +14,17 @@ const Comments = (props) => {
 
   const {
     id,
-    username,
     caption,
     uploadedAt,
     comments,
-    avatar,
   } = post;
 
   const [ comment, setComment ] = useState('');
   const [ postComments, setPostComments ] = useState(comments || []);
 
+  let avatar, username;
+  avatar = post.user ? post.user.avatar : post.avatar;
+  username = post.user ? post.user.username : post.username;
   const uploadTime = formatDistance(new Date(uploadedAt).getTime(), new Date());
   const userAvatarSrc = avatar ? `${process.env.REACT_APP_ENV_spacesURL}/avatars/${avatar}` : `${process.env.REACT_APP_ENV_spacesURL}/assets/no-img.png`;
 
@@ -70,7 +70,7 @@ const Comments = (props) => {
             </div>
           }
           <div className="user-post__comments__single__content" >
-            <span className="user-post__comments__single__username"><Link to={`/u/${comment.user.username}`}>{comment.user.username}</Link></span>
+            <span className="user-post__comments__single__username"><a href={`/u/${comment.user.username}`}>{comment.user.username}</a></span>
             <span className="user-post__comments__single__comment">{comment.comment}</span>
             { type === 'single' && <span className="user-post__comments__single__timestamp">{commentedAt}</span> }
           </div>
@@ -89,17 +89,17 @@ const Comments = (props) => {
             { type === 'single'
               && 
               <div className="user-post__caption__avatar">
-                <Link to={`/u/${username}`}>
+                <a href={`/u/${username}`}>
                   <img
                     src={userAvatarSrc}
                     alt="user-avatar"
                     width="32"
                   />
-                </Link>
+                </a>
               </div>
             }
             <div className="user-post__caption__content">
-              <Link to={`/u/${username}`} className="user-post__caption__username">{username}</Link>
+              <a href={`/u/${username}`} className="user-post__caption__username">{username}</a>
               <span className="user-post__caption">{caption}</span>
             </div>
           </div> 

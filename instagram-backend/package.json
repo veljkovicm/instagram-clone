@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node -r esm app.js",
-    "dev": "nodemon -r esm app.js"
+    "dev": "nodemon --experimental-modules app.js"
   },
   "author": "Milan Veljkovic",
   "license": "MIT",

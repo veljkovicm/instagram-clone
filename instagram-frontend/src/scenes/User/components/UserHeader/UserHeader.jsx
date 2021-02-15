@@ -126,7 +126,7 @@ const UserHeader = (props) => {
           <div className="profile-header__bio">
             <h1 className="profile-header__bio__name">{user.fullName}</h1>
             <p className="profile-header__bio__text">{user.bio}</p>
-            <a href={user.website} className="profile-header__website-link">{user.website}</a>
+            <a target="_blank" href={`https://${user.website}`} className="profile-header__website-link">{user.website}</a>
           </div>
         </div>
     </div>
