@@ -9,7 +9,7 @@ const apiCall = async ({ method, path, headers = {}, body, params }) => {
     const token = localStorage.getItem('token');
 
     const response = await axios({
-      baseURL: 'http://localhost:5000/',
+      baseURL: process.env.REACT_APP_API_URL,
       url,
       params,
       method,

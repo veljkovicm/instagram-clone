@@ -32,7 +32,7 @@ export const checkUser = () => async (dispatch) => {
     config.headers['x-auth-token'] = token;
   }
 
-  axios.get('http://localhost:5000/auth/check-token', config)
+  axios.get(`${process.env.REACT_APP_API_URL}/auth/check-token`, config)
   .then(response => {
     return dispatch({ type: actionTypes.SET_USER, data: response.data.payload })
   })

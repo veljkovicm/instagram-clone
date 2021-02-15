@@ -13,8 +13,8 @@ const Login = (props) => {
     login,
   } = props;
 
-  const [ username, setUsername ] = useState('test2@test.com');
-  const [ password, setPassword ] = useState('11');
+  const [ username, setUsername ] = useState('');
+  const [ password, setPassword ] = useState('');
   const [ passwordVisible, setPasswordVisible ] = useState(false);
   const [ error, setError ] = useState({});
 
