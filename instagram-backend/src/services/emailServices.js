@@ -6,7 +6,7 @@ class EmailServices {
     sgMail.setApiKey(config.sendGrid.key)
     const linkUrl = config.sendGrid.confirmation.url + token;
     const msg = {
-      to: 'marchello92@gmail.com', // replace with user email,
+      to: email,
       from: config.sendGrid.sender,
       subject: 'Instagram Clone - Registraction confirmation email',
       templateId: config.sendGrid.confirmation.template,
@@ -32,7 +32,7 @@ class EmailServices {
     const linkUrl = config.sendGrid.passwordReset.url + token;
 
     const msg = {
-      to: 'marchello92@gmail.com', // replace with user email,
+      to: email,
       from: config.sendGrid.sender,
       subject: 'Instagram Clone - Reset password request',
       templateId: config.sendGrid.passwordReset.template,
