@@ -1,4 +1,4 @@
-# instagram-clone
+# instagram clone
 
 Deployed at: [insta.veljkovicweb.dev](https://insta.veljkovicweb.dev) (Ubuntu 20.04 wih NginX)
 
