@@ -33,6 +33,7 @@ Deployed at: [insta.veljkovicweb.dev](https://insta.veljkovicweb.dev) (Ubuntu 20
   * lodash
   * jsonwebtoken
   * aws-sdk - for image uploads to DigitalOcean Spaces
+  * @sendgrid/mail
   * bcryptjs
   * react-router-dom
   * node-sass
