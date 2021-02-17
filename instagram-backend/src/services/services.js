@@ -54,6 +54,11 @@ class Services {
       }
     }
 
+    await User.update(
+      { visits: sequelize.literal('visits + 1') },
+      { where: { id: user.id } }
+    );
+
     const userData = {
       id: user.id,
       email: user.email,

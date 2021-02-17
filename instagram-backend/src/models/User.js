@@ -54,6 +54,10 @@ const User = db.define('user', {
     type: Sequelize.DATE,
     field: 'confirmed_at',
   },
+  visits: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  }
 }, {
   timestamps: false,
 });
