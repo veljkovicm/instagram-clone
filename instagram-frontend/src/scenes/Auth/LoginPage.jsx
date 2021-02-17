@@ -44,6 +44,11 @@ const Login = (props) => {
     setPasswordVisible(!passwordVisible);
   }
 
+  const generateDummyData = () => {
+    setUsername('user@test.com');
+    setPassword('11');
+  }
+
   return (
     <div className="login-page page-content">
       <Helmet><title>Instagram - Log in</title></Helmet>
@@ -54,6 +59,13 @@ const Login = (props) => {
           <h1 className="login-page__logo">Instagram</h1>
           <div className="login-page__form-wrapper">
             <form onSubmit={handleLogin} className="login-page__form">
+              <button
+                type="button"
+                className="login-page__form__generate-data-button"
+                onClick={generateDummyData}
+              >
+                Click to fill with test credentials!
+              </button>
               <div className="login-page__form__input-wrapper">
                 <input
                   type="text"
