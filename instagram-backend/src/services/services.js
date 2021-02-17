@@ -277,7 +277,8 @@ class Services {
         }
       },
       order: [
-        [ 'uploaded_at', 'DESC' ]
+        [ 'uploaded_at', 'DESC' ],
+        [ { model: Comments, as: 'Comments' }, 'created_at', 'ASC'],
       ],
       include: [
         {
@@ -290,9 +291,6 @@ class Services {
             model: User,
             attributes: [ 'username', 'avatar' ],
           },
-          order: [
-            [ 'createdAt', 'DESC' ]
-          ],
         },
         {
           model: Likes,
