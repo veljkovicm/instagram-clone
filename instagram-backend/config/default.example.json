@@ -11,11 +11,15 @@
     "sender": "",
     "confirmation": {
       "url": "",
-      "template": ""
+      "template": "",
+      "subject": "",
+      "name": ""
     },
     "passwordReset": {
       "url": "",
-      "template": ""
+      "template": "",
+      "subject": "",
+      "name": ""
     }
   },
   "AWS": {
