@@ -38,3 +38,5 @@ Deployed at: [insta.veljkovicweb.dev](https://insta.veljkovicweb.dev) (Ubuntu 20
   * react-router-dom
   * node-sass
   * date-fns
+  
+  
